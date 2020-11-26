@@ -58,6 +58,11 @@ CMD="sudo java -javaagent:/usr/share/tomcat/lib/jacocoagent.jar=destfile=target/
  -Dtimeout=30\
  -DskipITCoverage=false\
  -DrunHeadless=true\
+ -Xmx512m\
+ -Xms512m\
+ -XX:MetaspaceSize=512m\
+ -XX:MaxMetaspaceSize=512m\
+ -Xss512k\
  -jar cucumber-*-test-jar-with-dependencies.jar -report target/output"
 echo "  [${CMD}]"
 CMD="ssh -oStrictHostKeyChecking=no -oTCPKeepAlive=yes -oServerAliveInterval=50 ${SSH_KEY_FILE} ${USER}@${SERVER} \"\"cd /data/software/${PROJECT} && ${CMD}\"\""
