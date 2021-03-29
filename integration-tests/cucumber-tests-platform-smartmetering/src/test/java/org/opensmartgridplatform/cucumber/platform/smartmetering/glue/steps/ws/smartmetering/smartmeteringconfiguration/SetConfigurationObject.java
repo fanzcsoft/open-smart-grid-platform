@@ -11,15 +11,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.OsgpResultType;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetConfigurationObjectAsyncRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetConfigurationObjectAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetConfigurationObjectRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetConfigurationObjectResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.configuration.SetConfigurationObjectRequestFactory;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.configuration.SmartMeteringConfigurationClient;
+import org.opensmartgridplatform.domain.core.valueobjects.smartmetering.SetConfigurationObjectRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,9 @@ public class SetConfigurationObject {
 
         assertThat(setConfigurationObjectAsyncResponse).as("Set configuration object response should not be null")
                 .isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setConfigurationObjectAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
+                        setConfigurationObjectAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the configuration object should be set on the device$")

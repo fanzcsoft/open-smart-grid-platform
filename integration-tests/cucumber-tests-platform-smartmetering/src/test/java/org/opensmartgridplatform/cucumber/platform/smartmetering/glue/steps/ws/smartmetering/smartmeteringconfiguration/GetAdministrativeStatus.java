@@ -43,10 +43,12 @@ public class GetAdministrativeStatus {
 
         LOGGER.info("Get administrative status asyncResponse is received {}", getAdministrativeStatusAsyncResponse);
         assertThat(getAdministrativeStatusAsyncResponse)
-                .as("Get administrative status asyncResponse should not be null").isNotNull();
+                .as("Get administrative status asyncResponse should not be null")
+                .isNotNull();
 
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                getAdministrativeStatusAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
+                        getAdministrativeStatusAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the administrative status should be returned$")

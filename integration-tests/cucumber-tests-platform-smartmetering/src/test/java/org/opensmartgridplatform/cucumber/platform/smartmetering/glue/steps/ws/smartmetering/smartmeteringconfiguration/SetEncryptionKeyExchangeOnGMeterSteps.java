@@ -47,9 +47,11 @@ public class SetEncryptionKeyExchangeOnGMeterSteps {
                 .setEncryptionKeyExchangeOnGMeter(setEncryptionKeyExchangeOnGMeterRequest);
 
         assertThat(setEncryptionKeyExchangeOnGMeterAsyncResponse)
-                .as("Set encryptionKey exchange on GMeter async response should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setEncryptionKeyExchangeOnGMeterAsyncResponse.getCorrelationUid());
+                .as("Set encryptionKey exchange on GMeter async response should not be null")
+                .isNotNull();
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
+                        setEncryptionKeyExchangeOnGMeterAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the exchange user key response should be returned$")
@@ -61,9 +63,11 @@ public class SetEncryptionKeyExchangeOnGMeterSteps {
 
         final String expectedResult = settings.get(PlatformKeys.KEY_RESULT);
         assertThat(setEncryptionKeyExchangeOnGMeterResponse.getResult())
-                .as("Set Encryption Key Exchange On G-Meter result must not be null").isNotNull();
+                .as("Set Encryption Key Exchange On G-Meter result must not be null")
+                .isNotNull();
         assertThat(setEncryptionKeyExchangeOnGMeterResponse.getResult().name())
-                .as("Set Encryption Key Exchange On G-Meter result").isEqualTo(expectedResult);
+                .as("Set Encryption Key Exchange On G-Meter result")
+                .isEqualTo(expectedResult);
     }
 
     @When("^the set m-bus user key by channel request is received$")
@@ -74,9 +78,11 @@ public class SetEncryptionKeyExchangeOnGMeterSteps {
                 .setMbusUserKeyByChannel(setMbusUserKeyByChannelRequest);
 
         assertThat(setMbusUserKeyByChannelAsyncResponse)
-                .as("Set M-Bus User Key By Channel async response should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setMbusUserKeyByChannelAsyncResponse.getCorrelationUid());
+                .as("Set M-Bus User Key By Channel async response should not be null")
+                .isNotNull();
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
+                        setMbusUserKeyByChannelAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the set m-bus user key by channel response should be returned$")
@@ -89,7 +95,8 @@ public class SetEncryptionKeyExchangeOnGMeterSteps {
 
         final String expectedResult = settings.get(PlatformKeys.KEY_RESULT);
         assertThat(setMbusUserKeyByChannelResponse.getResult())
-                .as("Set M-Bus User Key By Channel result must not be null").isNotNull();
+                .as("Set M-Bus User Key By Channel result must not be null")
+                .isNotNull();
         assertThat(setMbusUserKeyByChannelResponse.getResult().name()).as("Set M-Bus User Key By Channel result")
                 .isEqualTo(expectedResult);
     }

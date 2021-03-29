@@ -20,8 +20,6 @@ import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetSpecif
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetSpecificAttributeValueAsyncResponse;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetSpecificAttributeValueRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetSpecificAttributeValueResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.ObisCodeValues;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.OsgpResultType;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetPushSetupSmsAsyncRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetPushSetupSmsAsyncResponse;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetPushSetupSmsRequest;
@@ -32,6 +30,7 @@ import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smar
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.adhoc.SmartMeteringAdHocResponseClient;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.configuration.SetPushSetupSmsRequestFactory;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.configuration.SmartMeteringConfigurationClient;
+import org.opensmartgridplatform.domain.core.valueobjects.smartmetering.ObisCodeValues;
 import org.opensmartgridplatform.shared.exceptionhandling.WebServiceSecurityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,10 +61,10 @@ public class SetPushSetupSms {
         LOGGER.info("Set push setup sms response is received {}", setPushSetupSmsAsyncResponse);
         assertThat(setPushSetupSmsAsyncResponse).as("Set push setup sms response should not be null").isNotNull();
 
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setPushSetupSmsAsyncResponse.getCorrelationUid());
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.HOSTNAME,
-                settings.get(PlatformSmartmeteringKeys.HOSTNAME));
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, setPushSetupSmsAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.HOSTNAME, settings.get(PlatformSmartmeteringKeys.HOSTNAME));
         ScenarioContext.current().put(PlatformSmartmeteringKeys.PORT, settings.get(PlatformSmartmeteringKeys.PORT));
     }
 

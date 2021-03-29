@@ -12,7 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.OsgpResultType;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetAdministrativeStatusAsyncRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetAdministrativeStatusAsyncResponse;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetAdministrativeStatusRequest;
@@ -46,8 +45,9 @@ public class SetAdministrativeStatus {
 
         assertThat(setAdministrativeStatusAsyncResponse).as("Set administrative status response should not be null")
                 .isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setAdministrativeStatusAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
+                        setAdministrativeStatusAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the administrative status should be set on the device$")

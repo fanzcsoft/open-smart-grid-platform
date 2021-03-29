@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.OsgpResultType;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetSpecialDaysAsyncRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetSpecialDaysAsyncResponse;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetSpecialDaysRequest;
@@ -43,8 +42,8 @@ public class SetSpecialDays {
         LOGGER.info("Set special days response is received {}", setSpecialDaysAsyncResponse);
 
         assertThat(setSpecialDaysAsyncResponse).as("Set special days response should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setSpecialDaysAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, setSpecialDaysAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the special days should be set on the device$")

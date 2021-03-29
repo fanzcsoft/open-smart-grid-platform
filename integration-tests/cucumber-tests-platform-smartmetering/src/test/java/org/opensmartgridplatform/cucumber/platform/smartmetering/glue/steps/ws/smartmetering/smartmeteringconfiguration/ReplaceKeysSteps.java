@@ -38,12 +38,13 @@ public class ReplaceKeysSteps extends AbstractSmartMeteringSteps {
 
     @When("^the replace keys request is received$")
     public void theReplaceKeysRequestIsReceived(final Map<String, String> settings) throws Throwable {
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_IDENTIFICATION,
-                settings.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION));
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY,
-                settings.get(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY));
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY,
-                settings.get(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_IDENTIFICATION, settings.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY,
+                        settings.get(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY, settings.get(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY));
         final ReplaceKeysRequest request = ReplaceKeysRequestFactory.fromParameterMap(settings);
         final ReplaceKeysAsyncResponse asyncResponse = this.smartMeteringConfigurationClient.replaceKeys(request);
         ScenarioContext.current().put(PlatformKeys.KEY_CORRELATION_UID, asyncResponse.getCorrelationUid());
@@ -83,8 +84,8 @@ public class ReplaceKeysSteps extends AbstractSmartMeteringSteps {
 
     @When("^the generate and replace keys request is received$")
     public void theGenerateAndReplaceKeysRequestIsReceived(final Map<String, String> settings) throws Throwable {
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_IDENTIFICATION,
-                settings.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_IDENTIFICATION, settings.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION));
         final GenerateAndReplaceKeysRequest request = GenerateAndReplaceKeysRequestFactory.fromParameterMap(settings);
         final GenerateAndReplaceKeysAsyncResponse asyncResponse = this.smartMeteringConfigurationClient
                 .generateAndReplaceKeys(request);

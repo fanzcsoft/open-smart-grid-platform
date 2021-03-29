@@ -14,7 +14,6 @@ import java.security.GeneralSecurityException;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.OsgpResultType;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.EncryptionKeyStatus;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GetMbusEncryptionKeyStatusByChannelAsyncRequest;
 import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GetMbusEncryptionKeyStatusByChannelAsyncResponse;
@@ -55,8 +54,8 @@ public class GetMbusEncryptionKeyStatusByChannelSteps {
         LOGGER.info(OPERATION + ": Async response is received {}", asyncResponse);
 
         ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, asyncResponse.getCorrelationUid());
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_DEVICE_IDENTIFICATION,
-                asyncResponse.getDeviceIdentification());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_DEVICE_IDENTIFICATION, asyncResponse.getDeviceIdentification());
     }
 
     @Then("^the get M-Bus encryption key status by channel response is returned$")
