@@ -11,7 +11,6 @@ package org.opensmartgridplatform.cucumber.platform.smartmetering.glue.steps.ws.
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Assertions;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.notification.Notification;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.notification.NotificationService;

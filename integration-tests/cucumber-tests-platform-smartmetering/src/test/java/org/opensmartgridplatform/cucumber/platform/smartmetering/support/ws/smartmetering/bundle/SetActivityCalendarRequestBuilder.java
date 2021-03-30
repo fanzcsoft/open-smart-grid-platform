@@ -12,14 +12,6 @@ import java.util.List;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetActivityCalendarRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ActivityCalendarType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.DayProfileActionType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.DayProfileActionsType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.DayType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SeasonType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SeasonsType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.WeekType;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.activitycalendar.ActivityCalendar;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.activitycalendar.DayProfile;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.activitycalendar.DayProfileAction;

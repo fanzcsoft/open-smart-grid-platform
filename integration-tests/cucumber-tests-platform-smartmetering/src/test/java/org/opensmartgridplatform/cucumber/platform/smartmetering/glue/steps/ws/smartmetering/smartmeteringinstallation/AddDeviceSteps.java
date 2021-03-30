@@ -14,14 +14,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.opensmartgridplatform.adapter.protocol.dlms.domain.entities.DlmsDevice;
 import org.opensmartgridplatform.adapter.protocol.dlms.domain.repositories.DlmsDeviceRepository;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GetAdministrativeStatusAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GetAdministrativeStatusAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GetAdministrativeStatusRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GetAdministrativeStatusResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.installation.AddDeviceAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.installation.AddDeviceAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.installation.AddDeviceRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.installation.AddDeviceResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
@@ -58,14 +50,16 @@ public class AddDeviceSteps extends AbstractSmartMeteringSteps {
     public void receivingASmartmeteringAddDeviceRequest(final Map<String, String> settings) throws Throwable {
         final String deviceIdentification = settings.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION);
         ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_IDENTIFICATION, deviceIdentification);
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_MASTERKEY,
-                settings.get(PlatformKeys.KEY_DEVICE_MASTERKEY));
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY,
-                settings.get(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY));
-        ScenarioContext.current().put(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY,
-                settings.get(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY));
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.MBUS_DEFAULT_KEY,
-                settings.get(PlatformSmartmeteringKeys.MBUS_DEFAULT_KEY));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_MASTERKEY, settings.get(PlatformKeys.KEY_DEVICE_MASTERKEY));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY,
+                        settings.get(PlatformKeys.KEY_DEVICE_AUTHENTICATIONKEY));
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY, settings.get(PlatformKeys.KEY_DEVICE_ENCRYPTIONKEY));
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.MBUS_DEFAULT_KEY,
+                        settings.get(PlatformSmartmeteringKeys.MBUS_DEFAULT_KEY));
 
         final AddDeviceRequest request = AddDeviceRequestFactory.fromParameterMap(settings);
         final AddDeviceAsyncResponse asyncResponse = this.smartMeteringInstallationClient.addDevice(request);
@@ -129,7 +123,8 @@ public class AddDeviceSteps extends AbstractSmartMeteringSteps {
                 .retrieveGetAdministrativeStatusResponse(asyncRequest);
 
         assertThat(getAdministrativeStatusResponse.getEnabled())
-                .as("Administrative status should contain information if it is enabled").isNotNull();
+                .as("Administrative status should contain information if it is enabled")
+                .isNotNull();
     }
 
     private Device activateDevice() {
@@ -158,8 +153,9 @@ public class AddDeviceSteps extends AbstractSmartMeteringSteps {
         final DlmsDevice dlmsDevice = this.dlmsDeviceRepository
                 .findByDeviceIdentification(device.getDeviceIdentification());
 
-        assertThat(dlmsDevice).as(
-                "Device should be in the DLMS protocol database for identification " + device.getDeviceIdentification())
+        assertThat(dlmsDevice)
+                .as("Device should be in the DLMS protocol database for identification "
+                        + device.getDeviceIdentification())
                 .isNotNull();
 
         dlmsDevice.setIpAddressIsStatic(true);

@@ -16,10 +16,6 @@ import java.util.stream.Collectors;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetOutagesRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetOutagesResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.Outage;
 
 public class BundledGetOutagesSteps extends BaseBundleSteps {
 
@@ -35,13 +31,13 @@ public class BundledGetOutagesSteps extends BaseBundleSteps {
 
         assertThat(response instanceof GetOutagesResponse).isTrue();
 
-        GetOutagesResponse outagesResponse = (GetOutagesResponse) response;
-        List<Outage> outages = outagesResponse.getOutages();
+        final GetOutagesResponse outagesResponse = (GetOutagesResponse) response;
+        final List<Outage> outages = outagesResponse.getOutages();
 
         assertThat(outages.size()).isEqualTo(numberOfEvents);
 
-        Map<String, String> values = outages.stream().collect(
-                Collectors.toMap(o -> o.getEndTime().toString(), o -> o.getDuration().toString()));
+        final Map<String, String> values = outages.stream()
+                .collect(Collectors.toMap(o -> o.getEndTime().toString(), o -> o.getDuration().toString()));
 
         assertThat(values).containsExactlyInAnyOrderEntriesOf(expectedValues);
     }

@@ -13,7 +13,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getInte
 import java.math.BigInteger;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.SetDeviceCommunicationSettingsData;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringDefaults;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 

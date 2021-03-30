@@ -14,8 +14,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventLogCategory;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventType;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 
 import io.cucumber.java.en.Then;
@@ -23,32 +21,19 @@ import io.cucumber.java.en.When;
 
 public class FindMbusEventsReads extends AbstractFindEventsReads {
     private static final List<EventType> allowed = Collections.unmodifiableList(Arrays.asList(
-            EventType.EVENTLOG_CLEARED,
-            EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_1,
-            EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_2,
-            EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_3,
-            EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_4,
-            EventType.COMMUNICATION_OK_M_BUS_CHANNEL_1,
-            EventType.COMMUNICATION_OK_M_BUS_CHANNEL_2,
-            EventType.COMMUNICATION_OK_M_BUS_CHANNEL_3,
-            EventType.COMMUNICATION_OK_M_BUS_CHANNEL_4,
-            EventType.REPLACE_BATTERY_M_BUS_CHANNEL_1,
-            EventType.REPLACE_BATTERY_M_BUS_CHANNEL_2,
-            EventType.REPLACE_BATTERY_M_BUS_CHANNEL_3,
-            EventType.REPLACE_BATTERY_M_BUS_CHANNEL_4,
-            EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_1,
-            EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_2,
-            EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_3,
-            EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_4,
-            EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_1,
-            EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_2,
-            EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_3,
-            EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_4,
-            EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_1,
-            EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_2,
-            EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_3,
-            EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_4,
-            EventType.PERMANENT_ERROR_FROM_M_BUS_DEVICE_CHANNEL_1,
+            EventType.EVENTLOG_CLEARED, EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_1,
+            EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_2, EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_3,
+            EventType.COMMUNICATION_ERROR_M_BUS_CHANNEL_4, EventType.COMMUNICATION_OK_M_BUS_CHANNEL_1,
+            EventType.COMMUNICATION_OK_M_BUS_CHANNEL_2, EventType.COMMUNICATION_OK_M_BUS_CHANNEL_3,
+            EventType.COMMUNICATION_OK_M_BUS_CHANNEL_4, EventType.REPLACE_BATTERY_M_BUS_CHANNEL_1,
+            EventType.REPLACE_BATTERY_M_BUS_CHANNEL_2, EventType.REPLACE_BATTERY_M_BUS_CHANNEL_3,
+            EventType.REPLACE_BATTERY_M_BUS_CHANNEL_4, EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_1,
+            EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_2, EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_3,
+            EventType.FRAUD_ATTEMPT_M_BUS_CHANNEL_4, EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_1,
+            EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_2, EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_3,
+            EventType.CLOCK_ADJUSTED_M_BUS_CHANNEL_4, EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_1,
+            EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_2, EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_3,
+            EventType.NEW_M_BUS_DEVICE_DISCOVERED_CHANNEL_4, EventType.PERMANENT_ERROR_FROM_M_BUS_DEVICE_CHANNEL_1,
             EventType.PERMANENT_ERROR_FROM_M_BUS_DEVICE_CHANNEL_2,
             EventType.PERMANENT_ERROR_FROM_M_BUS_DEVICE_CHANNEL_3,
             EventType.PERMANENT_ERROR_FROM_M_BUS_DEVICE_CHANNEL_4));

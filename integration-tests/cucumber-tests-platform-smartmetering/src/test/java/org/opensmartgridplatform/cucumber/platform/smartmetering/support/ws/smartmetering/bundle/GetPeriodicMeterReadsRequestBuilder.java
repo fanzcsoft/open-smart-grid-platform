@@ -18,8 +18,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetPeriodicMeterReadsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.PeriodType;
 import org.opensmartgridplatform.cucumber.platform.helpers.DateConverter;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 

@@ -19,8 +19,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.joda.time.DateTime;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventLogCategory;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindEventsRequestData;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 public class FindEventsRequestDataFactory {

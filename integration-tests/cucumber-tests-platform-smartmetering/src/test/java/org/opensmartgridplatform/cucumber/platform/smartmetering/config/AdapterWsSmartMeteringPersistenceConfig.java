@@ -21,8 +21,9 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityMgrRespData", transactionManagerRef = "txMgrRespData", basePackageClasses = {
-        ResponseDataRepository.class })
+@EnableJpaRepositories(entityManagerFactoryRef = "entityMgrRespData",
+        transactionManagerRef = "txMgrRespData",
+        basePackageClasses = { ResponseDataRepository.class })
 public class AdapterWsSmartMeteringPersistenceConfig extends ApplicationPersistenceConfiguration {
 
     @Value("${db.name.osgp_adapter_ws_smartmetering}")

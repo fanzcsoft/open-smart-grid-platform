@@ -11,12 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.AssociationLnListElement;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetAssociationLnObjectsAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetAssociationLnObjectsAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetAssociationLnObjectsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.GetAssociationLnObjectsResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.OsgpResultType;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.adhoc.AssociationLnObjectsRequestFactory;
@@ -57,7 +51,8 @@ public class AssociationLnObjects {
         assertThat(response.getAssociationLnList()).as("Response should contain an AssociationLnList").isNotNull();
 
         assertThat(response.getAssociationLnList().getAssociationLnListElement().get(0))
-                .as("AssociationLnList shoudl have at least one entry").isNotNull();
+                .as("AssociationLnList shoudl have at least one entry")
+                .isNotNull();
 
         final AssociationLnListElement element = response.getAssociationLnList().getAssociationLnListElement().get(0);
         assertThat(element.getAccessRights()).as("AccessRights should be present").isNotNull();
@@ -69,7 +64,8 @@ public class AssociationLnObjects {
         assertThat(element.getVersion()).as("Version should be present").isNotNull();
 
         assertThat(element.getAccessRights().getAttributeAccess().getAttributeAccessItem().get(0).getAttributeId())
-                .as("AttributeId should be present").isNotNull();
+                .as("AttributeId should be present")
+                .isNotNull();
 
     }
 }

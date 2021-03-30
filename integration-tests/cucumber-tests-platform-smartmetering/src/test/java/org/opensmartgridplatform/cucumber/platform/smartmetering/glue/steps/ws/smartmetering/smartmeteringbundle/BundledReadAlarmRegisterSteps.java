@@ -9,10 +9,6 @@ package org.opensmartgridplatform.cucumber.platform.smartmetering.glue.steps.ws.
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.ReadAlarmRegisterRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.ReadAlarmRegisterResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 

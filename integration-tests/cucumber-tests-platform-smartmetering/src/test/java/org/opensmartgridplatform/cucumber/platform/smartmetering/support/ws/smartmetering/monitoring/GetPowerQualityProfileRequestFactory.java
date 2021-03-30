@@ -14,9 +14,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getStri
 import java.util.Map;
 
 import org.joda.time.DateTime;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.CaptureObjectDefinitions;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.GetPowerQualityProfileAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.GetPowerQualityProfileRequest;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.DateConverter;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.RequestFactoryHelper;
@@ -52,8 +49,7 @@ public class GetPowerQualityProfileRequestFactory {
     public static GetPowerQualityProfileAsyncRequest fromScenarioContext() {
         final String correlationUid = RequestFactoryHelper.getCorrelationUidFromScenarioContext();
         final String deviceIdentification = RequestFactoryHelper.getDeviceIdentificationFromScenarioContext();
-        final GetPowerQualityProfileAsyncRequest getPowerQualityProfileAsyncRequest =
-                new GetPowerQualityProfileAsyncRequest();
+        final GetPowerQualityProfileAsyncRequest getPowerQualityProfileAsyncRequest = new GetPowerQualityProfileAsyncRequest();
         getPowerQualityProfileAsyncRequest.setCorrelationUid(correlationUid);
         getPowerQualityProfileAsyncRequest.setDeviceIdentification(deviceIdentification);
         return getPowerQualityProfileAsyncRequest;

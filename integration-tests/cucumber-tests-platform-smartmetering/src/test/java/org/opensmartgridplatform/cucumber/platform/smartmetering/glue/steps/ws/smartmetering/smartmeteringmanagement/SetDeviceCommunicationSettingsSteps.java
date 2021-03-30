@@ -15,10 +15,6 @@ import java.util.Map;
 
 import org.opensmartgridplatform.adapter.protocol.dlms.domain.entities.DlmsDevice;
 import org.opensmartgridplatform.adapter.protocol.dlms.domain.repositories.DlmsDeviceRepository;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.SetDeviceCommunicationSettingsAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.SetDeviceCommunicationSettingsAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.SetDeviceCommunicationSettingsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.SetDeviceCommunicationSettingsResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringDefaults;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
@@ -52,9 +48,11 @@ public class SetDeviceCommunicationSettingsSteps {
                 .doRequest(setDeviceCommunicationSettingsRequest);
 
         assertThat(setDeviceCommunicationSettingsAsyncResponse)
-                .as("setDeviceCommunicationSettingsAsyncResponse should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                setDeviceCommunicationSettingsAsyncResponse.getCorrelationUid());
+                .as("setDeviceCommunicationSettingsAsyncResponse should not be null")
+                .isNotNull();
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
+                        setDeviceCommunicationSettingsAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the set device communication settings response should be \"([^\"]*)\"$")
@@ -66,7 +64,8 @@ public class SetDeviceCommunicationSettingsSteps {
                 .getResponse(setDeviceCommunicationSettingsAsyncRequest);
 
         assertThat(setDeviceCommunicationSettingsResponse)
-                .as("SetDeviceCommunicationSettingsResponse should not be null").isNotNull();
+                .as("SetDeviceCommunicationSettingsResponse should not be null")
+                .isNotNull();
         assertThat(setDeviceCommunicationSettingsResponse.getResult()).as("Expected OsgpResultType should not be null")
                 .isNotNull();
     }

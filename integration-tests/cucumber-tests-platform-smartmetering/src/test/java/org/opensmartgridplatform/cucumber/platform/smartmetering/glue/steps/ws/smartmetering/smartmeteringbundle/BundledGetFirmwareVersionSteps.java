@@ -12,10 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetFirmwareVersionRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetFirmwareVersionResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.FirmwareVersion;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.glue.steps.ws.smartmetering.smartmeteringconfiguration.GetFirmwareVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,7 +38,8 @@ public class BundledGetFirmwareVersionSteps extends BaseBundleSteps {
         final Response response = this.getNextBundleResponse();
 
         assertThat(response instanceof GetFirmwareVersionResponse)
-                .as("response should be a GetFirmwareVersionResponse object").isTrue();
+                .as("response should be a GetFirmwareVersionResponse object")
+                .isTrue();
 
         final GetFirmwareVersionResponse getFirmwareVersionResponse = (GetFirmwareVersionResponse) response;
 

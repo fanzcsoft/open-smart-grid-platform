@@ -15,11 +15,6 @@ import java.util.Set;
 
 import org.springframework.util.CollectionUtils;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlag;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlagType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlags;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationObject;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GprsOperationModeType;
 import org.opensmartgridplatform.cucumber.core.ReadSettingsHelper;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;

@@ -29,9 +29,11 @@ public class SmartMeteringMonitoringWebServiceConfig extends BaseWebServiceConfi
                 .setMessageFactory(this.messageFactory())
                 .setTargetUri(
                         this.baseUri.concat(this.configuration.webserviceTemplateDefaultUriSmartMeteringMonitoring))
-                .setKeyStoreType(this.webserviceKeystoreType).setKeyStoreLocation(this.webserviceKeystoreLocation)
+                .setKeyStoreType(this.webserviceKeystoreType)
+                .setKeyStoreLocation(this.webserviceKeystoreLocation)
                 .setKeyStorePassword(this.webserviceKeystorePassword)
-                .setTrustStoreFactory(this.webServiceTrustStoreFactory()).setApplicationName(this.applicationName)
+                .setTrustStoreFactory(this.webServiceTrustStoreFactory())
+                .setApplicationName(this.applicationName)
                 .build();
     }
 

@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetAlarmNotificationsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.AlarmType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.AlarmNotification;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.AlarmNotifications;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 

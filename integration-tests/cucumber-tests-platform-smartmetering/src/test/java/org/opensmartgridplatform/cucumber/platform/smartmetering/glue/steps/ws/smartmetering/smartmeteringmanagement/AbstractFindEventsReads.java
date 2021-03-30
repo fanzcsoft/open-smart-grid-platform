@@ -13,12 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.Event;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindEventsAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindEventsAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindEventsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindEventsResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
@@ -57,8 +51,8 @@ public abstract class AbstractFindEventsReads {
                 .doRequest(findEventsRequest);
 
         assertThat(findEventsAsyncResponse).as("AsyncResponse should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                findEventsAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, findEventsAsyncResponse.getCorrelationUid());
     }
 
     public void eventsShouldBeReturned(final Map<String, String> settings) throws Throwable {

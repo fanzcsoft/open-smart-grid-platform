@@ -11,10 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.ActionResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetActivityCalendarRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetConfigurationObjectRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
@@ -133,7 +129,8 @@ public class BundledSetActivityCalendarSteps extends BaseBundleSteps {
             throws Throwable {
 
         final SetConfigurationObjectRequest action = new SetConfigurationObjectRequestBuilder()
-                .fromParameterMap(parameters).build();
+                .fromParameterMap(parameters)
+                .build();
 
         this.addActionToBundleRequest(action);
     }

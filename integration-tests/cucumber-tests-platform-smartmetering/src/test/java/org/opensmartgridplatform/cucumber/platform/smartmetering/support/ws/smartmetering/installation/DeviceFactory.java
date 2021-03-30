@@ -14,7 +14,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getStri
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.installation.Device;
 import org.opensmartgridplatform.cucumber.platform.PlatformDefaults;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
@@ -31,8 +30,8 @@ public class DeviceFactory {
 
         Map<String, String> settings = SettingsHelper.addDefault(requestParameters,
                 PlatformKeys.KEY_DEVICE_DELIVERY_DATE, PlatformDefaults.DLMS_DEFAULT_DEVICE_DELIVERY_DATE);
-        settings = SettingsHelper.addDefault(settings,
-                PlatformKeys.KEY_DEVICE_PROTOCOL_NAME, PlatformDefaults.DEFAULT_DEVICE_PROTOCOL_NAME);
+        settings = SettingsHelper.addDefault(settings, PlatformKeys.KEY_DEVICE_PROTOCOL_NAME,
+                PlatformDefaults.DEFAULT_DEVICE_PROTOCOL_NAME);
 
         final Device device = new Device();
         device.setDeviceIdentification(getString(settings, PlatformKeys.KEY_DEVICE_IDENTIFICATION,
@@ -47,9 +46,12 @@ public class DeviceFactory {
         device.setProtocolVersion(settings.get(PlatformKeys.KEY_DEVICE_PROTOCOL_VERSION));
         device.setSupplier(settings.get(PlatformKeys.KEY_DEVICE_SUPPLIER));
 
-        device.setHLS3Active(getBoolean(settings, PlatformKeys.KEY_DEVICE_HLS3ACTIVE, PlatformDefaults.DLMS_DEFAULT_HSL3_ACTIVE));
-        device.setHLS4Active(getBoolean(settings, PlatformKeys.KEY_DEVICE_HLS4ACTIVE, PlatformDefaults.DLMS_DEFAULT_HSL4_ACTIVE));
-        device.setHLS5Active(getBoolean(settings, PlatformKeys.KEY_DEVICE_HLS5ACTIVE, PlatformDefaults.DLMS_DEFAULT_HSL5_ACTIVE));
+        device.setHLS3Active(
+                getBoolean(settings, PlatformKeys.KEY_DEVICE_HLS3ACTIVE, PlatformDefaults.DLMS_DEFAULT_HSL3_ACTIVE));
+        device.setHLS4Active(
+                getBoolean(settings, PlatformKeys.KEY_DEVICE_HLS4ACTIVE, PlatformDefaults.DLMS_DEFAULT_HSL4_ACTIVE));
+        device.setHLS5Active(
+                getBoolean(settings, PlatformKeys.KEY_DEVICE_HLS5ACTIVE, PlatformDefaults.DLMS_DEFAULT_HSL5_ACTIVE));
 
         device.setMasterKey(RequestFactoryHelper.hexDecodeDeviceKey(settings.get(PlatformKeys.KEY_DEVICE_MASTERKEY),
                 PlatformKeys.KEY_DEVICE_MASTERKEY));

@@ -12,22 +12,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventLogCategory;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventType;
-
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class FindCommunicationEventsReads extends AbstractFindEventsReads {
 
     private static final List<EventType> allowed = Collections.unmodifiableList(Arrays.asList(
-            EventType.EVENTLOG_CLEARED,
-            EventType.METROLOGICAL_MAINTENANCE,
-            EventType.TECHNICAL_MAINTENANCE,
-            EventType.RETRIEVE_METER_READINGS_E,
-            EventType.RETRIEVE_METER_READINGS_G,
-            EventType.RETRIEVE_INTERVAL_DATA_E,
-            EventType.RETRIEVE_INTERVAL_DATA_G));
+            EventType.EVENTLOG_CLEARED, EventType.METROLOGICAL_MAINTENANCE, EventType.TECHNICAL_MAINTENANCE,
+            EventType.RETRIEVE_METER_READINGS_E, EventType.RETRIEVE_METER_READINGS_G,
+            EventType.RETRIEVE_INTERVAL_DATA_E, EventType.RETRIEVE_INTERVAL_DATA_G));
 
     @Override
     protected String getEventLogCategory() {

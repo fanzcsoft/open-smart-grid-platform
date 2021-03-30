@@ -14,8 +14,6 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetPushSetupAlarmRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.PushSetupAlarm;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 public class SetPushSetupAlarmRequestBuilder {

@@ -12,8 +12,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getEnum
 import java.util.Collections;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetAdministrativeStatusRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.AdministrativeStatusType;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 public class SetAdministrativeStatusRequestBuilder {

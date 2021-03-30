@@ -11,7 +11,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getShor
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.ObisCodeValues;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 public class ObisCodeValuesFactory {

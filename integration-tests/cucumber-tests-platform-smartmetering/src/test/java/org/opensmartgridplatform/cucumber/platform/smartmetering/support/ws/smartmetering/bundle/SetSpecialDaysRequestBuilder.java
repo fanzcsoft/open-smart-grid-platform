@@ -17,8 +17,6 @@ import java.util.Map;
 
 import javax.xml.bind.DatatypeConverter;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetSpecialDaysRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SpecialDay;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 

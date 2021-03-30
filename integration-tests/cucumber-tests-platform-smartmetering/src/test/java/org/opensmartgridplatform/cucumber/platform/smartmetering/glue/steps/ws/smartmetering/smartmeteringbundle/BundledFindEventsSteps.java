@@ -11,9 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.FindEventsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.FindEventsResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.FindEventsRequestBuilder;
 
 import io.cucumber.java.en.Given;

@@ -1,8 +1,5 @@
 package org.opensmartgridplatform.cucumber.platform.smartmetering.builders;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.Actions;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.BundleRequest;
-
 public class BundleRequestBuilder {
 
     private String deviceIdentification;

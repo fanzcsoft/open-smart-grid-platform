@@ -12,9 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.AssociationLnObjectsResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetAssociationLnObjectsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 import io.cucumber.java.en.Given;

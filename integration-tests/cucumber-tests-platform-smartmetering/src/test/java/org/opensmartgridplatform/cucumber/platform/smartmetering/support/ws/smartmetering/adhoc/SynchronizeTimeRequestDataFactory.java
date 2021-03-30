@@ -11,8 +11,6 @@ import java.util.Map;
 
 import org.joda.time.DateTimeZone;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.SynchronizeTimeRequestData;
-
 public class SynchronizeTimeRequestDataFactory {
 
     private SynchronizeTimeRequestDataFactory() {

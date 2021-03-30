@@ -16,8 +16,6 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import org.opensmartgridplatform.adapter.ws.endpointinterceptors.OrganisationIdentification;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.notification.SendNotificationRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.notification.SendNotificationResponse;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.notification.NotificationService;
 import org.opensmartgridplatform.shared.exceptionhandling.WebServiceException;
 

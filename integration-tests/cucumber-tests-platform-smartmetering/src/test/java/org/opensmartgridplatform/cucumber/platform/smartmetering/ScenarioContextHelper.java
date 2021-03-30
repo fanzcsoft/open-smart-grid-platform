@@ -1,6 +1,5 @@
 package org.opensmartgridplatform.cucumber.platform.smartmetering;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.AsyncResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 

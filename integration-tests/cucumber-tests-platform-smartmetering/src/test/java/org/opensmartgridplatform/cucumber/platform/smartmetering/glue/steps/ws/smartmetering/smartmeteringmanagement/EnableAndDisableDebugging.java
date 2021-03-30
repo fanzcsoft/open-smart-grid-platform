@@ -13,14 +13,6 @@ import java.util.Map;
 
 import org.opensmartgridplatform.adapter.protocol.dlms.domain.entities.DlmsDevice;
 import org.opensmartgridplatform.adapter.protocol.dlms.domain.repositories.DlmsDeviceRepository;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.DisableDebuggingAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.DisableDebuggingAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.DisableDebuggingRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.DisableDebuggingResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EnableDebuggingAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EnableDebuggingAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EnableDebuggingRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EnableDebuggingResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
@@ -59,8 +51,8 @@ public class EnableAndDisableDebugging {
                 .doRequest(enableDebuggingRequest);
 
         assertThat(enableDebuggingAsyncResponse).as("AsyncResponse should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                enableDebuggingAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, enableDebuggingAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the device debug information should be enabled$")
@@ -90,8 +82,8 @@ public class EnableAndDisableDebugging {
                 .doRequest(disableDebuggingRequest);
 
         assertThat(disableDebuggingAsyncResponse).as("AsyncResponse should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                disableDebuggingAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, disableDebuggingAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the device debug information should be disabled$")

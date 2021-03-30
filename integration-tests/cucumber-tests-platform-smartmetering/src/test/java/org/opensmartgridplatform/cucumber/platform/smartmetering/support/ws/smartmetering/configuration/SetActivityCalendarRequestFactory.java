@@ -17,16 +17,6 @@ import org.apache.commons.codec.binary.Hex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ActivityCalendarType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.DayProfileActionType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.DayProfileActionsType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.DayType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SeasonType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SeasonsType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetActivityCalendarAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetActivityCalendarRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetActivityCalendarRequestData;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.WeekType;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.RequestFactoryHelper;
 
@@ -43,7 +33,7 @@ public class SetActivityCalendarRequestFactory {
         setActivityCalendarRequest
                 .setDeviceIdentification(requestParameters.get(PlatformSmartmeteringKeys.KEY_DEVICE_IDENTIFICATION));
 
-        ActivityCalendarType activityCalendarType = fetchActivityCalendar();
+        final ActivityCalendarType activityCalendarType = fetchActivityCalendar();
 
         final SetActivityCalendarRequestData setActivityCalendarRequestData = new SetActivityCalendarRequestData();
         setActivityCalendarRequestData.setActivityCalendar(activityCalendarType);

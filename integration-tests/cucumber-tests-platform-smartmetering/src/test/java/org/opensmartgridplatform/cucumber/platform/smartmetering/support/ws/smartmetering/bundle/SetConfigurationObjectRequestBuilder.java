@@ -13,12 +13,6 @@ import java.util.Map;
 
 import org.springframework.util.CollectionUtils;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.SetConfigurationObjectRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlag;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlagType;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlags;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationObject;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GprsOperationModeType;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.configuration.ConfigurationObjectFactory;
 
 public class SetConfigurationObjectRequestBuilder {

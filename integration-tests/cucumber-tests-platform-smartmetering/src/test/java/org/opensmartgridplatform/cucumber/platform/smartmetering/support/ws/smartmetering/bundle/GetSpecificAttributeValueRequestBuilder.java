@@ -10,8 +10,6 @@ package org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.sma
 import java.math.BigInteger;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetSpecificAttributeValueRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.ObisCodeValues;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 public class GetSpecificAttributeValueRequestBuilder {

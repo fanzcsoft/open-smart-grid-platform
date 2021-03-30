@@ -11,10 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindMessageLogsAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindMessageLogsAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindMessageLogsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.FindMessageLogsResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
@@ -46,8 +42,10 @@ public class GetDebugInformation {
 
     @Given("^there is debug information logged for the device$")
     public void thereIsDebugInformationLoggedForTheDevice() throws Throwable {
-        final DeviceLogItem deviceLogItem = this.deviceLogItemBuilder.withDeviceIdentification(
-                ScenarioContext.current().get(PlatformKeys.KEY_DEVICE_IDENTIFICATION).toString()).build();
+        final DeviceLogItem deviceLogItem = this.deviceLogItemBuilder
+                .withDeviceIdentification(
+                        ScenarioContext.current().get(PlatformKeys.KEY_DEVICE_IDENTIFICATION).toString())
+                .build();
 
         this.logItemRepository.save(deviceLogItem);
     }
@@ -60,8 +58,8 @@ public class GetDebugInformation {
                 .doRequest(findMessageLogsRequest);
 
         assertThat(findMessageLogsAsyncResponse).as("AsyncResponse should not be null").isNotNull();
-        ScenarioContext.current().put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID,
-                findMessageLogsAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformSmartmeteringKeys.KEY_CORRELATION_UID, findMessageLogsAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the device debug information should be in the response message$")

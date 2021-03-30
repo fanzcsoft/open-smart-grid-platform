@@ -13,10 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.openmuc.jdlms.ObisCode;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlag;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlags;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationObject;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.GprsOperationModeType;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.configuration.ConfigurationObjectFactory;
 import org.opensmartgridplatform.dlms.interfaceclass.InterfaceClass;
 import org.opensmartgridplatform.dlms.interfaceclass.attribute.DataAttribute;

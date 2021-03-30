@@ -14,12 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.MbusChannelShortEquipmentIdentifier;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.ScanMbusChannelsAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.ScanMbusChannelsAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.ScanMbusChannelsRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc.ScanMbusChannelsResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.MbusShortEquipmentIdentifier;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
@@ -107,7 +101,10 @@ public class ScanMbusChannelsSteps {
 
         final Predicate<MbusChannelShortEquipmentIdentifier> channelMatches = channelShortId -> channel == channelShortId
                 .getChannel();
-        return channelShortIds.stream().filter(channelMatches).map(MbusChannelShortEquipmentIdentifier::getShortId)
-                .findFirst().orElse(null);
+        return channelShortIds.stream()
+                .filter(channelMatches)
+                .map(MbusChannelShortEquipmentIdentifier::getShortId)
+                .findFirst()
+                .orElse(null);
     }
 }

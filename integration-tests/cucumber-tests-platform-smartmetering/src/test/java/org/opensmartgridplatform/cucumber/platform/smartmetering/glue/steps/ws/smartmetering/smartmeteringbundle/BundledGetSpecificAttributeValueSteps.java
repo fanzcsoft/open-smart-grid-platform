@@ -12,9 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.ActionResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetSpecificAttributeValueRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.GetSpecificAttributeValueRequestBuilder;
 
@@ -37,7 +34,8 @@ public class BundledGetSpecificAttributeValueSteps extends BaseBundleSteps {
             throws Throwable {
 
         final GetSpecificAttributeValueRequest action = new GetSpecificAttributeValueRequestBuilder()
-                .fromParameterMap(parameters).build();
+                .fromParameterMap(parameters)
+                .build();
 
         this.addActionToBundleRequest(action);
     }
@@ -60,6 +58,7 @@ public class BundledGetSpecificAttributeValueSteps extends BaseBundleSteps {
                 .isEqualTo(values.get(PlatformSmartmeteringKeys.RESULT));
         assertThat(StringUtils.isNotBlank(response.getResultString())).as("Result contains no data.").isTrue();
         assertThat(response.getResultString().contains(values.get(PlatformSmartmeteringKeys.RESPONSE_PART)))
-                .as("Result data is not as expected").isTrue();
+                .as("Result data is not as expected")
+                .isTrue();
     }
 }

@@ -22,8 +22,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.opensmartgridplatform.cucumber.platform.config.ApplicationPersistenceConfiguration;
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityMgrFactDlms", transactionManagerRef = "txMgrDlms", basePackageClasses = {
-        DlmsDeviceRepository.class })
+@EnableJpaRepositories(entityManagerFactoryRef = "entityMgrFactDlms",
+        transactionManagerRef = "txMgrDlms",
+        basePackageClasses = { DlmsDeviceRepository.class })
 public class AdapterProtocolDlmsPersistenceConfig extends ApplicationPersistenceConfiguration {
 
     public AdapterProtocolDlmsPersistenceConfig() {

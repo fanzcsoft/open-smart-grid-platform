@@ -18,7 +18,8 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:cucumber-tests-platform-smartmetering.properties")
 @PropertySource(value = "file:/etc/osp/test/global-cucumber.properties", ignoreResourceNotFound = true)
-@PropertySource(value = "file:/etc/osp/test/cucumber-tests-platform-smartmetering.properties", ignoreResourceNotFound = true)
+@PropertySource(value = "file:/etc/osp/test/cucumber-tests-platform-smartmetering.properties",
+        ignoreResourceNotFound = true)
 public class ApplicationConfiguration extends AbstractConfig {
 
     @Value("${web.service.template.default.uri.smartmetering.adhoc}")

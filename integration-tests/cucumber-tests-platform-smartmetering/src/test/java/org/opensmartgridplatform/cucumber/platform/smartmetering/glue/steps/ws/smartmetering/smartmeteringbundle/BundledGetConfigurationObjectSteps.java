@@ -12,12 +12,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getBool
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetConfigurationObjectRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetConfigurationObjectResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationFlag;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.ConfigurationObject;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -37,7 +31,8 @@ public class BundledGetConfigurationObjectSteps extends BaseBundleSteps {
         final Response response = this.getNextBundleResponse();
 
         assertThat(response instanceof GetConfigurationObjectResponse)
-                .as("response should be a GetConfigurationResponse object").isTrue();
+                .as("response should be a GetConfigurationResponse object")
+                .isTrue();
     }
 
     @Then("^the bundle response should contain a get configuration object response with values$")
@@ -47,7 +42,8 @@ public class BundledGetConfigurationObjectSteps extends BaseBundleSteps {
         final Response response = this.getNextBundleResponse();
 
         assertThat(response instanceof GetConfigurationObjectResponse)
-                .as("response should be a GetConfigurationResponse object").isTrue();
+                .as("response should be a GetConfigurationResponse object")
+                .isTrue();
 
         final ConfigurationObject configurationObject = ((GetConfigurationObjectResponse) response)
                 .getConfigurationObject();
@@ -55,7 +51,8 @@ public class BundledGetConfigurationObjectSteps extends BaseBundleSteps {
         assertThat(configurationObject.getGprsOperationMode().toString()).as("The gprs operation mode is not equal")
                 .isEqualTo(values.get("GprsOperationMode"));
 
-        configurationObject.getConfigurationFlags().getConfigurationFlag()
+        configurationObject.getConfigurationFlags()
+                .getConfigurationFlag()
                 .forEach(f -> this.testConfigurationFlag(f, values));
     }
 

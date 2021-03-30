@@ -24,7 +24,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityMgrSecMgt", transactionManagerRef = "txMgrSecMgt",
+@EnableJpaRepositories(entityManagerFactoryRef = "entityMgrSecMgt",
+        transactionManagerRef = "txMgrSecMgt",
         basePackageClasses = { DbEncryptedSecretRepository.class, DbEncryptionKeyRepository.class })
 public class SecretManagementPersistenceConfig extends ApplicationPersistenceConfiguration {
 
@@ -57,8 +58,8 @@ public class SecretManagementPersistenceConfig extends ApplicationPersistenceCon
      */
     @Primary
     @Bean(name = "entityMgrSecMgt")
-    public LocalContainerEntityManagerFactoryBean entityMgrSecretManagement(@Qualifier("dsSecMgt") final DataSource dataSource)
-            throws ClassNotFoundException {
+    public LocalContainerEntityManagerFactoryBean entityMgrSecretManagement(
+            @Qualifier("dsSecMgt") final DataSource dataSource) throws ClassNotFoundException {
 
         return this.makeEntityManager("OSGP_CUCUMBER_SEC_MGT", dataSource);
     }
@@ -82,11 +83,11 @@ public class SecretManagementPersistenceConfig extends ApplicationPersistenceCon
      */
     @Primary
     @Bean(name = "txMgrSecMgt")
-    public JpaTransactionManager txMgrSecretManagement(@Qualifier("entityMgrSecMgt") final EntityManagerFactory entityManagerFactory)
+    public JpaTransactionManager txMgrSecretManagement(
+            @Qualifier("entityMgrSecMgt") final EntityManagerFactory entityManagerFactory)
             throws ClassNotFoundException {
 
         return new JpaTransactionManager(entityManagerFactory);
     }
 
 }
-

@@ -31,7 +31,8 @@ public class RequestFactoryHelper {
     }
 
     public static String getDeviceIdentificationFromScenarioContext() {
-        final String deviceIdentification = (String) ScenarioContext.current().get(PlatformKeys.KEY_DEVICE_IDENTIFICATION);
+        final String deviceIdentification = (String) ScenarioContext.current()
+                .get(PlatformKeys.KEY_DEVICE_IDENTIFICATION);
         if (deviceIdentification == null) {
             throw new AssertionError("ScenarioContext must contain the device identification for key \""
                     + PlatformKeys.KEY_DEVICE_IDENTIFICATION + "\" before creating a request.");

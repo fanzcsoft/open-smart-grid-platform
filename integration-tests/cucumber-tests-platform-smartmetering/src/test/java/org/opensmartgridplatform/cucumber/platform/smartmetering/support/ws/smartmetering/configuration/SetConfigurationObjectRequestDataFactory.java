@@ -9,8 +9,6 @@ package org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.sma
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.configuration.SetConfigurationObjectRequestData;
-
 public class SetConfigurationObjectRequestDataFactory {
 
     private SetConfigurationObjectRequestDataFactory() {

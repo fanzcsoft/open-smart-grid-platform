@@ -15,12 +15,6 @@ import static org.opensmartgridplatform.cucumber.core.ReadSettingsHelper.getInte
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ActualPowerQualityAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ActualPowerQualityAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ActualPowerQualityRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ActualPowerQualityResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.PowerQualityObject;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.PowerQualityValue;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;

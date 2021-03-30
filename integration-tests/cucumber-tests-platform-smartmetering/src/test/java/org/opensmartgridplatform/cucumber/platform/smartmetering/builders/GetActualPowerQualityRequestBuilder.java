@@ -11,7 +11,6 @@ package org.opensmartgridplatform.cucumber.platform.smartmetering.builders;
 import java.text.ParseException;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetActualPowerQualityRequest;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 
 public class GetActualPowerQualityRequestBuilder {

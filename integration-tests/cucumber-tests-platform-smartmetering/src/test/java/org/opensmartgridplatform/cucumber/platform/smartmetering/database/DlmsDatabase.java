@@ -63,10 +63,12 @@ public class DlmsDatabase {
         final NotificationWebServiceConfigurationBuilder builder = new NotificationWebServiceConfigurationBuilder()
                 .withApplicationName(ApplicationConstants.APPLICATION_NAME)
                 .withMarshallerContextPath("org.opensmartgridplatform.adapter.ws.schema.smartmetering.notification")
-                .withTargetUri("http://localhost:8843/notifications").withoutCircuitBreakerConfig();
+                .withTargetUri("http://localhost:8843/notifications")
+                .withoutCircuitBreakerConfig();
         final NotificationWebServiceConfiguration testOrgConfig = builder.build();
         final NotificationWebServiceConfiguration noOrganisationConfig = builder
-                .withOrganisationIdentification("no-organisation").build();
+                .withOrganisationIdentification("no-organisation")
+                .build();
         return Arrays.asList(testOrgConfig, noOrganisationConfig);
     }
 
@@ -89,7 +91,7 @@ public class DlmsDatabase {
         this.insertDefaultData();
     }
 
-    private DbEncryptionKeyReference getJreEncryptionKey(Date now) {
+    private DbEncryptionKeyReference getJreEncryptionKey(final Date now) {
         final DbEncryptionKeyReference jreEncryptionKey = new DbEncryptionKeyReference();
         jreEncryptionKey.setEncryptionProviderType(EncryptionProviderType.JRE);
         jreEncryptionKey.setReference("1");

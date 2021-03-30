@@ -11,10 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ClearAlarmRegisterAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ClearAlarmRegisterAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ClearAlarmRegisterRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ClearAlarmRegisterResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
@@ -45,8 +41,8 @@ public class ClearAlarmRegisterSteps {
 
         assertThat(clearAlarmRegisterAsyncResponse).as("ClearAlarmRegisterAsyncResponse should not be null")
                 .isNotNull();
-        ScenarioContext.current().put(PlatformKeys.KEY_CORRELATION_UID,
-                clearAlarmRegisterAsyncResponse.getCorrelationUid());
+        ScenarioContext.current()
+                .put(PlatformKeys.KEY_CORRELATION_UID, clearAlarmRegisterAsyncResponse.getCorrelationUid());
     }
 
     @Then("^the Clear Alarm Code response should be returned$")

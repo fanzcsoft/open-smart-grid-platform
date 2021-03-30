@@ -11,9 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetMbusEncryptionKeyStatusRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetMbusEncryptionKeyStatusResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.GetMbusEncryptionKeyStatusRequestBuilder;
 
 import io.cucumber.java.en.Given;
@@ -35,7 +32,8 @@ public class BundledGetMbusEncryptionKeyStatusSteps extends BaseBundleSteps {
             throws Throwable {
 
         final GetMbusEncryptionKeyStatusRequest action = new GetMbusEncryptionKeyStatusRequestBuilder()
-                .fromParameterMap(parameters).build();
+                .fromParameterMap(parameters)
+                .build();
 
         this.addActionToBundleRequest(action);
     }
@@ -46,8 +44,10 @@ public class BundledGetMbusEncryptionKeyStatusSteps extends BaseBundleSteps {
 
         assertThat(response instanceof GetMbusEncryptionKeyStatusResponse).as("Not a valid response").isTrue();
         assertThat(((GetMbusEncryptionKeyStatusResponse) response).getEncryptionKeyStatus())
-                .as("Encryption Key Status should not be null.").isNotNull();
+                .as("Encryption Key Status should not be null.")
+                .isNotNull();
         assertThat(((GetMbusEncryptionKeyStatusResponse) response).getMbusDeviceIdentification())
-                .as("M-Bus Device Identification should not be null.").isNotNull();
+                .as("M-Bus Device Identification should not be null.")
+                .isNotNull();
     }
 }

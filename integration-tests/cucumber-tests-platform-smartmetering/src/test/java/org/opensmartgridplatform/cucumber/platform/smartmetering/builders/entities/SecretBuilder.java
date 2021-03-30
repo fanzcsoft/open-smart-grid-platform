@@ -85,7 +85,7 @@ public class SecretBuilder implements CucumberBuilder<DbEncryptedSecret> {
     @Override
     public DbEncryptedSecret build() {
         final DbEncryptedSecret securityKey = new DbEncryptedSecret();
-        if(this.dlmsDevice!=null) {
+        if (this.dlmsDevice != null) {
             securityKey.setDeviceIdentification(this.dlmsDevice.getDeviceIdentification());
         }
         securityKey.setSecretType(SecretType.valueOf(this.securityKeyType.toSecretType().value()));

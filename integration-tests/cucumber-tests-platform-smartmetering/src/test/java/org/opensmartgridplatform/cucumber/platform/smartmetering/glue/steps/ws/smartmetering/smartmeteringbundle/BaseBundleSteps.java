@@ -12,11 +12,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.BundleAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.BundleRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.BundleResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Action;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.Response;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.bundle.SmartMeteringBundleClient;
@@ -73,7 +68,8 @@ public class BaseBundleSteps {
         this.ensureBundleResponse();
         final BundleResponse bundleResponse = (BundleResponse) ScenarioContext.current()
                 .get(PlatformSmartmeteringKeys.BUNDLE_RESPONSE);
-        return bundleResponse.getAllResponses().getResponseList()
+        return bundleResponse.getAllResponses()
+                .getResponseList()
                 .get(this.getAndIncreaseCount(PlatformSmartmeteringKeys.BUNDLE_RESPONSE_COUNT));
     }
 

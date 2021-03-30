@@ -6,9 +6,6 @@ import java.util.Map;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.GetPowerQualityProfileRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.CaptureObjectDefinitions;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.ObisCodeValues;
 import org.opensmartgridplatform.cucumber.platform.helpers.DateConverter;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.PlatformSmartmeteringKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.monitoring.ObisCodeValuesFactory;
@@ -57,7 +54,7 @@ public class GetPowerQualityProfileRequestBuilder {
     }
 
     public GetPowerQualityProfileRequest build() {
-        final  GetPowerQualityProfileRequest request = new  GetPowerQualityProfileRequest();
+        final GetPowerQualityProfileRequest request = new GetPowerQualityProfileRequest();
         request.setProfileType(this.profileType);
         request.setBeginDate(this.beginDate);
         request.setEndDate(this.endDate);

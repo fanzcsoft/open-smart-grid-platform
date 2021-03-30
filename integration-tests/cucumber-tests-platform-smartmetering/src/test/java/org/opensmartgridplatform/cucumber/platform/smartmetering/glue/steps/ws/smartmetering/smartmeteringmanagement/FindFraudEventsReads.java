@@ -12,26 +12,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventLogCategory;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.EventType;
-
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class FindFraudEventsReads extends AbstractFindEventsReads {
 
     private static final List<EventType> allowed = Collections.unmodifiableList(Arrays.asList(
-            EventType.TERMINAL_COVER_CLOSED,
-            EventType.TERMINAL_COVER_REMOVED,
-            EventType.STRONG_DC_FIELD_DETECTED,
-            EventType.NO_STRONG_DC_FIELD_ANYMORE,
-            EventType.METER_COVER_CLOSED,
-            EventType.METER_COVER_REMOVED,
-            EventType.FAILED_LOGIN_ATTEMPT,
-            EventType.CONFIGURATION_CHANGE,
-            EventType.MODULE_COVER_OPENED,
-            EventType.MODULE_COVER_CLOSED,
-            EventType.EVENTLOG_CLEARED));
+            EventType.TERMINAL_COVER_CLOSED, EventType.TERMINAL_COVER_REMOVED, EventType.STRONG_DC_FIELD_DETECTED,
+            EventType.NO_STRONG_DC_FIELD_ANYMORE, EventType.METER_COVER_CLOSED, EventType.METER_COVER_REMOVED,
+            EventType.FAILED_LOGIN_ATTEMPT, EventType.CONFIGURATION_CHANGE, EventType.MODULE_COVER_OPENED,
+            EventType.MODULE_COVER_CLOSED, EventType.EVENTLOG_CLEARED));
 
     @Override
     protected String getEventLogCategory() {

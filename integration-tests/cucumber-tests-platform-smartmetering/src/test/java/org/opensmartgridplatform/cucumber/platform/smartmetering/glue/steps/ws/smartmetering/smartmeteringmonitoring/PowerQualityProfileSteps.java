@@ -16,12 +16,6 @@ import java.util.Map;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.CaptureObject;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.common.ProfileEntry;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.GetPowerQualityProfileAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.GetPowerQualityProfileAsyncResponse;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.GetPowerQualityProfileRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.GetPowerQualityProfileResponse;
 import org.opensmartgridplatform.cucumber.core.ScenarioContext;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.helpers.SettingsHelper;
@@ -49,16 +43,20 @@ public class PowerQualityProfileSteps {
     }
 
     @Then("^the power quality profile response data should be returned$")
-    public void theGetPowerQualityProfileResponseDataShouldBeReturned(final Map<String, String> settings) throws Throwable {
+    public void theGetPowerQualityProfileResponseDataShouldBeReturned(final Map<String, String> settings)
+            throws Throwable {
 
-        final GetPowerQualityProfileAsyncRequest asyncRequest = GetPowerQualityProfileRequestFactory.fromScenarioContext();
+        final GetPowerQualityProfileAsyncRequest asyncRequest = GetPowerQualityProfileRequestFactory
+                .fromScenarioContext();
 
         final GetPowerQualityProfileResponse response = this.responseClient.getResponse(asyncRequest);
         assertThat(response).as("GetPowerQualityProfileResponseData should not be null").isNotNull();
 
         final int expectedNumberOfCaptureObjects = getInteger(settings, "NumberOfCaptureObjects", 0);
-        final List<CaptureObject> actualCaptureObjects =
-                response.getPowerQualityProfileDatas().get(0).getCaptureObjectList().getCaptureObjects();
+        final List<CaptureObject> actualCaptureObjects = response.getPowerQualityProfileDatas()
+                .get(0)
+                .getCaptureObjectList()
+                .getCaptureObjects();
         assertThat(actualCaptureObjects.size()).as("Number of capture objects")
                 .isEqualTo(expectedNumberOfCaptureObjects);
 
@@ -68,8 +66,10 @@ public class PowerQualityProfileSteps {
         }
 
         final int expectedNumberOfProfileEntries = getInteger(settings, "NumberOfProfileEntries", 0);
-        final List<ProfileEntry> actualProfileEntries =
-                response.getPowerQualityProfileDatas().get(0).getProfileEntryList().getProfileEntries();
+        final List<ProfileEntry> actualProfileEntries = response.getPowerQualityProfileDatas()
+                .get(0)
+                .getProfileEntryList()
+                .getProfileEntries();
         assertThat(actualProfileEntries.size()).as("Number of profile entries")
                 .isEqualTo(expectedNumberOfProfileEntries);
 

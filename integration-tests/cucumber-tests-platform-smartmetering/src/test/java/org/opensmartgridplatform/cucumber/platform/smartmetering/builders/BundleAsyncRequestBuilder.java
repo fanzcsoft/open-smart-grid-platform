@@ -7,8 +7,6 @@
  */
 package org.opensmartgridplatform.cucumber.platform.smartmetering.builders;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.bundle.BundleAsyncRequest;
-
 public class BundleAsyncRequestBuilder extends AbstractAsyncRequestBuilder<BundleAsyncRequest> {
 
     public BundleAsyncRequestBuilder() {

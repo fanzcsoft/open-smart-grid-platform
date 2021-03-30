@@ -9,8 +9,6 @@ package org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.sma
 
 import java.util.Map;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ReadAlarmRegisterAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.ReadAlarmRegisterRequest;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.RequestFactoryHelper;
 
@@ -29,7 +27,8 @@ public class ReadAlarmRegisterRequestFactory {
     public static ReadAlarmRegisterAsyncRequest fromScenarioContext() {
         final ReadAlarmRegisterAsyncRequest readAlarmRegisterAsyncRequest = new ReadAlarmRegisterAsyncRequest();
         readAlarmRegisterAsyncRequest.setCorrelationUid(RequestFactoryHelper.getCorrelationUidFromScenarioContext());
-        readAlarmRegisterAsyncRequest.setDeviceIdentification(RequestFactoryHelper.getDeviceIdentificationFromScenarioContext());
+        readAlarmRegisterAsyncRequest
+                .setDeviceIdentification(RequestFactoryHelper.getDeviceIdentificationFromScenarioContext());
         return readAlarmRegisterAsyncRequest;
     }
 }

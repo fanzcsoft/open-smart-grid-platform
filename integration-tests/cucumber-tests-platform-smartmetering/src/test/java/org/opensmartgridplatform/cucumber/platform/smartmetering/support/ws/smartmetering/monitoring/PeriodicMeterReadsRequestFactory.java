@@ -7,8 +7,6 @@
  */
 package org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.monitoring;
 
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.PeriodicMeterReadsAsyncRequest;
-import org.opensmartgridplatform.adapter.ws.schema.smartmetering.monitoring.PeriodicMeterReadsRequest;
 import org.opensmartgridplatform.cucumber.platform.PlatformKeys;
 import org.opensmartgridplatform.cucumber.platform.smartmetering.support.ws.smartmetering.RequestFactoryHelper;
 
@@ -19,8 +17,10 @@ public class PeriodicMeterReadsRequestFactory {
 
         final PeriodicMeterReadsRequest periodicMeterReadsRequest = new PeriodicMeterReadsRequest();
 
-        periodicMeterReadsRequest.setDeviceIdentification(requestParameters.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION));
-        periodicMeterReadsRequest.setPeriodicReadsRequestData(PeriodicReadsRequestDataFactory.fromParameterMap(requestParameters));
+        periodicMeterReadsRequest
+                .setDeviceIdentification(requestParameters.get(PlatformKeys.KEY_DEVICE_IDENTIFICATION));
+        periodicMeterReadsRequest
+                .setPeriodicReadsRequestData(PeriodicReadsRequestDataFactory.fromParameterMap(requestParameters));
 
         return periodicMeterReadsRequest;
     }
@@ -28,7 +28,8 @@ public class PeriodicMeterReadsRequestFactory {
     public static PeriodicMeterReadsAsyncRequest fromScenarioContext() {
         final PeriodicMeterReadsAsyncRequest periodicMeterReadsAsyncRequest = new PeriodicMeterReadsAsyncRequest();
         periodicMeterReadsAsyncRequest.setCorrelationUid(RequestFactoryHelper.getCorrelationUidFromScenarioContext());
-        periodicMeterReadsAsyncRequest.setDeviceIdentification(RequestFactoryHelper.getDeviceIdentificationFromScenarioContext());
+        periodicMeterReadsAsyncRequest
+                .setDeviceIdentification(RequestFactoryHelper.getDeviceIdentificationFromScenarioContext());
         return periodicMeterReadsAsyncRequest;
     }
 
