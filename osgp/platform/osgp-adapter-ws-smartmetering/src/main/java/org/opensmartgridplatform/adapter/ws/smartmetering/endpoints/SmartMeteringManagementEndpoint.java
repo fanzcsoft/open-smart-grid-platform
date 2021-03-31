@@ -1,16 +1,15 @@
 /**
  * Copyright 2015 Smart Society Services B.V.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  */
 package org.opensmartgridplatform.adapter.ws.smartmetering.endpoints;
 
 import java.util.List;
-
 import javax.validation.ConstraintViolationException;
-
 import org.opensmartgridplatform.adapter.ws.domain.entities.ResponseData;
 import org.opensmartgridplatform.adapter.ws.endpointinterceptors.MessagePriority;
 import org.opensmartgridplatform.adapter.ws.endpointinterceptors.OrganisationIdentification;
@@ -72,459 +71,564 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class SmartMeteringManagementEndpoint extends SmartMeteringEndpoint {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SmartMeteringManagementEndpoint.class);
-    private static final String NAMESPACE = "http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10";
-    private static final ComponentType COMPONENT_WS_SMART_METERING = ComponentType.WS_SMART_METERING;
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(SmartMeteringManagementEndpoint.class);
+  private static final String NAMESPACE =
+      "http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10";
+  private static final ComponentType COMPONENT_WS_SMART_METERING = ComponentType.WS_SMART_METERING;
 
-    private final ManagementService managementService;
-    private final ManagementMapper managementMapper;
+  private final ManagementService managementService;
+  private final ManagementMapper managementMapper;
 
-    @Autowired
-    public SmartMeteringManagementEndpoint(
-            @Qualifier(value = "wsSmartMeteringManagementService") final ManagementService managementService,
-            @Qualifier(value = "smartMeteringManagementMapper") final ManagementMapper managementMapper) {
-        this.managementService = managementService;
-        this.managementMapper = managementMapper;
+  @Autowired
+  public SmartMeteringManagementEndpoint(
+      @Qualifier(value = "wsSmartMeteringManagementService")
+          final ManagementService managementService,
+      @Qualifier(value = "smartMeteringManagementMapper") final ManagementMapper managementMapper) {
+    this.managementService = managementService;
+    this.managementMapper = managementMapper;
+  }
+
+  @PayloadRoot(localPart = "FindEventsRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public FindEventsAsyncResponse findEventsRequest(
+      @OrganisationIdentification final String organisationIdentification,
+      @MessagePriority final String messagePriority,
+      @ScheduleTime final String scheduleTime,
+      @ResponseUrl final String responseUrl,
+      @RequestPayload final FindEventsRequest request)
+      throws OsgpException {
+
+    LOGGER.info(
+        "Find events request for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
+
+    FindEventsAsyncResponse response = null;
+    try {
+      // Create response.
+      response = new FindEventsAsyncResponse();
+
+      // Get the request parameters, make sure that date time are in UTC.
+      final String deviceIdentification = request.getDeviceIdentification();
+      final List<FindEventsRequestData> findEventsQuery = request.getFindEventsRequestData();
+
+      final String correlationUid =
+          this.managementService.enqueueFindEventsRequest(
+              organisationIdentification,
+              deviceIdentification,
+              this.managementMapper.mapAsList(
+                  findEventsQuery,
+                  org.opensmartgridplatform.domain.core.valueobjects.smartmetering
+                      .FindEventsRequestData.class),
+              MessagePriorityEnum.getMessagePriority(messagePriority),
+              this.managementMapper.map(scheduleTime, Long.class));
+
+      response.setCorrelationUid(correlationUid);
+      response.setDeviceIdentification(request.getDeviceIdentification());
+      this.saveResponseUrlIfNeeded(correlationUid, responseUrl);
+    } catch (final Exception e) {
+      this.handleException(e);
+    }
+    return response;
+  }
+
+  @PayloadRoot(localPart = "FindEventsAsyncRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public FindEventsResponse getFindEventsResponse(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final FindEventsAsyncRequest request)
+      throws OsgpException {
+    LOGGER.info(
+        "Get find events response for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
+
+    FindEventsResponse response = null;
+    try {
+      // Create response.
+      response = new FindEventsResponse();
+
+      // Get the request parameters, make sure that date time are in UTC.
+      final String correlationUid = request.getCorrelationUid();
+
+      final List<Event> events =
+          this.managementService.findEventsByCorrelationUid(
+              organisationIdentification, correlationUid);
+
+      LOGGER.info("Get find events response: number of events: {}", events.size());
+      for (final Event event : events) {
+        LOGGER.info(
+            "EventCode: {}, Timestamp: {}, EventCounter: {}",
+            event.getEventCode(),
+            event.getTimestamp(),
+            event.getEventCounter());
+      }
+
+      response
+          .getEvents()
+          .addAll(
+              this.managementMapper.mapAsList(
+                  events,
+                  org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.Event
+                      .class));
+
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          ComponentType.WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
 
-    @PayloadRoot(localPart = "FindEventsRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public FindEventsAsyncResponse findEventsRequest(
-            @OrganisationIdentification final String organisationIdentification,
-            @MessagePriority final String messagePriority, @ScheduleTime final String scheduleTime,
-            @ResponseUrl final String responseUrl, @RequestPayload final FindEventsRequest request)
-            throws OsgpException {
+    return response;
+  }
 
-        LOGGER.info("Find events request for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+  @PayloadRoot(localPart = "GetDevicesRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public GetDevicesResponse getDevices(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final GetDevicesRequest request)
+      throws OsgpException {
 
-        FindEventsAsyncResponse response = null;
-        try {
-            // Create response.
-            response = new FindEventsAsyncResponse();
+    LOGGER.info("Get Devices Request received from organisation: {}.", organisationIdentification);
 
-            // Get the request parameters, make sure that date time are in UTC.
-            final String deviceIdentification = request.getDeviceIdentification();
-            final List<FindEventsRequestData> findEventsQuery = request.getFindEventsRequestData();
+    GetDevicesResponse response = null;
+    try {
+      response = new GetDevicesResponse();
+      final Page<Device> page =
+          this.managementService.findAllDevices(organisationIdentification, request.getPage());
 
-            final String correlationUid = this.managementService.enqueueFindEventsRequest(organisationIdentification,
-                    deviceIdentification,
-                    this.managementMapper.mapAsList(findEventsQuery,
-                            org.opensmartgridplatform.domain.core.valueobjects.smartmetering.FindEventsRequestData.class),
-                    MessagePriorityEnum.getMessagePriority(messagePriority),
-                    this.managementMapper.map(scheduleTime, Long.class));
-
-            response.setCorrelationUid(correlationUid);
-            response.setDeviceIdentification(request.getDeviceIdentification());
-            this.saveResponseUrlIfNeeded(correlationUid, responseUrl);
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      final DevicePage devicePage = new DevicePage();
+      devicePage.setTotalPages(page.getTotalPages());
+      devicePage
+          .getDevices()
+          .addAll(
+              this.managementMapper.mapAsList(
+                  page.getContent(),
+                  org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.Device
+                      .class));
+      response.setDevicePage(devicePage);
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          COMPONENT_WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "FindEventsAsyncRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public FindEventsResponse getFindEventsResponse(@OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final FindEventsAsyncRequest request) throws OsgpException {
-        LOGGER.info("Get find events response for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+  @PayloadRoot(localPart = "EnableDebuggingRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public EnableDebuggingAsyncResponse enableDebuggingRequest(
+      @OrganisationIdentification final String organisationIdentification,
+      @MessagePriority final String messagePriority,
+      @ScheduleTime final String scheduleTime,
+      @ResponseUrl final String responseUrl,
+      @RequestPayload final EnableDebuggingRequest request)
+      throws OsgpException {
 
-        FindEventsResponse response = null;
-        try {
-            // Create response.
-            response = new FindEventsResponse();
+    LOGGER.info(
+        "Enable debugging request for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-            // Get the request parameters, make sure that date time are in UTC.
-            final String correlationUid = request.getCorrelationUid();
+    EnableDebuggingAsyncResponse response = null;
+    try {
+      response = new EnableDebuggingAsyncResponse();
 
-            final List<Event> events = this.managementService.findEventsByCorrelationUid(organisationIdentification,
-                    correlationUid);
+      // Get the request parameters, make sure that date time are in UTC.
+      final String deviceIdentification = request.getDeviceIdentification();
 
-            LOGGER.info("Get find events response: number of events: {}", events.size());
-            for (final Event event : events) {
-                LOGGER.info("EventCode: {}, Timestamp: {}, EventCounter: {}", event.getEventCode(),
-                        event.getTimestamp(), event.getEventCounter());
-            }
+      final String correlationUid =
+          this.managementService.enqueueEnableDebuggingRequest(
+              organisationIdentification,
+              deviceIdentification,
+              MessagePriorityEnum.getMessagePriority(messagePriority),
+              this.managementMapper.map(scheduleTime, Long.class));
 
-            response.getEvents().addAll(this.managementMapper.mapAsList(events,
-                    org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.Event.class));
-
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, ComponentType.WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-
-        return response;
+      response.setCorrelationUid(correlationUid);
+      response.setDeviceIdentification(request.getDeviceIdentification());
+      this.responseUrlService.saveResponseUrlIfNeeded(correlationUid, responseUrl);
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "GetDevicesRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public GetDevicesResponse getDevices(@OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final GetDevicesRequest request) throws OsgpException {
+  @PayloadRoot(localPart = "EnableDebuggingAsyncRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public EnableDebuggingResponse getEnableDebuggingResponse(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final EnableDebuggingAsyncRequest request)
+      throws OsgpException {
 
-        LOGGER.info("Get Devices Request received from organisation: {}.", organisationIdentification);
+    LOGGER.info(
+        "EnableDebugging response for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        GetDevicesResponse response = null;
-        try {
-            response = new GetDevicesResponse();
-            final Page<Device> page = this.managementService.findAllDevices(organisationIdentification,
-                    request.getPage());
+    EnableDebuggingResponse response = null;
+    try {
+      response = new EnableDebuggingResponse();
 
-            final DevicePage devicePage = new DevicePage();
-            devicePage.setTotalPages(page.getTotalPages());
-            devicePage.getDevices().addAll(this.managementMapper.mapAsList(page.getContent(),
-                    org.opensmartgridplatform.adapter.ws.schema.smartmetering.management.Device.class));
-            response.setDevicePage(devicePage);
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, COMPONENT_WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      final ResponseData responseData =
+          this.responseDataService.dequeue(
+              request.getCorrelationUid(), ComponentType.WS_SMART_METERING);
+
+      this.throwExceptionIfResultNotOk(responseData, "Enable Debugging");
+
+      response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
+      if (responseData.getMessageData() instanceof String) {
+        response.setDescription((String) responseData.getMessageData());
+      }
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          ComponentType.WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "EnableDebuggingRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public EnableDebuggingAsyncResponse enableDebuggingRequest(
-            @OrganisationIdentification final String organisationIdentification,
-            @MessagePriority final String messagePriority, @ScheduleTime final String scheduleTime,
-            @ResponseUrl final String responseUrl, @RequestPayload final EnableDebuggingRequest request)
-            throws OsgpException {
+  @PayloadRoot(localPart = "DisableDebuggingRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public DisableDebuggingAsyncResponse disableDebuggingRequest(
+      @OrganisationIdentification final String organisationIdentification,
+      @MessagePriority final String messagePriority,
+      @ScheduleTime final String scheduleTime,
+      @ResponseUrl final String responseUrl,
+      @RequestPayload final DisableDebuggingRequest request)
+      throws OsgpException {
 
-        LOGGER.info("Enable debugging request for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+    LOGGER.info(
+        "Disable debugging request for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        EnableDebuggingAsyncResponse response = null;
-        try {
-            response = new EnableDebuggingAsyncResponse();
+    DisableDebuggingAsyncResponse response = null;
+    try {
+      response = new DisableDebuggingAsyncResponse();
 
-            // Get the request parameters, make sure that date time are in UTC.
-            final String deviceIdentification = request.getDeviceIdentification();
+      // Get the request parameters, make sure that date time are in UTC.
+      final String deviceIdentification = request.getDeviceIdentification();
 
-            final String correlationUid = this.managementService.enqueueEnableDebuggingRequest(
-                    organisationIdentification, deviceIdentification,
-                    MessagePriorityEnum.getMessagePriority(messagePriority),
-                    this.managementMapper.map(scheduleTime, Long.class));
+      final String correlationUid =
+          this.managementService.enqueueDisableDebuggingRequest(
+              organisationIdentification,
+              deviceIdentification,
+              MessagePriorityEnum.getMessagePriority(messagePriority),
+              this.managementMapper.map(scheduleTime, Long.class));
 
-            response.setCorrelationUid(correlationUid);
-            response.setDeviceIdentification(request.getDeviceIdentification());
-            this.responseUrlService.saveResponseUrlIfNeeded(correlationUid, responseUrl);
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      response.setCorrelationUid(correlationUid);
+      response.setDeviceIdentification(request.getDeviceIdentification());
+      this.responseUrlService.saveResponseUrlIfNeeded(correlationUid, responseUrl);
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "EnableDebuggingAsyncRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public EnableDebuggingResponse getEnableDebuggingResponse(
-            @OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final EnableDebuggingAsyncRequest request) throws OsgpException {
+  @PayloadRoot(localPart = "DisableDebuggingAsyncRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public DisableDebuggingResponse getDisableDebuggingResponse(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final DisableDebuggingAsyncRequest request)
+      throws OsgpException {
 
-        LOGGER.info("EnableDebugging response for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+    LOGGER.info(
+        "DisableDebugging response for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        EnableDebuggingResponse response = null;
-        try {
-            response = new EnableDebuggingResponse();
+    DisableDebuggingResponse response = null;
+    try {
+      response = new DisableDebuggingResponse();
 
-            final ResponseData responseData = this.responseDataService.dequeue(request.getCorrelationUid(),
-                    ComponentType.WS_SMART_METERING);
+      final ResponseData responseData =
+          this.responseDataService.dequeue(
+              request.getCorrelationUid(), ComponentType.WS_SMART_METERING);
 
-            this.throwExceptionIfResultNotOk(responseData, "Enable Debugging");
+      this.throwExceptionIfResultNotOk(responseData, "Disable Debugging");
 
-            response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
-            if (responseData.getMessageData() instanceof String) {
-                response.setDescription((String) responseData.getMessageData());
-            }
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, ComponentType.WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
+      if (responseData.getMessageData() instanceof String) {
+        response.setDescription((String) responseData.getMessageData());
+      }
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          ComponentType.WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "DisableDebuggingRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public DisableDebuggingAsyncResponse disableDebuggingRequest(
-            @OrganisationIdentification final String organisationIdentification,
-            @MessagePriority final String messagePriority, @ScheduleTime final String scheduleTime,
-            @ResponseUrl final String responseUrl, @RequestPayload final DisableDebuggingRequest request)
-            throws OsgpException {
+  /**
+   * Retrieve log messages. Looks like it will be executed asynchronously but actually it is
+   * executed synchronously. This was implemented like this to duplicate the behavior of the
+   * implementation in ws-admin, but supporting async notifications. Once there is a wider
+   * implementation of asynchronous requests and notifications, the ws-admin implementation will
+   * replace this one and this method can be removed.
+   *
+   * @param messagePriority unused because this request fakes asynchronous behavior.
+   * @param scheduleTime unused because this request fakes asynchronous behavior.
+   * @return AsyncResponse
+   * @throws OsgpException
+   */
+  @PayloadRoot(localPart = "FindMessageLogsRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public FindMessageLogsAsyncResponse findMessageLogsRequest(
+      @OrganisationIdentification final String organisationIdentification,
+      @MessagePriority final String messagePriority,
+      @ScheduleTime final String scheduleTime,
+      @ResponseUrl final String responseUrl,
+      @RequestPayload final FindMessageLogsRequest request)
+      throws OsgpException {
 
-        LOGGER.info("Disable debugging request for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+    LOGGER.info(
+        "Find message logs request for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        DisableDebuggingAsyncResponse response = null;
-        try {
-            response = new DisableDebuggingAsyncResponse();
+    FindMessageLogsAsyncResponse response = null;
+    try {
+      response = new FindMessageLogsAsyncResponse();
 
-            // Get the request parameters, make sure that date time are in UTC.
-            final String deviceIdentification = request.getDeviceIdentification();
+      final String deviceIdentification = request.getDeviceIdentification();
 
-            final String correlationUid = this.managementService.enqueueDisableDebuggingRequest(
-                    organisationIdentification, deviceIdentification,
-                    MessagePriorityEnum.getMessagePriority(messagePriority),
-                    this.managementMapper.map(scheduleTime, Long.class));
+      final String correlationUid =
+          this.managementService.findMessageLogsRequest(
+              organisationIdentification, deviceIdentification, request.getPage());
 
-            response.setCorrelationUid(correlationUid);
-            response.setDeviceIdentification(request.getDeviceIdentification());
-            this.responseUrlService.saveResponseUrlIfNeeded(correlationUid, responseUrl);
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      response.setCorrelationUid(correlationUid);
+      response.setDeviceIdentification(request.getDeviceIdentification());
+      this.saveResponseUrlIfNeeded(correlationUid, responseUrl);
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "DisableDebuggingAsyncRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public DisableDebuggingResponse getDisableDebuggingResponse(
-            @OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final DisableDebuggingAsyncRequest request) throws OsgpException {
+  /**
+   * Retrieve the result of the {@link #findMessageLogsRequest(String, String, String, String,
+   * FindMessageLogsRequest)} method.
+   *
+   * @return FindMessageLogsResponse
+   * @throws OsgpException
+   */
+  @PayloadRoot(localPart = "FindMessageLogsAsyncRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public FindMessageLogsResponse getFindMessageLogsResponse(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final FindMessageLogsAsyncRequest request)
+      throws OsgpException {
 
-        LOGGER.info("DisableDebugging response for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+    LOGGER.info(
+        "FindMessageLogs response for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        DisableDebuggingResponse response = null;
-        try {
-            response = new DisableDebuggingResponse();
+    FindMessageLogsResponse response = null;
+    try {
+      response = new FindMessageLogsResponse();
 
-            final ResponseData responseData = this.responseDataService.dequeue(request.getCorrelationUid(),
-                    ComponentType.WS_SMART_METERING);
+      @SuppressWarnings("unchecked")
+      final Page<DeviceLogItem> page =
+          (Page<DeviceLogItem>)
+              this.responseDataService
+                  .dequeue(request.getCorrelationUid(), Page.class, ComponentType.WS_SMART_METERING)
+                  .getMessageData();
 
-            this.throwExceptionIfResultNotOk(responseData, "Disable Debugging");
+      // Map to output
+      final MessageLogPage logPage = new MessageLogPage();
+      logPage.setTotalPages(page.getTotalPages());
+      logPage
+          .getMessageLogs()
+          .addAll(this.managementMapper.mapAsList(page.getContent(), MessageLog.class));
 
-            response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
-            if (responseData.getMessageData() instanceof String) {
-                response.setDescription((String) responseData.getMessageData());
-            }
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, ComponentType.WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      response.setMessageLogPage(logPage);
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          ComponentType.WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    /**
-     * Retrieve log messages. Looks like it will be executed asynchronously but
-     * actually it is executed synchronously. This was implemented like this to
-     * duplicate the behavior of the implementation in ws-admin, but supporting
-     * async notifications. Once there is a wider implementation of asynchronous
-     * requests and notifications, the ws-admin implementation will replace this
-     * one and this method can be removed.
-     *
-     * @param messagePriority
-     *            unused because this request fakes asynchronous behavior.
-     * @param scheduleTime
-     *            unused because this request fakes asynchronous behavior.
-     * @return AsyncResponse
-     * @throws OsgpException
-     */
-    @PayloadRoot(localPart = "FindMessageLogsRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public FindMessageLogsAsyncResponse findMessageLogsRequest(
-            @OrganisationIdentification final String organisationIdentification,
-            @MessagePriority final String messagePriority, @ScheduleTime final String scheduleTime,
-            @ResponseUrl final String responseUrl, @RequestPayload final FindMessageLogsRequest request)
-            throws OsgpException {
+  @PayloadRoot(localPart = "SetDeviceCommunicationSettingsRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public SetDeviceCommunicationSettingsAsyncResponse setDeviceCommunicationSettingsRequest(
+      @OrganisationIdentification final String organisationIdentification,
+      @MessagePriority final String messagePriority,
+      @ScheduleTime final String scheduleTime,
+      @ResponseUrl final String responseUrl,
+      @RequestPayload final SetDeviceCommunicationSettingsRequest request)
+      throws OsgpException {
 
-        LOGGER.info("Find message logs request for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+    LOGGER.info(
+        "Set device communication settings request for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        FindMessageLogsAsyncResponse response = null;
-        try {
-            response = new FindMessageLogsAsyncResponse();
+    final SetDeviceCommunicationSettingsAsyncResponse response =
+        new SetDeviceCommunicationSettingsAsyncResponse();
 
-            final String deviceIdentification = request.getDeviceIdentification();
+    final org.opensmartgridplatform.domain.core.valueobjects.smartmetering
+            .SetDeviceCommunicationSettingsRequest
+        dataRequest =
+            this.managementMapper.map(
+                request,
+                org.opensmartgridplatform.domain.core.valueobjects.smartmetering
+                    .SetDeviceCommunicationSettingsRequest.class);
 
-            final String correlationUid = this.managementService.findMessageLogsRequest(organisationIdentification,
-                    deviceIdentification, request.getPage());
+    try {
+      final String deviceIdentification = request.getDeviceIdentification();
 
-            response.setCorrelationUid(correlationUid);
-            response.setDeviceIdentification(request.getDeviceIdentification());
-            this.saveResponseUrlIfNeeded(correlationUid, responseUrl);
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      final String correlationUid =
+          this.managementService.enqueueSetDeviceCommunicationSettingsRequest(
+              organisationIdentification,
+              deviceIdentification,
+              dataRequest,
+              MessagePriorityEnum.getMessagePriority(messagePriority),
+              this.managementMapper.map(scheduleTime, Long.class));
+
+      response.setCorrelationUid(correlationUid);
+      response.setDeviceIdentification(request.getDeviceIdentification());
+      this.responseUrlService.saveResponseUrlIfNeeded(correlationUid, responseUrl);
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    /**
-     * Retrieve the result of the
-     * {@link #findMessageLogsRequest(String, String, String, String, FindMessageLogsRequest)}
-     * method.
-     *
-     * @return FindMessageLogsResponse
-     * @throws OsgpException
-     */
-    @PayloadRoot(localPart = "FindMessageLogsAsyncRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public FindMessageLogsResponse getFindMessageLogsResponse(
-            @OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final FindMessageLogsAsyncRequest request) throws OsgpException {
+  @PayloadRoot(localPart = "SetDeviceCommunicationSettingsAsyncRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public SetDeviceCommunicationSettingsResponse setDeviceCommunicationSettingsResponse(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final SetDeviceCommunicationSettingsAsyncRequest request)
+      throws OsgpException {
 
-        LOGGER.info("FindMessageLogs response for organisation: {} and device: {}.", organisationIdentification,
-                request.getDeviceIdentification());
+    LOGGER.info(
+        "Set device communication settings response for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        FindMessageLogsResponse response = null;
-        try {
-            response = new FindMessageLogsResponse();
+    SetDeviceCommunicationSettingsResponse response = null;
+    try {
+      response = new SetDeviceCommunicationSettingsResponse();
 
-            @SuppressWarnings("unchecked")
-            final Page<DeviceLogItem> page = (Page<DeviceLogItem>) this.responseDataService
-                    .dequeue(request.getCorrelationUid(), Page.class, ComponentType.WS_SMART_METERING).getMessageData();
+      final ResponseData responseData =
+          this.responseDataService.dequeue(
+              request.getCorrelationUid(), ComponentType.WS_SMART_METERING);
 
-            // Map to output
-            final MessageLogPage logPage = new MessageLogPage();
-            logPage.setTotalPages(page.getTotalPages());
-            logPage.getMessageLogs().addAll(this.managementMapper.mapAsList(page.getContent(), MessageLog.class));
+      this.throwExceptionIfResultNotOk(responseData, "Set device communication settings");
 
-            response.setMessageLogPage(logPage);
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, ComponentType.WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
+      if (responseData.getMessageData() instanceof String) {
+        response.setDescription((String) responseData.getMessageData());
+      }
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          ComponentType.WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return response;
+  }
 
-    @PayloadRoot(localPart = "SetDeviceCommunicationSettingsRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public SetDeviceCommunicationSettingsAsyncResponse setDeviceCommunicationSettingsRequest(
-            @OrganisationIdentification final String organisationIdentification,
-            @MessagePriority final String messagePriority, @ScheduleTime final String scheduleTime,
-            @ResponseUrl final String responseUrl, @RequestPayload final SetDeviceCommunicationSettingsRequest request)
-            throws OsgpException {
+  @PayloadRoot(localPart = "SetDeviceLifecycleStatusByChannelRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public SetDeviceLifecycleStatusByChannelAsyncResponse setDeviceLifecycleStatusByChannel(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final SetDeviceLifecycleStatusByChannelRequest request,
+      @MessagePriority final String messagePriority,
+      @ScheduleTime final String scheduleTime,
+      @ResponseUrl final String responseUrl)
+      throws OsgpException {
 
-        LOGGER.info("Set device communication settings request for organisation: {} and device: {}.",
-                organisationIdentification, request.getDeviceIdentification());
+    LOGGER.info(
+        "Set device lifecycle status by channel request received from organisation {} for device {}",
+        organisationIdentification,
+        request.getGatewayDeviceIdentification());
 
-        final SetDeviceCommunicationSettingsAsyncResponse response = new SetDeviceCommunicationSettingsAsyncResponse();
+    final org.opensmartgridplatform.domain.core.valueobjects.smartmetering
+            .SetDeviceLifecycleStatusByChannelRequestData
+        requestData =
+            this.managementMapper.map(
+                request.getSetDeviceLifecycleStatusByChannelRequestData(),
+                org.opensmartgridplatform.domain.core.valueobjects.smartmetering
+                    .SetDeviceLifecycleStatusByChannelRequestData.class);
 
-        final org.opensmartgridplatform.domain.core.valueobjects.smartmetering.SetDeviceCommunicationSettingsRequest dataRequest = this.managementMapper
-                .map(request,
-                        org.opensmartgridplatform.domain.core.valueobjects.smartmetering.SetDeviceCommunicationSettingsRequest.class);
+    SetDeviceLifecycleStatusByChannelAsyncResponse asyncResponse = null;
+    try {
+      final String correlationUid =
+          this.managementService.enqueueSetDeviceLifecycleStatusByChannelRequest(
+              organisationIdentification,
+              request.getGatewayDeviceIdentification(),
+              requestData,
+              MessagePriorityEnum.getMessagePriority(messagePriority),
+              (this.managementMapper.map(scheduleTime, Long.class)));
 
-        try {
-            final String deviceIdentification = request.getDeviceIdentification();
+      asyncResponse = new SetDeviceLifecycleStatusByChannelAsyncResponse();
 
-            final String correlationUid = this.managementService.enqueueSetDeviceCommunicationSettingsRequest(
-                    organisationIdentification, deviceIdentification, dataRequest,
-                    MessagePriorityEnum.getMessagePriority(messagePriority),
-                    this.managementMapper.map(scheduleTime, Long.class));
-
-            response.setCorrelationUid(correlationUid);
-            response.setDeviceIdentification(request.getDeviceIdentification());
-            this.responseUrlService.saveResponseUrlIfNeeded(correlationUid, responseUrl);
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      asyncResponse.setCorrelationUid(correlationUid);
+      asyncResponse.setDeviceIdentification(request.getGatewayDeviceIdentification());
+      this.saveResponseUrlIfNeeded(correlationUid, responseUrl);
+    } catch (final Exception e) {
+      this.handleException(e);
     }
+    return asyncResponse;
+  }
 
-    @PayloadRoot(localPart = "SetDeviceCommunicationSettingsAsyncRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public SetDeviceCommunicationSettingsResponse setDeviceCommunicationSettingsResponse(
-            @OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final SetDeviceCommunicationSettingsAsyncRequest request) throws OsgpException {
+  @PayloadRoot(localPart = "SetDeviceLifecycleStatusByChannelAsyncRequest", namespace = NAMESPACE)
+  @ResponsePayload
+  public SetDeviceLifecycleStatusByChannelResponse setDeviceLifecycleStatusByChannelResponse(
+      @OrganisationIdentification final String organisationIdentification,
+      @RequestPayload final SetDeviceLifecycleStatusByChannelAsyncRequest request)
+      throws OsgpException {
 
-        LOGGER.info("Set device communication settings response for organisation: {} and device: {}.",
-                organisationIdentification, request.getDeviceIdentification());
+    LOGGER.info(
+        "Set device lifecycle status by channel response for organisation: {} and device: {}.",
+        organisationIdentification,
+        request.getDeviceIdentification());
 
-        SetDeviceCommunicationSettingsResponse response = null;
-        try {
-            response = new SetDeviceCommunicationSettingsResponse();
+    SetDeviceLifecycleStatusByChannelResponse response = null;
+    try {
 
-            final ResponseData responseData = this.responseDataService.dequeue(request.getCorrelationUid(),
-                    ComponentType.WS_SMART_METERING);
+      response = new SetDeviceLifecycleStatusByChannelResponse();
 
-            this.throwExceptionIfResultNotOk(responseData, "Set device communication settings");
+      final ResponseData responseData =
+          this.responseDataService.dequeue(
+              request.getCorrelationUid(), ComponentType.WS_SMART_METERING);
 
-            response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
-            if (responseData.getMessageData() instanceof String) {
-                response.setDescription((String) responseData.getMessageData());
-            }
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, ComponentType.WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
+      this.throwExceptionIfResultNotOk(responseData, "Set device lifecycle status by channel");
+
+      response.setSetDeviceLifecycleStatusByChannelResponseData(
+          this.managementMapper.map(
+              responseData.getMessageData(), SetDeviceLifecycleStatusByChannelResponseData.class));
+      response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
+
+    } catch (final ConstraintViolationException e) {
+      throw new FunctionalException(
+          FunctionalExceptionType.VALIDATION_ERROR,
+          ComponentType.WS_SMART_METERING,
+          new ValidationException(e.getConstraintViolations()));
+    } catch (final Exception e) {
+      this.handleException(e);
     }
-
-    @PayloadRoot(localPart = "SetDeviceLifecycleStatusByChannelRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public SetDeviceLifecycleStatusByChannelAsyncResponse setDeviceLifecycleStatusByChannel(
-            @OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final SetDeviceLifecycleStatusByChannelRequest request,
-            @MessagePriority final String messagePriority, @ScheduleTime final String scheduleTime,
-            @ResponseUrl final String responseUrl) throws OsgpException {
-
-        LOGGER.info("Set device lifecycle status by channel request received from organisation {} for device {}",
-                organisationIdentification, request.getGatewayDeviceIdentification());
-
-        final org.opensmartgridplatform.domain.core.valueobjects.smartmetering.SetDeviceLifecycleStatusByChannelRequestData requestData = this.managementMapper
-                .map(request.getSetDeviceLifecycleStatusByChannelRequestData(),
-                        org.opensmartgridplatform.domain.core.valueobjects.smartmetering.SetDeviceLifecycleStatusByChannelRequestData.class);
-
-        SetDeviceLifecycleStatusByChannelAsyncResponse asyncResponse = null;
-        try {
-            final String correlationUid = this.managementService.enqueueSetDeviceLifecycleStatusByChannelRequest(
-                    organisationIdentification, request.getGatewayDeviceIdentification(), requestData,
-                    MessagePriorityEnum.getMessagePriority(messagePriority),
-                    (this.managementMapper.map(scheduleTime, Long.class)));
-
-            asyncResponse = new SetDeviceLifecycleStatusByChannelAsyncResponse();
-
-            asyncResponse.setCorrelationUid(correlationUid);
-            asyncResponse.setDeviceIdentification(request.getGatewayDeviceIdentification());
-            this.saveResponseUrlIfNeeded(correlationUid, responseUrl);
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return asyncResponse;
-    }
-
-    @PayloadRoot(localPart = "SetDeviceLifecycleStatusByChannelAsyncRequest", namespace = NAMESPACE)
-    @ResponsePayload
-    public SetDeviceLifecycleStatusByChannelResponse setDeviceLifecycleStatusByChannelResponse(
-            @OrganisationIdentification final String organisationIdentification,
-            @RequestPayload final SetDeviceLifecycleStatusByChannelAsyncRequest request) throws OsgpException {
-
-        LOGGER.info("Set device lifecycle status by channel response for organisation: {} and device: {}.",
-                organisationIdentification, request.getDeviceIdentification());
-
-        SetDeviceLifecycleStatusByChannelResponse response = null;
-        try {
-
-            response = new SetDeviceLifecycleStatusByChannelResponse();
-
-            final ResponseData responseData = this.responseDataService.dequeue(request.getCorrelationUid(),
-                    ComponentType.WS_SMART_METERING);
-
-            this.throwExceptionIfResultNotOk(responseData, "Set device lifecycle status by channel");
-
-            response.setSetDeviceLifecycleStatusByChannelResponseData(this.managementMapper
-                    .map(responseData.getMessageData(), SetDeviceLifecycleStatusByChannelResponseData.class));
-            response.setResult(OsgpResultType.fromValue(responseData.getResultType().getValue()));
-
-        } catch (final ConstraintViolationException e) {
-            throw new FunctionalException(FunctionalExceptionType.VALIDATION_ERROR, ComponentType.WS_SMART_METERING,
-                    new ValidationException(e.getConstraintViolations()));
-        } catch (final Exception e) {
-            this.handleException(e);
-        }
-        return response;
-    }
-
+    return response;
+  }
 }

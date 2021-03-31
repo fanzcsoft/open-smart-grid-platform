@@ -1,9 +1,10 @@
 /**
  * Copyright 2019 Smart Society Services B.V.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  */
 package org.opensmartgridplatform.adapter.protocol.iec60870.domain.services;
 
@@ -16,7 +17,6 @@ import static org.opensmartgridplatform.adapter.protocol.iec60870.testutils.Test
 import static org.opensmartgridplatform.adapter.protocol.iec60870.testutils.TestDefaults.DEFAULT_ORGANISATION_IDENTIFICATION;
 
 import java.io.IOException;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,54 +31,56 @@ import org.opensmartgridplatform.adapter.protocol.iec60870.testutils.factories.A
 @ExtendWith(MockitoExtension.class)
 class ClientConnectionEventListenerTest {
 
-    private final static String DEVICE_IDENTIFICATION = "TEST-DEVICE-1";
+  private static final String DEVICE_IDENTIFICATION = "TEST-DEVICE-1";
 
-    private ClientConnectionEventListener clientConnectionEventListener;
-    private ResponseMetadata responseMetadata;
+  private ClientConnectionEventListener clientConnectionEventListener;
+  private ResponseMetadata responseMetadata;
 
-    @Mock
-    private ClientConnectionCache connectionCache;
+  @Mock private ClientConnectionCache connectionCache;
 
-    @Mock
-    private ClientAsduHandlerRegistry asduHandlerRegistry;
+  @Mock private ClientAsduHandlerRegistry asduHandlerRegistry;
 
-    @Mock
-    private ClientAsduHandler asduHandler;
+  @Mock private ClientAsduHandler asduHandler;
 
-    @BeforeEach
-    public void setup() {
-        this.responseMetadata = new ResponseMetadata.Builder().withDeviceIdentification(DEFAULT_DEVICE_IDENTIFICATION)
-                .withOrganisationIdentification(DEFAULT_ORGANISATION_IDENTIFICATION)
-                .withDomainInfo(new DomainInfo(DEFAULT_DOMAIN, DEFAULT_DOMAIN_VERSION))
-                .withMessageType(DEFAULT_MESSAGE_TYPE)
-                .build();
-        this.clientConnectionEventListener = new ClientConnectionEventListener(DEVICE_IDENTIFICATION,
-                this.connectionCache, this.asduHandlerRegistry, this.responseMetadata);
-    }
+  @BeforeEach
+  public void setup() {
+    this.responseMetadata =
+        new ResponseMetadata.Builder()
+            .withDeviceIdentification(DEFAULT_DEVICE_IDENTIFICATION)
+            .withOrganisationIdentification(DEFAULT_ORGANISATION_IDENTIFICATION)
+            .withDomainInfo(new DomainInfo(DEFAULT_DOMAIN, DEFAULT_DOMAIN_VERSION))
+            .withMessageType(DEFAULT_MESSAGE_TYPE)
+            .build();
+    this.clientConnectionEventListener =
+        new ClientConnectionEventListener(
+            DEVICE_IDENTIFICATION,
+            this.connectionCache,
+            this.asduHandlerRegistry,
+            this.responseMetadata);
+  }
 
-    @Test
-    void shouldHandleAsduWhenNewAsduIsReceived() throws Exception {
-        // Arrange
-        final ASdu asdu = AsduFactory.ofType(ASduType.C_IC_NA_1);
-        when(this.asduHandlerRegistry.getHandler(asdu)).thenReturn(this.asduHandler);
+  @Test
+  void shouldHandleAsduWhenNewAsduIsReceived() throws Exception {
+    // Arrange
+    final ASdu asdu = AsduFactory.ofType(ASduType.C_IC_NA_1);
+    when(this.asduHandlerRegistry.getHandler(asdu)).thenReturn(this.asduHandler);
 
-        // Act
-        this.clientConnectionEventListener.newASdu(asdu);
+    // Act
+    this.clientConnectionEventListener.newASdu(asdu);
 
-        // Assert
-        verify(this.asduHandler).handleAsdu(asdu, this.responseMetadata);
-    }
+    // Assert
+    verify(this.asduHandler).handleAsdu(asdu, this.responseMetadata);
+  }
 
-    @Test
-    void shouldRemoveConnectionFromCacheWhenConnectionIsClosed() {
-        // Arrange
-        final IOException e = new IOException();
+  @Test
+  void shouldRemoveConnectionFromCacheWhenConnectionIsClosed() {
+    // Arrange
+    final IOException e = new IOException();
 
-        // Act
-        this.clientConnectionEventListener.connectionClosed(e);
+    // Act
+    this.clientConnectionEventListener.connectionClosed(e);
 
-        // Assert
-        verify(this.connectionCache).removeConnection(DEVICE_IDENTIFICATION);
-    }
-
+    // Assert
+    verify(this.connectionCache).removeConnection(DEVICE_IDENTIFICATION);
+  }
 }

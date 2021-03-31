@@ -1,9 +1,10 @@
 /**
  * Copyright 2019 Smart Society Services B.V.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.  You may obtain a copy of the License at
+ * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * <p>http://www.apache.org/licenses/LICENSE-2.0
  */
 package org.opensmartgridplatform.adapter.protocol.iec60870.domain.services.asduhandlers;
 
@@ -22,36 +23,34 @@ import org.springframework.stereotype.Component;
 
 /**
  * ASDU Handler for ASDUs with type identification C_IC_NA_1:.
+ *
  * <ul>
- * <li>Interrogation Command</li>
+ *   <li>Interrogation Command
  * </ul>
  */
 @Component
 public class InterrogationAsduHandler extends AbstractClientAsduHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(InterrogationAsduHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(InterrogationAsduHandler.class);
 
-    @Autowired
-    private LoggingService loggingService;
+  @Autowired private LoggingService loggingService;
 
-    @Autowired
-    private ResponseMetadataFactory responseMetadataFactory;
+  @Autowired private ResponseMetadataFactory responseMetadataFactory;
 
-    @Autowired
-    private LogItemFactory logItemFactory;
+  @Autowired private LogItemFactory logItemFactory;
 
-    public InterrogationAsduHandler() {
-        super(ASduType.C_IC_NA_1);
-    }
+  public InterrogationAsduHandler() {
+    super(ASduType.C_IC_NA_1);
+  }
 
-    @Override
-    public void handleAsdu(final ASdu asdu, final ResponseMetadata responseMetadata) {
-        LOGGER.info("Received interrogation command {}.", asdu);
-        final ResponseMetadata newResponseMetadata = this.responseMetadataFactory
-                .createWithNewCorrelationUid(responseMetadata);
+  @Override
+  public void handleAsdu(final ASdu asdu, final ResponseMetadata responseMetadata) {
+    LOGGER.info("Received interrogation command {}.", asdu);
+    final ResponseMetadata newResponseMetadata =
+        this.responseMetadataFactory.createWithNewCorrelationUid(responseMetadata);
 
-        // Only log item for now
-        final LogItem logItem = this.logItemFactory.create(asdu, newResponseMetadata, true);
-        this.loggingService.log(logItem);
-    }
+    // Only log item for now
+    final LogItem logItem = this.logItemFactory.create(asdu, newResponseMetadata, true);
+    this.loggingService.log(logItem);
+  }
 }
