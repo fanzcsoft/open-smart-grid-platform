@@ -7,88 +7,72 @@
         http://www.apache.org/licenses/LICENSE-2.0
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.opensmartgridplatform</groupId>
   <artifactId>shared-components</artifactId>
-  <version>5.11.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>shared</name>
-  <properties>
-    <jxr.version>3.0.0</jxr.version>
-    <maven.project.info.reports.plugin.version>3.0.0</maven.project.info.reports.plugin.version>
-    <maven.site.plugin>3.7.1</maven.site.plugin>
-  </properties>
 
-  <!-- Description, Organization, Licences, URL and Distribution Management 
-    elements are needed for the maven-jxr-plugin to generate a maven site -->
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>jgitflow-maven-plugin</artifactId>
+        <configuration>
+          <enableSshAgent>true</enableSshAgent>
+          <flowInitContext>
+            <developBranchName>development</developBranchName>
+            <featureBranchPrefix>feature-</featureBranchPrefix>
+            <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+            <masterBranchName>master</masterBranchName>
+            <releaseBranchPrefix>release-</releaseBranchPrefix>
+            <versionTagPrefix>${project.artifactId}-</versionTagPrefix>
+          </flowInitContext>
+          <pushFeatures>true</pushFeatures>
+          <pushHotfixes>true</pushHotfixes>
+          <pushReleases>true</pushReleases>
+        </configuration>
+        <groupId>external.atlassian.jgitflow</groupId>
+        <version>1.0-m5.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven.project.info.reports.plugin.version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${jxr.version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>${maven.site.plugin}</version>
+      </plugin>
+    </plugins>
+  </build>
   <description>Shared Components for OSGP and Protocol Adapters.</description>
-  <organization>
-    <name>OSGP</name>
-    <url>http://opensmartgridplatform.org</url>
-  </organization>
-  <licenses>
-    <license>
-      <name>APACHE 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-    </license>
-  </licenses>
-  <!-- URL is passed in as a maven argument: -Dmaven.site.url=http://my/url/for/the/site -->
-  <url>${maven.site.url}</url>
   <distributionManagement>
     <site>
       <id>shared-components</id>
       <name>shared-components</name>
-      <!-- <url>Use this example URL to generate maven site locally and have 
+      <!-- <url>Use this example URL to generate maven site locally and have
         it deployed to a folder using: mvn site site:deploy or mvn site site:stage -->
       <!-- <url>file:///C:/Users/Kevin/Desktop/shared-components</url> -->
       <!-- URL is passed in as a maven argument: -Dmaven.site.distributionManagement.site.url=file:////the/path/to/deploy/the/site/to -->
       <url>${maven.site.distributionManagement.site.url}</url>
     </site>
   </distributionManagement>
+  <groupId>org.opensmartgridplatform</groupId>
+  <licenses>
+    <license>
+      <name>APACHE 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+    </license>
+  </licenses>
+  <modelVersion>4.0.0</modelVersion>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>external.atlassian.jgitflow</groupId>
-        <artifactId>jgitflow-maven-plugin</artifactId>
-        <version>1.0-m5.1</version>
-        <configuration>
-          <pushFeatures>true</pushFeatures>
-          <pushHotfixes>true</pushHotfixes>
-          <pushReleases>true</pushReleases>
-          <enableSshAgent>true</enableSshAgent>
-          <flowInitContext>
-            <masterBranchName>master</masterBranchName>
-            <developBranchName>development</developBranchName>
-            <featureBranchPrefix>feature-</featureBranchPrefix>
-            <releaseBranchPrefix>release-</releaseBranchPrefix>
-            <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
-            <versionTagPrefix>${project.artifactId}-</versionTagPrefix>
-          </flowInitContext>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>${maven.project.info.reports.plugin.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>${jxr.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>${maven.site.plugin}</version>
-      </plugin>
-    </plugins>
-  </build>
-
+  <!-- Description, Organization, Licences, URL and Distribution Management 
+    elements are needed for the maven-jxr-plugin to generate a maven site -->
   <modules>
     <!-- Shared Libs -->
     <module>parent-shared</module>
@@ -105,4 +89,20 @@
     <module>osgp-ws-microgrids</module>
     <module>osgp-ws-distributionautomation</module>
   </modules>
+  <name>shared</name>
+  <organization>
+    <name>OSGP</name>
+    <url>http://opensmartgridplatform.org</url>
+  </organization>
+  <!-- URL is passed in as a maven argument: -Dmaven.site.url=http://my/url/for/the/site -->
+  <packaging>pom</packaging>
+  <properties>
+    <jxr.version>3.0.0</jxr.version>
+    <maven.project.info.reports.plugin.version>3.0.0</maven.project.info.reports.plugin.version>
+    <maven.site.plugin>3.7.1</maven.site.plugin>
+  </properties>
+
+  <url>${maven.site.url}</url>
+
+  <version>5.11.0-SNAPSHOT</version>
 </project>

@@ -7,90 +7,90 @@
         http://www.apache.org/licenses/LICENSE-2.0
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.opensmartgridplatform</groupId>
-    <artifactId>parent-shared</artifactId>
-    <version>5.11.0-SNAPSHOT</version>
-    <relativePath>../parent-shared/pom.xml</relativePath>
-  </parent>
-
   <artifactId>osgp-kafka-distributionautomation</artifactId>
-  <packaging>jar</packaging>
-
-  <dependencies>
-
-    <dependency>
-      <groupId>org.apache.avro</groupId>
-      <artifactId>avro</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.kafka</groupId>
-      <artifactId>kafka-clients</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
-
   <build>
     <plugins>
 
       <plugin>
-        <groupId>org.apache.avro</groupId>
         <artifactId>avro-maven-plugin</artifactId>
         <executions>
           <execution>
-            <phase>generate-sources</phase>
+            <configuration>
+              <outputDirectory>${project.basedir}/target/generated-sources/avro/</outputDirectory>
+              <sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
+            </configuration>
             <goals>
               <goal>schema</goal>
             </goals>
-            <configuration>
-              <sourceDirectory>${project.basedir}/src/main/resources/</sourceDirectory>
-              <outputDirectory>${project.basedir}/target/generated-sources/avro/</outputDirectory>
-            </configuration>
+            <phase>generate-sources</phase>
           </execution>
         </executions>
+        <groupId>org.apache.avro</groupId>
       </plugin>
 
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven.surefire.plugin.version}</version>
         <dependencies>
           <dependency>
-            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <groupId>org.junit.jupiter</groupId>
             <version>${junit.version}</version>
           </dependency>
         </dependencies>
+        <version>${maven.surefire.plugin.version}</version>
       </plugin>
 
     </plugins>
 
   </build>
+
+  <dependencies>
+
+    <dependency>
+      <artifactId>avro</artifactId>
+      <groupId>org.apache.avro</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>kafka-clients</artifactId>
+      <groupId>org.apache.kafka</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>junit-jupiter-api</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>assertj-core</artifactId>
+      <groupId>org.assertj</groupId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
+
+  <packaging>jar</packaging>
+
+  <parent>
+    <artifactId>parent-shared</artifactId>
+    <groupId>org.opensmartgridplatform</groupId>
+    <relativePath>../parent-shared/pom.xml</relativePath>
+    <version>5.11.0-SNAPSHOT</version>
+  </parent>
 
 </project>

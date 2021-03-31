@@ -1,14 +1,186 @@
 <!-- Copyright 2015 Smart Society Services B.V. Licensed under the Apache 
   License, Version 2.0 (the "License"); you may not use this file except in 
   compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-installation/2014/10"
-            xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-            elementFormDefault="qualified"
-            targetNamespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-installation/2014/10">
+<xsd:schema xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+  xmlns:tns="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-installation/2014/10"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  targetNamespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-installation/2014/10">
 
-  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-              schemaLocation="common.xsd"/>
+  <xsd:complexType name="CoupleMbusDeviceByChannelResponseData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Response">
+        <xsd:sequence>
+          <xsd:element name="ChannelElementValues" type="tns:ChannelElementValues"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DecoupleMbusDeviceByChannelResponseData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Response">
+        <xsd:sequence minOccurs="0">
+          <xsd:element name="mbusDeviceIdentification" type="common:DeviceIdentification"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="Device">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Device_Identification"
+        type="common:DeviceIdentification"/>
+
+      <xsd:element minOccurs="0" name="Device_type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="Communication_method">
+        <xsd:simpleType>
+          <xsd:restriction base="tns:AlphaNumericType">
+            <xsd:maxLength value="10"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="Communication_provider">
+        <xsd:simpleType>
+          <xsd:restriction base="tns:AlphaNumericType">
+            <xsd:maxLength value="10"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="ICC_id">
+        <xsd:simpleType>
+          <xsd:restriction base="tns:AlphaNumericType">
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="protocolName">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="protocolVersion">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="10"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="Supplier">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="HLS3_active"
+        type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="HLS4_active"
+        type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="HLS5_active"
+        type="xsd:boolean"/>
+      <!-- no type restriction for unencrypted keys for now -->
+      <xsd:element minOccurs="0" name="Master_key"
+        type="xsd:hexBinary"/>
+      <xsd:element minOccurs="0"
+        name="Global_encryption_unicast_key" type="xsd:hexBinary"/>
+      <xsd:element minOccurs="0" name="Authentication_key"
+        type="xsd:hexBinary"/>
+      <xsd:element name="Delivery_date" type="xsd:dateTime"/>
+
+      <xsd:element minOccurs="0"
+        name="Mbus_identification_number">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:unsignedInt">
+            <xsd:maxInclusive value="99999999"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0"
+        name="Mbus_manufacturer_identification">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Z]{3}"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+
+      <xsd:element minOccurs="0" name="Mbus_version"
+        type="xsd:unsignedByte"/>
+
+      <xsd:element minOccurs="0"
+        name="Mbus_device_type_identification" type="xsd:unsignedByte"/>
+
+      <xsd:element minOccurs="0" name="Mbus_default_key"
+        type="xsd:hexBinary"/>
+
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeviceModel">
+    <xsd:sequence>
+      <xsd:element name="Manufacturer">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="4"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ModelCode">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="CoupleMbusDeviceByChannelRequestData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Command">
+        <xsd:sequence>
+          <xsd:element name="Channel" type="common:Channel"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="DecoupleMbusDeviceByChannelRequestData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Command">
+        <xsd:sequence>
+          <xsd:element name="Channel" type="common:Channel"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="ChannelElementValues">
+    <xsd:sequence>
+      <xsd:element name="Channel" type="common:Channel"/>
+      <xsd:element name="PrimaryAddress" type="xsd:short"/>
+      <xsd:element name="IdentificationNumber" type="xsd:string"/>
+      <xsd:element name="ManufacturerIdentification" type="xsd:string"/>
+      <xsd:element name="Version" type="xsd:unsignedByte"/>
+      <xsd:element name="DeviceTypeIdentification" type="xsd:unsignedByte"/>
+    </xsd:sequence>
+  </xsd:complexType>
 
   <xsd:element name="AddDeviceRequest">
     <xsd:complexType>
@@ -18,6 +190,7 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="AddDeviceAsyncResponse">
     <xsd:complexType>
       <xsd:complexContent>
@@ -38,8 +211,8 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -73,8 +246,8 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -108,8 +281,8 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -119,7 +292,7 @@
       <xsd:sequence>
         <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
         <xsd:element name="CoupleMbusDeviceByChannelRequestData"
-                     type="tns:CoupleMbusDeviceByChannelRequestData"/>
+          type="tns:CoupleMbusDeviceByChannelRequestData"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -149,22 +322,14 @@
     </xsd:complexType>
   </xsd:element>
 
-  <xsd:complexType name="CoupleMbusDeviceByChannelResponseData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Response">
-        <xsd:sequence>
-          <xsd:element name="ChannelElementValues" type="tns:ChannelElementValues"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
+  <!-- DATATYPES -->
 
   <xsd:element name="DecoupleMbusDeviceByChannelRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification" />
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
         <xsd:element name="DecoupleMbusDeviceByChannelRequestData"
-                     type="tns:DecoupleMbusDeviceByChannelRequestData" />
+          type="tns:DecoupleMbusDeviceByChannelRequestData"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -172,7 +337,7 @@
   <xsd:element name="DecoupleMbusDeviceByChannelAsyncResponse">
     <xsd:complexType>
       <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse" />
+        <xsd:extension base="common:AsyncResponse"/>
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
@@ -180,7 +345,7 @@
   <xsd:element name="DecoupleMbusDeviceByChannelAsyncRequest">
     <xsd:complexType>
       <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest" />
+        <xsd:extension base="common:AsyncRequest"/>
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
@@ -193,180 +358,6 @@
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:complexType name="DecoupleMbusDeviceByChannelResponseData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Response">
-        <xsd:sequence minOccurs="0" >
-          <xsd:element name="mbusDeviceIdentification" type="common:DeviceIdentification"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
-  <!-- DATATYPES -->
-
-  <xsd:complexType name="Device">
-    <xsd:sequence>
-      <xsd:element name="Device_Identification" minOccurs="0"
-                   type="common:DeviceIdentification"/>
-
-      <xsd:element name="Device_type" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="50"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="Communication_method" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="tns:AlphaNumericType">
-            <xsd:maxLength value="10"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="Communication_provider" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="tns:AlphaNumericType">
-            <xsd:maxLength value="10"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="ICC_id" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="tns:AlphaNumericType">
-            <xsd:maxLength value="20"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="protocolName" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="10"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="protocolVersion" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="10"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="Supplier" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="50"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="HLS3_active" type="xsd:boolean"
-                   minOccurs="0"/>
-      <xsd:element name="HLS4_active" type="xsd:boolean"
-                   minOccurs="0"/>
-      <xsd:element name="HLS5_active" type="xsd:boolean"
-                   minOccurs="0"/>
-      <!-- no type restriction for unencrypted keys for now -->
-      <xsd:element name="Master_key" type="xsd:hexBinary"
-                   minOccurs="0"/>
-      <xsd:element name="Global_encryption_unicast_key"
-                   type="xsd:hexBinary" minOccurs="0"/>
-      <xsd:element name="Authentication_key" type="xsd:hexBinary"
-                   minOccurs="0"/>
-      <xsd:element name="Delivery_date" type="xsd:dateTime"/>
-
-      <xsd:element name="Mbus_identification_number"
-                   minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:unsignedInt">
-            <xsd:maxInclusive value="99999999"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="Mbus_manufacturer_identification"
-                   minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:pattern value="[A-Z]{3}"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-
-      <xsd:element name="Mbus_version" minOccurs="0"
-                   type="xsd:unsignedByte"/>
-
-      <xsd:element name="Mbus_device_type_identification"
-                   minOccurs="0" type="xsd:unsignedByte"/>
-
-      <xsd:element name="Mbus_default_key" type="xsd:hexBinary"
-                   minOccurs="0"/>
-
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="DeviceModel">
-    <xsd:sequence>
-      <xsd:element name="Manufacturer">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="4"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-      <xsd:element name="ModelCode" minOccurs="0">
-        <xsd:simpleType>
-          <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="255"/>
-          </xsd:restriction>
-        </xsd:simpleType>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:simpleType name="AlphaNumericType">
-    <xsd:restriction base="xsd:string">
-      <xsd:pattern value="[a-zA-Z0-9 ]+"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:complexType name="CoupleMbusDeviceByChannelRequestData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Command">
-        <xsd:sequence>
-          <xsd:element name="Channel" type="common:Channel"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
-  <xsd:complexType name="DecoupleMbusDeviceByChannelRequestData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Command">
-        <xsd:sequence>
-          <xsd:element name="Channel" type="common:Channel" />
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
-  <xsd:complexType name="ChannelElementValues">
-    <xsd:sequence>
-      <xsd:element name="Channel" type="common:Channel"/>
-      <xsd:element name="PrimaryAddress" type="xsd:short"/>
-      <xsd:element name="IdentificationNumber" type="xsd:string"/>
-      <xsd:element name="ManufacturerIdentification" type="xsd:string"/>
-      <xsd:element name="Version" type="xsd:unsignedByte"/>
-      <xsd:element name="DeviceTypeIdentification" type="xsd:unsignedByte"/>
-    </xsd:sequence>
-  </xsd:complexType>
 
   <xsd:element name="GetSubscriptionInformationRequest">
     <xsd:complexType>
@@ -392,5 +383,14 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
+  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+    schemaLocation="common.xsd"/>
+
+  <xsd:simpleType name="AlphaNumericType">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[a-zA-Z0-9 ]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 
 </xsd:schema>

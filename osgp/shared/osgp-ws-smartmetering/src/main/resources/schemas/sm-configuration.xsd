@@ -1,46 +1,11 @@
 <!-- Copyright 2015 Smart Society Services B.V. Licensed under the Apache 
   License, Version 2.0 (the "License"); you may not use this file except in 
   compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:tns="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-configuration/2014/10"
-            xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-            elementFormDefault="qualified"
-            targetNamespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-configuration/2014/10">
-
-  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-              schemaLocation="common.xsd"/>
-
-  <xsd:element name="SetSpecialDaysRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SpecialDaysRequestData" type="tns:SpecialDaysRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetSpecialDaysAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetSpecialDaysAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetSpecialDaysResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
+<xsd:schema xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+  xmlns:tns="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-configuration/2014/10"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  targetNamespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-configuration/2014/10">
 
   <xsd:complexType name="GetFirmwareVersionRequestData">
     <xsd:complexContent>
@@ -55,82 +20,26 @@
     <xsd:complexContent>
       <xsd:extension base="common:Response">
         <xsd:sequence>
-          <xsd:element name="FirmwareVersions" type="tns:FirmwareVersion" maxOccurs="unbounded"/>
+          <xsd:element maxOccurs="unbounded" name="FirmwareVersions" type="tns:FirmwareVersion"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
-  <xsd:element name="UpdateFirmwareRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification"/>
-        <xsd:element name="FirmwareVersion" type="tns:FirmwareVersion" maxOccurs="unbounded"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="UpdateFirmwareAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="UpdateFirmwareAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="UpdateFirmwareResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:sequence>
-          <xsd:element name="FirmwareVersion" type="tns:FirmwareVersion" maxOccurs="unbounded"/>
-        </xsd:sequence>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetPushNotificationAlarmAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetPushNotificationAlarmResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="decodedMessage" type="xsd:string"/>
-        <xsd:element name="encodedMessage" type="xsd:hexBinary"/>
-        <xsd:sequence>
-          <xsd:element name="alarm" type="common:AlarmType" maxOccurs="unbounded"/>
-        </xsd:sequence>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:complexType name="UpdateFirmwareRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
         <xsd:sequence>
-          <xsd:element name="FirmwareVersion" type="tns:FirmwareVersion" maxOccurs="unbounded"/>
+          <xsd:element maxOccurs="unbounded" name="FirmwareVersion" type="tns:FirmwareVersion"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="UpdateFirmwareResponseData">
     <xsd:complexContent>
       <xsd:extension base="tns:GetFirmwareVersionResponseData">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="GetConfigurationObjectResponseData">
     <xsd:complexContent>
       <xsd:extension base="common:Response">
@@ -147,16 +56,6 @@
       <xsd:element name="FirmwareModuleType" type="tns:FirmwareModuleType"/>
     </xsd:sequence>
   </xsd:complexType>
-
-  <!-- Firmware Module Types -->
-  <xsd:simpleType name="FirmwareModuleType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="ACTIVE_FIRMWARE"/>
-      <xsd:enumeration value="MODULE_ACTIVE_FIRMWARE"/>
-      <xsd:enumeration value="COMMUNICATION_MODULE_ACTIVE_FIRMWARE"/>
-      <xsd:enumeration value="M_BUS_DRIVER_ACTIVE_FIRMWARE"/>
-    </xsd:restriction>
-  </xsd:simpleType>
 
   <xsd:complexType name="GetFirmwareVersionGasRequestData">
     <xsd:complexContent>
@@ -177,249 +76,12 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="FirmwareVersionGas">
     <xsd:sequence>
       <xsd:element name="Version" type="xsd:hexBinary"/>
       <xsd:element name="FirmwareModuleType" type="tns:FirmwareModuleGasType"/>
     </xsd:sequence>
   </xsd:complexType>
-
-  <!-- Firmware Module Types -->
-  <xsd:simpleType name="FirmwareModuleGasType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="SIMPLE_VERSION_INFO"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <!-- For the support of single GetFirmwareVersion support -->
-  <xsd:element name="GetFirmwareVersionRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetFirmwareVersionAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetFirmwareVersionAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetFirmwareVersionResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:sequence>
-          <xsd:element name="FirmwareVersion" type="tns:FirmwareVersion" maxOccurs="unbounded"/>
-        </xsd:sequence>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetFirmwareVersionGasRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetFirmwareVersionGasAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetFirmwareVersionGasAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetFirmwareVersionGasResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:sequence>
-          <xsd:element name="FirmwareVersion" type="tns:FirmwareVersionGas" />
-        </xsd:sequence>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetConfigurationObjectRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetConfigurationObjectRequestData"
-                     type="tns:SetConfigurationObjectRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetConfigurationObjectAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetConfigurationObjectAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetConfigurationObjectResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetConfigurationObjectRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetConfigurationObjectAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetConfigurationObjectAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetConfigurationObjectResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="ConfigurationObject" type="tns:ConfigurationObject"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetPushSetupAlarmRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetPushSetupAlarmRequestData"
-                     type="tns:SetPushSetupAlarmRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetPushSetupAlarmAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetPushSetupAlarmAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetPushSetupAlarmResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetPushSetupSmsRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetPushSetupSmsRequestData" type="tns:SetPushSetupSmsRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetPushSetupSmsAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetPushSetupSmsAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetPushSetupSmsResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetAlarmNotificationsRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetAlarmNotificationsRequestData"
-                     type="tns:SetAlarmNotificationsRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetAlarmNotificationsAsyncResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncResponse" type="common:AsyncResponse"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetAlarmNotificationsAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetAlarmNotificationsResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:complexType name="SetEncryptionKeyExchangeOnGMeterRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -429,40 +91,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
-  <xsd:element name="SetEncryptionKeyExchangeOnGMeterRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetEncryptionKeyExchangeOnGMeterAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetEncryptionKeyExchangeOnGMeterAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetEncryptionKeyExchangeOnGMeterResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:complexType name="GetMbusEncryptionKeyStatusRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Query">
@@ -483,121 +111,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="EncryptionKeyStatus" type="tns:EncryptionKeyStatus"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusByChannelRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="GatewayDeviceIdentification"
-                     type="common:DeviceIdentification"/>
-        <xsd:element name="GetMbusEncryptionKeyStatusByChannelRequestData"
-                     type="tns:GetMbusEncryptionKeyStatusByChannelRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusByChannelAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusByChannelAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetMbusEncryptionKeyStatusByChannelResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="EncryptionKeyStatus" type="tns:EncryptionKeyStatus"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetActivityCalendarRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="ActivityCalendarData"
-                     type="tns:SetActivityCalendarRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetActivityCalendarAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetActivityCalendarAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetActivityCalendarResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetAdministrativeStatusRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <!-- This is a special type so that GetAdministrativeStatus is supported 
-    in bundle requests -->
   <xsd:complexType name="GetAdministrativeStatusData">
     <xsd:complexContent>
       <xsd:extension base="common:Query">
@@ -607,110 +120,6 @@
     </xsd:complexContent>
   </xsd:complexType>
 
-  <xsd:element name="GetAdministrativeStatusAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetAdministrativeStatusAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetAdministrativeStatusResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Enabled" type="tns:AdministrativeStatusType"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetAdministrativeStatusRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="Enabled" type="tns:AdministrativeStatusType"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetAdministrativeStatusAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetAdministrativeStatusAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetAdministrativeStatusResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="ReplaceKeysRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetKeysRequestData" type="tns:SetKeysRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="ReplaceKeysAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="ReplaceKeysAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="ReplaceKeysResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GenerateAndReplaceKeysRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GenerateAndReplaceKeysAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:complexType name="GenerateAndReplaceKeysData">
     <xsd:complexContent>
       <xsd:extension base="common:Query">
@@ -719,134 +128,13 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-  <xsd:element name="GenerateAndReplaceKeysAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GenerateAndReplaceKeysResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetClockConfigurationRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetClockConfigurationData"
-                     type="tns:SetClockConfigurationRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetClockConfigurationAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetClockConfigurationAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetClockConfigurationResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="ConfigureDefinableLoadProfileRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="DefinableLoadProfileConfigurationData"
-                     type="tns:DefinableLoadProfileConfigurationData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="ConfigureDefinableLoadProfileAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="ConfigureDefinableLoadProfileAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="ConfigureDefinableLoadProfileResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetMbusUserKeyByChannelRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetMbusUserKeyByChannelRequestData"
-                     type="tns:SetMbusUserKeyByChannelRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetMbusUserKeyByChannelAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetMbusUserKeyByChannelAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetMbusUserKeyByChannelResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <!-- DATATYPES -->
 
   <xsd:complexType name="SpecialDaysRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
         <xsd:sequence>
           <xsd:element maxOccurs="30" name="SpecialDays"
-                       type="tns:SpecialDay"/>
+            type="tns:SpecialDay"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -855,9 +143,9 @@
   <xsd:complexType name="SpecialDay">
     <xsd:sequence>
       <xsd:element name="specialDayDate"
-                   type="common:CosemDateType"/>
+        type="common:CosemDateType"/>
       <xsd:element name="dayId"
-                   type="xsd:int"/>
+        type="xsd:int"/>
     </xsd:sequence>
   </xsd:complexType>
 
@@ -867,6 +155,7 @@
     </xsd:sequence>
   </xsd:complexType>
 
+  <!-- Firmware Module Types -->
   <xsd:complexType name="AlarmNotification">
     <xsd:sequence>
       <xsd:element name="AlarmType" type="common:AlarmType"/>
@@ -874,7 +163,6 @@
     </xsd:sequence>
   </xsd:complexType>
 
-  <!-- Administrative Status Types -->
   <xsd:complexType name="AdministrativeStatusResponseData">
     <xsd:complexContent>
       <xsd:extension base="common:Response">
@@ -884,15 +172,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
-  <!-- Administrative Status Types -->
-  <xsd:simpleType name="AdministrativeStatusType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="UNDEFINED"/>
-      <xsd:enumeration value="OFF"/>
-      <xsd:enumeration value="ON"/>
-    </xsd:restriction>
-  </xsd:simpleType>
 
   <xsd:complexType name="AdministrativeStatusTypeData">
     <xsd:complexContent>
@@ -914,6 +193,7 @@
     </xsd:complexContent>
   </xsd:complexType>
 
+  <!-- Firmware Module Types -->
   <xsd:complexType name="GetConfigurationObjectRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Query">
@@ -921,6 +201,7 @@
     </xsd:complexContent>
   </xsd:complexType>
 
+  <!-- For the support of single GetFirmwareVersion support -->
   <xsd:complexType name="SetPushSetupAlarmRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -930,7 +211,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="SetPushSetupSmsRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -940,7 +220,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="SetAlarmNotificationsRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -950,7 +229,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="SetActivityCalendarRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -968,11 +246,10 @@
       <xsd:element name="SeasonProfile" type="tns:SeasonsType"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="ConfigurationObject">
     <xsd:sequence>
-      <xsd:element name="GprsOperationMode" type="tns:GprsOperationModeType" minOccurs="0"/>
-      <xsd:element name="ConfigurationFlags" type="tns:ConfigurationFlags" minOccurs="0"/>
+      <xsd:element minOccurs="0" name="GprsOperationMode" type="tns:GprsOperationModeType"/>
+      <xsd:element minOccurs="0" name="ConfigurationFlags" type="tns:ConfigurationFlags"/>
     </xsd:sequence>
   </xsd:complexType>
 
@@ -981,41 +258,12 @@
       <xsd:element name="ConfigurationFlag" type="tns:ConfigurationFlag"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="ConfigurationFlag">
     <xsd:sequence>
       <xsd:element name="ConfigurationFlagType" type="tns:ConfigurationFlagType"/>
       <xsd:element name="Enabled" type="xsd:boolean"/>
     </xsd:sequence>
   </xsd:complexType>
-
-  <!-- ConfigurationObjectFlagType -->
-  <xsd:simpleType name="ConfigurationFlagType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="DISCOVER_ON_OPEN_COVER"/>
-      <xsd:enumeration value="DISCOVER_ON_POWER_ON"/>
-      <xsd:enumeration value="DYNAMIC_MBUS_ADDRESS"/>
-      <xsd:enumeration value="PO_ENABLE"/>
-      <xsd:enumeration value="HLS_3_ON_P3_ENABLE"/>
-      <xsd:enumeration value="HLS_4_ON_P3_ENABLE"/>
-      <xsd:enumeration value="HLS_5_ON_P3_ENABLE"/>
-      <xsd:enumeration value="HLS_3_ON_PO_ENABLE"/>
-      <xsd:enumeration value="HLS_4_ON_PO_ENABLE"/>
-      <xsd:enumeration value="HLS_5_ON_PO_ENABLE"/>
-      <xsd:enumeration value="DIRECT_ATTACH_AT_POWER_ON"/>
-      <xsd:enumeration value="HLS_6_ON_P3_ENABLE"/>
-      <xsd:enumeration value="HLS_7_ON_P3_ENABLE"/>
-      <xsd:enumeration value="HLS_6_ON_P0_ENABLE"/>
-      <xsd:enumeration value="HLS_7_ON_P0_ENABLE"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="GprsOperationModeType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="ALWAYS_ON"/>
-      <xsd:enumeration value="TRIGGERED"/>
-    </xsd:restriction>
-  </xsd:simpleType>
 
   <xsd:complexType name="PushSetupAlarm">
     <xsd:complexContent>
@@ -1039,7 +287,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="PushSetupSms">
     <xsd:sequence>
       <xsd:element name="Host" type="xsd:string">
@@ -1058,14 +305,11 @@
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
-
-  <!-- Set ActivityCalendar type -->
   <xsd:complexType name="SeasonsType">
     <xsd:sequence>
-      <xsd:element name="Season" type="tns:SeasonType" maxOccurs="4"/>
+      <xsd:element maxOccurs="4" name="Season" type="tns:SeasonType"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="SeasonType">
     <xsd:sequence>
       <xsd:element name="SeasonProfileName" type="tns:NameType"/>
@@ -1086,32 +330,23 @@
       <xsd:element name="Sunday" type="tns:DayType"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="DayType">
     <xsd:sequence>
       <xsd:element name="DayId" type="xsd:integer"/>
       <xsd:element name="DaySchedule" type="tns:DayProfileActionsType"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="DayProfileActionsType">
     <xsd:sequence>
-      <xsd:element name="DayProfileAction" type="tns:DayProfileActionType" maxOccurs="unbounded"/>
+      <xsd:element maxOccurs="unbounded" name="DayProfileAction" type="tns:DayProfileActionType"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="DayProfileActionType">
     <xsd:sequence>
       <xsd:element name="StartTime" type="common:CosemTimeType"/>
       <xsd:element name="ScriptSelector" type="xsd:integer"/>
     </xsd:sequence>
   </xsd:complexType>
-
-  <xsd:simpleType name="NameType">
-    <xsd:restriction base="common:AlphaNumericType">
-      <xsd:length value="8"/>
-    </xsd:restriction>
-  </xsd:simpleType>
 
   <xsd:complexType name="SetKeysRequestData">
     <xsd:complexContent>
@@ -1123,7 +358,6 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="SetClockConfigurationRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -1131,33 +365,31 @@
           <xsd:element name="TimeZoneOffset">
             <xsd:simpleType>
               <xsd:restriction base="xsd:short">
-                <xsd:minInclusive value="-720"/>
                 <xsd:maxInclusive value="720"/>
+                <xsd:minInclusive value="-720"/>
               </xsd:restriction>
             </xsd:simpleType>
           </xsd:element>
           <xsd:element name="DaylightSavingsBegin" type="common:CosemDateTimeType"/>
           <xsd:element name="DaylightSavingsEnd" type="common:CosemDateTimeType"/>
-          <xsd:element name="DaylightSavingsEnabled" type="xsd:boolean"
-                       default="true"/>
+          <xsd:element default="true" name="DaylightSavingsEnabled"
+            type="xsd:boolean"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="DefinableLoadProfileConfigurationData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
         <xsd:sequence>
-          <xsd:element name="CaptureObjects"
-                       type="common:CaptureObjectDefinitions" minOccurs="0"/>
-          <xsd:element name="CapturePeriod" type="xsd:unsignedInt"
-                       minOccurs="0"/>
+          <xsd:element minOccurs="0"
+            name="CaptureObjects" type="common:CaptureObjectDefinitions"/>
+          <xsd:element minOccurs="0" name="CapturePeriod"
+            type="xsd:unsignedInt"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="SetMbusUserKeyByChannelRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -1168,16 +400,6 @@
     </xsd:complexContent>
   </xsd:complexType>
 
-  <xsd:simpleType name="EncryptionKeyStatus">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="NO_ENCRYPTION_KEY"/>
-      <xsd:enumeration value="ENCRYPTION_KEY_SET"/>
-      <xsd:enumeration value="ENCRYPTION_KEY_TRANSFERRED"/>
-      <xsd:enumeration value="ENCRYPTION_KEY_SET_AND_TRANSFERRED"/>
-      <xsd:enumeration value="ENCRYPTION_KEY_IN_USE"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-
   <xsd:complexType name="GetMbusEncryptionKeyStatusByChannelRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -1187,53 +409,18 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
   <xsd:complexType name="GetMbusEncryptionKeyStatusByChannelResponseData">
     <xsd:complexContent>
       <xsd:extension base="common:Response">
         <xsd:sequence>
           <xsd:element name="GatewayDeviceIdentification"
-                       type="common:DeviceIdentification"/>
+            type="common:DeviceIdentification"/>
           <xsd:element name="EncryptionKeyStatus" type="tns:EncryptionKeyStatus"/>
           <xsd:element name="Channel" type="common:Channel"/>
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
-
-  <xsd:element name="SetRandomisationSettingsRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="SetRandomisationSettingsData"
-                     type="tns:SetRandomisationSettingsRequestData"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetRandomisationSettingsAsyncResponse">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncResponse"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetRandomisationSettingsAsyncRequest">
-    <xsd:complexType>
-      <xsd:complexContent>
-        <xsd:extension base="common:AsyncRequest"/>
-      </xsd:complexContent>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetRandomisationSettingsResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string"
-                     minOccurs="0"/>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:complexType name="SetRandomisationSettingsRequestData">
     <xsd:complexContent>
       <xsd:extension base="common:Command">
@@ -1270,5 +457,818 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:element name="SetSpecialDaysRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SpecialDaysRequestData" type="tns:SpecialDaysRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetSpecialDaysAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetSpecialDaysAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetSpecialDaysResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="UpdateFirmwareRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+        <xsd:element maxOccurs="unbounded" name="FirmwareVersion" type="tns:FirmwareVersion"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UpdateFirmwareAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UpdateFirmwareAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="UpdateFirmwareResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="FirmwareVersion" type="tns:FirmwareVersion"/>
+        </xsd:sequence>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetPushNotificationAlarmAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetPushNotificationAlarmResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element name="decodedMessage" type="xsd:string"/>
+        <xsd:element name="encodedMessage" type="xsd:hexBinary"/>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="alarm" type="common:AlarmType"/>
+        </xsd:sequence>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="FirmwareVersion" type="tns:FirmwareVersion"/>
+        </xsd:sequence>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionGasRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionGasAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionGasAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetFirmwareVersionGasResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:sequence>
+          <xsd:element name="FirmwareVersion" type="tns:FirmwareVersionGas"/>
+        </xsd:sequence>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetConfigurationObjectRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetConfigurationObjectRequestData"
+          type="tns:SetConfigurationObjectRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetConfigurationObjectAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetConfigurationObjectAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetConfigurationObjectResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetConfigurationObjectRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetConfigurationObjectAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetConfigurationObjectAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- This is a special type so that GetAdministrativeStatus is supported 
+    in bundle requests -->
+  <xsd:element name="GetConfigurationObjectResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="ConfigurationObject"
+          type="tns:ConfigurationObject"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetPushSetupAlarmRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetPushSetupAlarmRequestData"
+          type="tns:SetPushSetupAlarmRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetPushSetupAlarmAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetPushSetupAlarmAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetPushSetupAlarmResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetPushSetupSmsRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetPushSetupSmsRequestData" type="tns:SetPushSetupSmsRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetPushSetupSmsAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetPushSetupSmsAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetPushSetupSmsResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetAlarmNotificationsRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetAlarmNotificationsRequestData"
+          type="tns:SetAlarmNotificationsRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetAlarmNotificationsAsyncResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncResponse" type="common:AsyncResponse"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetAlarmNotificationsAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetAlarmNotificationsResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetEncryptionKeyExchangeOnGMeterRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetEncryptionKeyExchangeOnGMeterAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetEncryptionKeyExchangeOnGMeterAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetEncryptionKeyExchangeOnGMeterResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetMbusEncryptionKeyStatusRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetMbusEncryptionKeyStatusAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetMbusEncryptionKeyStatusAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetMbusEncryptionKeyStatusResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="EncryptionKeyStatus"
+          type="tns:EncryptionKeyStatus"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetMbusEncryptionKeyStatusByChannelRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="GatewayDeviceIdentification"
+          type="common:DeviceIdentification"/>
+        <xsd:element name="GetMbusEncryptionKeyStatusByChannelRequestData"
+          type="tns:GetMbusEncryptionKeyStatusByChannelRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetMbusEncryptionKeyStatusByChannelAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetMbusEncryptionKeyStatusByChannelAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetMbusEncryptionKeyStatusByChannelResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="EncryptionKeyStatus"
+          type="tns:EncryptionKeyStatus"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetActivityCalendarRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="ActivityCalendarData"
+          type="tns:SetActivityCalendarRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetActivityCalendarAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetActivityCalendarAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetActivityCalendarResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- DATATYPES -->
+
+  <xsd:element name="GetAdministrativeStatusRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetAdministrativeStatusAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetAdministrativeStatusAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetAdministrativeStatusResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Enabled" type="tns:AdministrativeStatusType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Administrative Status Types -->
+  <xsd:element name="SetAdministrativeStatusRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="Enabled" type="tns:AdministrativeStatusType"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Administrative Status Types -->
+  <xsd:element name="SetAdministrativeStatusAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetAdministrativeStatusAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetAdministrativeStatusResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ReplaceKeysRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetKeysRequestData" type="tns:SetKeysRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ReplaceKeysAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ReplaceKeysAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ReplaceKeysResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GenerateAndReplaceKeysRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GenerateAndReplaceKeysAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GenerateAndReplaceKeysAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GenerateAndReplaceKeysResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetClockConfigurationRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetClockConfigurationData"
+          type="tns:SetClockConfigurationRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- ConfigurationObjectFlagType -->
+  <xsd:element name="SetClockConfigurationAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetClockConfigurationAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetClockConfigurationResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ConfigureDefinableLoadProfileRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="DefinableLoadProfileConfigurationData"
+          type="tns:DefinableLoadProfileConfigurationData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- Set ActivityCalendar type -->
+  <xsd:element name="ConfigureDefinableLoadProfileAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ConfigureDefinableLoadProfileAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="ConfigureDefinableLoadProfileResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetMbusUserKeyByChannelRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetMbusUserKeyByChannelRequestData"
+          type="tns:SetMbusUserKeyByChannelRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetMbusUserKeyByChannelAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetMbusUserKeyByChannelAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetMbusUserKeyByChannelResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetRandomisationSettingsRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
+        <xsd:element name="SetRandomisationSettingsData"
+          type="tns:SetRandomisationSettingsRequestData"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetRandomisationSettingsAsyncResponse">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncResponse"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetRandomisationSettingsAsyncRequest">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="common:AsyncRequest"/>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SetRandomisationSettingsResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Result" type="common:OsgpResultType"/>
+        <xsd:element minOccurs="0" name="Description"
+          type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+    schemaLocation="common.xsd"/>
+
+  <xsd:simpleType name="FirmwareModuleType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="ACTIVE_FIRMWARE"/>
+      <xsd:enumeration value="MODULE_ACTIVE_FIRMWARE"/>
+      <xsd:enumeration value="COMMUNICATION_MODULE_ACTIVE_FIRMWARE"/>
+      <xsd:enumeration value="M_BUS_DRIVER_ACTIVE_FIRMWARE"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="FirmwareModuleGasType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="SIMPLE_VERSION_INFO"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="AdministrativeStatusType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="UNDEFINED"/>
+      <xsd:enumeration value="OFF"/>
+      <xsd:enumeration value="ON"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="ConfigurationFlagType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="DISCOVER_ON_OPEN_COVER"/>
+      <xsd:enumeration value="DISCOVER_ON_POWER_ON"/>
+      <xsd:enumeration value="DYNAMIC_MBUS_ADDRESS"/>
+      <xsd:enumeration value="PO_ENABLE"/>
+      <xsd:enumeration value="HLS_3_ON_P3_ENABLE"/>
+      <xsd:enumeration value="HLS_4_ON_P3_ENABLE"/>
+      <xsd:enumeration value="HLS_5_ON_P3_ENABLE"/>
+      <xsd:enumeration value="HLS_3_ON_PO_ENABLE"/>
+      <xsd:enumeration value="HLS_4_ON_PO_ENABLE"/>
+      <xsd:enumeration value="HLS_5_ON_PO_ENABLE"/>
+      <xsd:enumeration value="DIRECT_ATTACH_AT_POWER_ON"/>
+      <xsd:enumeration value="HLS_6_ON_P3_ENABLE"/>
+      <xsd:enumeration value="HLS_7_ON_P3_ENABLE"/>
+      <xsd:enumeration value="HLS_6_ON_P0_ENABLE"/>
+      <xsd:enumeration value="HLS_7_ON_P0_ENABLE"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="GprsOperationModeType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="ALWAYS_ON"/>
+      <xsd:enumeration value="TRIGGERED"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="NameType">
+    <xsd:restriction base="common:AlphaNumericType">
+      <xsd:length value="8"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="EncryptionKeyStatus">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="NO_ENCRYPTION_KEY"/>
+      <xsd:enumeration value="ENCRYPTION_KEY_SET"/>
+      <xsd:enumeration value="ENCRYPTION_KEY_TRANSFERRED"/>
+      <xsd:enumeration value="ENCRYPTION_KEY_SET_AND_TRANSFERRED"/>
+      <xsd:enumeration value="ENCRYPTION_KEY_IN_USE"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 
 </xsd:schema>

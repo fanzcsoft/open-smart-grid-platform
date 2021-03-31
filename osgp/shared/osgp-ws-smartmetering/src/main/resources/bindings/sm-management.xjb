@@ -7,101 +7,129 @@
         http://www.apache.org/licenses/LICENSE-2.0
 
 -->
-<jxb:bindings version="2.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-  <jxb:globalBindings typesafeEnumMemberName="generateName" choiceContentProperty="true"/>
+<jxb:bindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  version="2.0">
 
   <jxb:bindings schemaLocation="../schemas/sm-management.xsd">
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_DOWN_PHASE_L1_ISKR']">
+      <jxb:typesafeEnumMember name="POWER_DOWN_PHASE_L1_ISKR"/>
+    </jxb:bindings>
+    <!-- the following bindings are needed because the XJC transformer will change L1 to L_1 etc -->
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_DOWN_PHASE_L2_ISKR']">
+      <jxb:typesafeEnumMember name="POWER_DOWN_PHASE_L2_ISKR"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_DOWN_PHASE_L3_ISKR']">
+      <jxb:typesafeEnumMember name="POWER_DOWN_PHASE_L3_ISKR"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_RESTORED_PHASE_L1_ISKR']">
+      <jxb:typesafeEnumMember name="POWER_RESTORED_PHASE_L1_ISKR"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_RESTORED_PHASE_L2_ISKR']">
+      <jxb:typesafeEnumMember name="POWER_RESTORED_PHASE_L2_ISKR"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_RESTORED_PHASE_L3_ISKR']">
+      <jxb:typesafeEnumMember name="POWER_RESTORED_PHASE_L3_ISKR"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L1']">
+      <jxb:typesafeEnumMember name="PHASE_RETURNED_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L1']">
+      <jxb:typesafeEnumMember name="PHASE_RETURNED_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L2']">
+      <jxb:typesafeEnumMember name="PHASE_RETURNED_L2"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L3']">
+      <jxb:typesafeEnumMember name="PHASE_RETURNED_L3"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='UNDER_VOLTAGE_L1']">
+      <jxb:typesafeEnumMember name="UNDER_VOLTAGE_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='UNDER_VOLTAGE_L2']">
+      <jxb:typesafeEnumMember name="UNDER_VOLTAGE_L2"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='UNDER_VOLTAGE_L3']">
+      <jxb:typesafeEnumMember name="UNDER_VOLTAGE_L3"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='OVER_VOLTAGE_L1']">
+      <jxb:typesafeEnumMember name="OVER_VOLTAGE_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='OVER_VOLTAGE_L2']">
+      <jxb:typesafeEnumMember name="OVER_VOLTAGE_L2"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='OVER_VOLTAGE_L3']">
+      <jxb:typesafeEnumMember name="OVER_VOLTAGE_L3"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='VOLTAGE_L1_NORMAL']">
+      <jxb:typesafeEnumMember name="VOLTAGE_L1_NORMAL"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='VOLTAGE_L2_NORMAL']">
+      <jxb:typesafeEnumMember name="VOLTAGE_L2_NORMAL"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='VOLTAGE_L3_NORMAL']">
+      <jxb:typesafeEnumMember name="VOLTAGE_L3_NORMAL"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_OUTAGE_L1']">
+      <jxb:typesafeEnumMember name="PHASE_OUTAGE_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_OUTAGE_L2']">
+      <jxb:typesafeEnumMember name="PHASE_OUTAGE_L2"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_OUTAGE_L3']">
+      <jxb:typesafeEnumMember name="PHASE_OUTAGE_L3"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SAG_L1']">
+      <jxb:typesafeEnumMember name="PV_VOLTAGE_SAG_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SAG_L2']">
+      <jxb:typesafeEnumMember name="PV_VOLTAGE_SAG_L2"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SAG_L3']">
+      <jxb:typesafeEnumMember name="PV_VOLTAGE_SAG_L3"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SWELL_L1']">
+      <jxb:typesafeEnumMember name="PV_VOLTAGE_SWELL_L1"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SWELL_L2']">
+      <jxb:typesafeEnumMember name="PV_VOLTAGE_SWELL_L2"/>
+    </jxb:bindings>
+    <jxb:bindings
+      node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SWELL_L3']">
+      <jxb:typesafeEnumMember name="PV_VOLTAGE_SWELL_L3"/>
+    </jxb:bindings>
     <jxb:schemaBindings>
       <jxb:package
         name="org.opensmartgridplatform.adapter.ws.schema.smartmetering.management"></jxb:package>
     </jxb:schemaBindings>
-    <!-- the following bindings are needed because the XJC transformer will change L1 to L_1 etc -->
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_DOWN_PHASE_L1_ISKR']">
-        <jxb:typesafeEnumMember name="POWER_DOWN_PHASE_L1_ISKR"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_DOWN_PHASE_L2_ISKR']">
-        <jxb:typesafeEnumMember name="POWER_DOWN_PHASE_L2_ISKR"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_DOWN_PHASE_L3_ISKR']">
-        <jxb:typesafeEnumMember name="POWER_DOWN_PHASE_L3_ISKR"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_RESTORED_PHASE_L1_ISKR']">
-       <jxb:typesafeEnumMember name="POWER_RESTORED_PHASE_L1_ISKR"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_RESTORED_PHASE_L2_ISKR']">
-       <jxb:typesafeEnumMember name="POWER_RESTORED_PHASE_L2_ISKR"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='POWER_RESTORED_PHASE_L3_ISKR']">
-        <jxb:typesafeEnumMember name="POWER_RESTORED_PHASE_L3_ISKR"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L1']">
-       <jxb:typesafeEnumMember name="PHASE_RETURNED_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L1']">
-        <jxb:typesafeEnumMember name="PHASE_RETURNED_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L2']">
-        <jxb:typesafeEnumMember name="PHASE_RETURNED_L2"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_RETURNED_L3']">
-        <jxb:typesafeEnumMember name="PHASE_RETURNED_L3"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='UNDER_VOLTAGE_L1']">
-        <jxb:typesafeEnumMember name="UNDER_VOLTAGE_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='UNDER_VOLTAGE_L2']">
-            <jxb:typesafeEnumMember name="UNDER_VOLTAGE_L2"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='UNDER_VOLTAGE_L3']">
-          <jxb:typesafeEnumMember name="UNDER_VOLTAGE_L3"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='OVER_VOLTAGE_L1']">
-        <jxb:typesafeEnumMember name="OVER_VOLTAGE_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='OVER_VOLTAGE_L2']">
-            <jxb:typesafeEnumMember name="OVER_VOLTAGE_L2"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='OVER_VOLTAGE_L3']">
-          <jxb:typesafeEnumMember name="OVER_VOLTAGE_L3"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='VOLTAGE_L1_NORMAL']">
-        <jxb:typesafeEnumMember name="VOLTAGE_L1_NORMAL"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='VOLTAGE_L2_NORMAL']">
-            <jxb:typesafeEnumMember name="VOLTAGE_L2_NORMAL"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='VOLTAGE_L3_NORMAL']">
-          <jxb:typesafeEnumMember name="VOLTAGE_L3_NORMAL"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_OUTAGE_L1']">
-        <jxb:typesafeEnumMember name="PHASE_OUTAGE_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_OUTAGE_L2']">
-            <jxb:typesafeEnumMember name="PHASE_OUTAGE_L2"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PHASE_OUTAGE_L3']">
-          <jxb:typesafeEnumMember name="PHASE_OUTAGE_L3"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SAG_L1']">
-        <jxb:typesafeEnumMember name="PV_VOLTAGE_SAG_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SAG_L2']">
-            <jxb:typesafeEnumMember name="PV_VOLTAGE_SAG_L2"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SAG_L3']">
-          <jxb:typesafeEnumMember name="PV_VOLTAGE_SAG_L3"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SWELL_L1']">
-        <jxb:typesafeEnumMember name="PV_VOLTAGE_SWELL_L1"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SWELL_L2']">
-          <jxb:typesafeEnumMember name="PV_VOLTAGE_SWELL_L2"/>
-    </jxb:bindings>
-    <jxb:bindings node="//xs:simpleType[@name='EventType']/xs:restriction/xs:enumeration[@value='PV_VOLTAGE_SWELL_L3']">
-          <jxb:typesafeEnumMember name="PV_VOLTAGE_SWELL_L3"/>
-    </jxb:bindings>
   </jxb:bindings>
+
+  <jxb:globalBindings choiceContentProperty="true" typesafeEnumMemberName="generateName"/>
 
 </jxb:bindings>

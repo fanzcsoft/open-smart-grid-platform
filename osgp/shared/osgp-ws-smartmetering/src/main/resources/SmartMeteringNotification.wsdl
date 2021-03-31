@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Platform version: ${display.version} -->
 
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+<wsdl:definitions xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:sminst="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-notification/2014/10"
-  xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
   xmlns:tns="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-notification-v1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
   targetNamespace="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-notification-v1.0">
 
-  <wsdl:types>
-    <xsd:schema
-      targetNamespace="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-notification/imports"
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:binding name="SmartMeteringNotificationPortSoap11"
+    type="tns:SmartMeteringNotificationPort">
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http"/>
 
-      <xsd:import
-        namespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-notification/2014/10"
-        schemaLocation="schemas/sm-notification.xsd" />
-    </xsd:schema>
-  </wsdl:types>
+    <wsdl:operation name="SendNotification">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SendNotificationRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SendNotificationHeader"
+          part="UserName" use="literal"/>
+        <soap:header message="tns:SendNotificationHeader"
+          part="ApplicationName" use="literal"/>
+        <soap:header message="tns:SendNotificationHeader"
+          part="OrganisationIdentification" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SendNotificationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
 
-  <wsdl:message name="SendNotificationHeader">
-    <wsdl:part element="common:OrganisationIdentification"
-      name="OrganisationIdentification" />
-    <wsdl:part element="common:UserName" name="UserName" />
-    <wsdl:part element="common:ApplicationName" name="ApplicationName" />
-  </wsdl:message>
+  </wsdl:binding>
+
   <wsdl:message name="SendNotificationResponse">
     <wsdl:part element="sminst:SendNotificationResponse" name="SendNotificationResponse">
     </wsdl:part>
@@ -32,6 +38,12 @@
   <wsdl:message name="SendNotificationRequest">
     <wsdl:part element="sminst:SendNotificationRequest" name="SendNotificationRequest">
     </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SendNotificationHeader">
+    <wsdl:part element="common:OrganisationIdentification"
+      name="OrganisationIdentification"/>
+    <wsdl:part element="common:UserName" name="UserName"/>
+    <wsdl:part element="common:ApplicationName" name="ApplicationName"/>
   </wsdl:message>
 
   <wsdl:portType name="SmartMeteringNotificationPort">
@@ -46,33 +58,21 @@
 
   </wsdl:portType>
 
-  <wsdl:binding name="SmartMeteringNotificationPortSoap11"
-    type="tns:SmartMeteringNotificationPort">
-    <soap:binding style="document"
-      transport="http://schemas.xmlsoap.org/soap/http" />
-
-    <wsdl:operation name="SendNotification">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SendNotificationRequest">
-        <soap:header message="tns:SendNotificationHeader"
-          part="OrganisationIdentification" use="literal" />
-        <soap:header message="tns:SendNotificationHeader"
-          part="UserName" use="literal" />
-        <soap:header message="tns:SendNotificationHeader"
-          part="ApplicationName" use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SendNotificationResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-  </wsdl:binding>
   <wsdl:service name="SmartMeteringNotificationPortService">
     <wsdl:port binding="tns:SmartMeteringNotificationPortSoap11"
       name="SmartMeteringNotificationPortSoap11">
       <soap:address
-        location="http://localhost:8080/osgp-adapter-ws-smartmetering/smartMetering/notificationService/" />
+        location="http://localhost:8080/osgp-adapter-ws-smartmetering/smartMetering/notificationService/"/>
     </wsdl:port>
   </wsdl:service>
+  <wsdl:types>
+    <xsd:schema
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-notification/imports">
+
+      <xsd:import
+        namespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-notification/2014/10"
+        schemaLocation="schemas/sm-notification.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
 </wsdl:definitions>

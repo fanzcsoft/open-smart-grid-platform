@@ -8,22 +8,24 @@
 
 -->
 <jxb:bindings
-  version="2.0"
   xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  version="2.0">
 
   <jxb:bindings schemaLocation="../schemas/sm-adhoc.xsd">
-    <jxb:schemaBindings>
-      <jxb:package name="org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc"></jxb:package>
-    </jxb:schemaBindings>
-
-    <jxb:bindings node="//xs:element[@name='ScanMbusChannelsResponse']//xs:element[@name='ChannelShortId']">
-      <jxb:property name="channelShortIds" />
+    <jxb:bindings
+      node="//xs:element[@name='ScanMbusChannelsResponse']//xs:element[@name='ChannelShortId']">
+      <jxb:property name="channelShortIds"/>
     </jxb:bindings>
+
     <jxb:bindings
       node="//xs:complexType[@name='ScanMbusChannelsResponseData']//xs:element[@name='ChannelShortId']">
-      <jxb:property name="channelShortIds" />
+      <jxb:property name="channelShortIds"/>
     </jxb:bindings>
+    <jxb:schemaBindings>
+      <jxb:package
+        name="org.opensmartgridplatform.adapter.ws.schema.smartmetering.adhoc"></jxb:package>
+    </jxb:schemaBindings>
   </jxb:bindings>
 
 </jxb:bindings>

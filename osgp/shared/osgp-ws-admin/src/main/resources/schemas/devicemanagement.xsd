@@ -7,72 +7,188 @@
         http://www.apache.org/licenses/LICENSE-2.0
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+<xsd:schema xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:tns="http://www.opensmartgridplatform.org/schemas/admin/devicemanagement/2014/10"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   attributeFormDefault="unqualified" elementFormDefault="qualified"
   targetNamespace="http://www.opensmartgridplatform.org/schemas/admin/devicemanagement/2014/10">
 
-  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-    schemaLocation="common.xsd" />
+  <xsd:complexType name="ProtocolInfo">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:long"/>
+      <xsd:element name="Protocol" type="tns:ProtocolType"/>
+      <xsd:element name="ProtocolVersion" type="tns:ProtocolVersionType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Device">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="DeviceUid"
+        type="xsd:string"/>
+      <xsd:element name="DeviceIdentification" type="common:Identification"/>
+      <xsd:element minOccurs="0" name="Owner" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ContainerPostalCode"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ContainerCity"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ContainerStreet"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ContainerNumber"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="GpsLatitude"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="GpsLongitude"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="NetworkAddress"
+        type="tns:IPType"/>
+      <xsd:element minOccurs="0" name="DeviceType"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="Activated"
+        type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="HasSchedule"
+        type="xsd:boolean"/>
+      <xsd:element minOccurs="0" name="PublicKeyPresent"
+        type="xsd:boolean"/>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="0"
+          name="Organisations" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DevicePage">
+    <xsd:sequence>
+      <xsd:element name="TotalPages" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" name="Devices"
+        type="tns:Device"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeviceFilter">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="OrganisationIdentification"
+        type="common:Identification"/>
+      <xsd:element minOccurs="0" name="DeviceIdentification"
+        type="xsd:string"/>
+      <xsd:element minOccurs="0" name="City" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="PostalCode" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="Street" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="Number" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="SortDir" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="SortedBy" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Organisation">
+    <xsd:sequence>
+      <xsd:element name="OrganisationIdentification" type="common:Identification"/>
+      <xsd:element name="Name" type="xsd:string"/>
+      <xsd:element name="Prefix" type="xsd:string"/>
+      <xsd:element name="FunctionGroup" type="tns:PlatformFunctionGroup"/>
+      <xsd:element name="Enabled" type="xsd:boolean"/>
+      <xsd:element maxOccurs="unbounded" name="Domains"
+        type="tns:PlatformDomain"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageLog">
+    <xsd:sequence>
+      <xsd:element name="Timestamp" type="xsd:dateTime"/>
+      <xsd:element name="OrganisationIdentification" type="common:Identification"/>
+      <xsd:element name="DeviceUid" type="xsd:string"/>
+      <xsd:element name="DeviceIdentification" type="common:Identification"/>
+      <xsd:element name="DecodedMessage" type="xsd:string"/>
+      <xsd:element name="EncodedMessage" type="xsd:string"/>
+      <xsd:element name="Incoming" type="xsd:boolean"/>
+      <xsd:element name="Valid" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageLogPage">
+    <xsd:sequence>
+      <xsd:element minOccurs="1" name="NextPageAvailable" type="xsd:boolean"/>
+      <xsd:element maxOccurs="unbounded" name="MessageLogs"
+        type="tns:MessageLog"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageLogFilter">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="DeviceIdentification" type="common:Identification"/>
+      <xsd:element minOccurs="0" name="OrganisationIdentification" type="common:Identification"/>
+      <xsd:element minOccurs="0" name="StartTime" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="EndTime" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="SortBy" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="SortDirection" type="tns:SortDirectionEnum"/>
+      <xsd:element name="Page" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DeviceAuthorisation">
+    <xsd:sequence>
+      <xsd:element name="deviceIdentification" type="common:Identification"/>
+      <xsd:element name="organisationIdentification" type="common:Identification"/>
+      <xsd:element name="functionGroup" type="tns:DeviceFunctionGroup"/>
+      <xsd:element minOccurs="0" name="revoked"
+        type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
 
   <xsd:element name="CreateOrganisationRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Organisation" type="tns:Organisation" />
+        <xsd:element name="Organisation" type="tns:Organisation"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="CreateOrganisationResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
-
   <xsd:element name="RemoveOrganisationRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="OrganisationIdentification" type="common:Identification" />
+        <xsd:element name="OrganisationIdentification" type="common:Identification"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="RemoveOrganisationResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="ActivateOrganisationRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="OrganisationIdentification" type="common:Identification" />
+        <xsd:element name="OrganisationIdentification" type="common:Identification"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="ActivateOrganisationResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="ChangeOrganisationRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="OrganisationIdentification" type="common:Identification" />
-        <xsd:element name="NewOrganisationName" type="xsd:string" />
+        <xsd:element name="OrganisationIdentification" type="common:Identification"/>
+        <xsd:element name="NewOrganisationName" type="xsd:string"/>
         <xsd:element name="NewOrganisationPlatformFunctionGroup"
-          type="tns:PlatformFunctionGroup" />
-        <xsd:element name="NewOrganisationPlatformDomains"
-          type="tns:PlatformDomain" maxOccurs="unbounded" />
+          type="tns:PlatformFunctionGroup"/>
+        <xsd:element maxOccurs="unbounded"
+          name="NewOrganisationPlatformDomains" type="tns:PlatformDomain"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="ChangeOrganisationResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
-
   <xsd:element name="FindMessageLogsRequest">
     <xsd:complexType>
       <xsd:sequence>
-		<xsd:element name="MessageLogFilter" type="tns:MessageLogFilter" />
+        <xsd:element name="MessageLogFilter" type="tns:MessageLogFilter"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -80,27 +196,28 @@
   <xsd:element name="FindMessageLogsResponse">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="MessageLogPage" type="tns:MessageLogPage" />
+        <xsd:element name="MessageLogPage" type="tns:MessageLogPage"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="UpdateDeviceAuthorisationsRequest">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element maxOccurs="unbounded" name="DeviceAuthorisations"
-          type="tns:DeviceAuthorisation" />
+          type="tns:DeviceAuthorisation"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="UpdateDeviceAuthorisationsResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="FindDeviceAuthorisationsRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -109,7 +226,7 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element maxOccurs="unbounded" minOccurs="0"
-          name="DeviceAuthorisations" type="tns:DeviceAuthorisation" />
+          name="DeviceAuthorisations" type="tns:DeviceAuthorisation"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -117,14 +234,15 @@
   <xsd:element name="RemoveDeviceRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="RemoveDeviceResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
+
   <xsd:element name="FindDevicesWhichHaveNoOwnerRequest">
     <xsd:complexType>
       <xsd:sequence>
@@ -136,7 +254,7 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element maxOccurs="unbounded" name="Devices"
-          type="tns:Device" />
+          type="tns:Device"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -144,51 +262,51 @@
   <xsd:element name="SetOwnerRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
-        <xsd:element name="OrganisationIdentification" type="common:Identification" />
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+        <xsd:element name="OrganisationIdentification" type="common:Identification"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="SetOwnerResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="UpdateKeyRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
-        <xsd:element name="PublicKey" type="xsd:string" />
-        <xsd:element type="xsd:long" name="ProtocolInfoId" />
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+        <xsd:element name="PublicKey" type="xsd:string"/>
+        <xsd:element name="ProtocolInfoId" type="xsd:long"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="UpdateKeyResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="RevokeKeyRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="RevokeKeyResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="GetProtocolInfosRequest">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
   <xsd:element name="GetProtocolInfosResponse">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="ProtocolInfos" type="tns:ProtocolInfo"
-          minOccurs="0" maxOccurs="unbounded" />
+        <xsd:element maxOccurs="unbounded" minOccurs="0"
+          name="ProtocolInfos" type="tns:ProtocolInfo"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -196,192 +314,74 @@
   <xsd:element name="UpdateDeviceProtocolRequest">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
-        <xsd:element name="ProtocolInfo" type="tns:ProtocolInfo" />
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+        <xsd:element name="ProtocolInfo" type="tns:ProtocolInfo"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
   <xsd:element name="UpdateDeviceProtocolResponse">
-    <xsd:complexType />
+    <xsd:complexType/>
   </xsd:element>
 
-  <xsd:complexType name="ProtocolInfo">
-    <xsd:sequence>
-      <xsd:element type="xsd:long" name="Id" />
-      <xsd:element name="Protocol" type="tns:ProtocolType" />
-      <xsd:element name="ProtocolVersion" type="tns:ProtocolVersionType" />
-    </xsd:sequence>
-  </xsd:complexType>
+  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+    schemaLocation="common.xsd"/>
 
   <xsd:simpleType name="ProtocolType">
     <xsd:restriction base="xsd:string">
-      <xsd:minLength value="1" />
-      <xsd:maxLength value="255" />
+      <xsd:maxLength value="255"/>
+      <xsd:minLength value="1"/>
     </xsd:restriction>
   </xsd:simpleType>
 
   <xsd:simpleType name="ProtocolVersionType">
     <xsd:restriction base="xsd:string">
-      <xsd:minLength value="1" />
-      <xsd:maxLength value="255" />
+      <xsd:maxLength value="255"/>
+      <xsd:minLength value="1"/>
     </xsd:restriction>
   </xsd:simpleType>
 
   <xsd:simpleType name="IPType">
     <xsd:restriction base="xsd:string">
       <xsd:pattern
-        value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])" />
+        value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])"/>
     </xsd:restriction>
   </xsd:simpleType>
 
-  <xsd:complexType name="Device">
-    <xsd:sequence>
-      <xsd:element name="DeviceUid" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="DeviceIdentification" type="common:Identification" />
-      <xsd:element name="Owner" type="xsd:string" minOccurs="0" />
-      <xsd:element name="ContainerPostalCode" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="ContainerCity" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="ContainerStreet" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="ContainerNumber" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="GpsLatitude" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="GpsLongitude" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="NetworkAddress" type="tns:IPType"
-        minOccurs="0" />
-      <xsd:element name="DeviceType" type="xsd:string"
-        minOccurs="0" />
-      <xsd:element name="Activated" type="xsd:boolean"
-        minOccurs="0" />
-      <xsd:element name="HasSchedule" type="xsd:boolean"
-        minOccurs="0" />
-      <xsd:element name="PublicKeyPresent" type="xsd:boolean"
-        minOccurs="0" />
-      <xsd:sequence>
-        <xsd:element name="Organisations" type="xsd:string"
-          minOccurs="0" maxOccurs="unbounded" />
-      </xsd:sequence>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="DevicePage">
-    <xsd:sequence>
-      <xsd:element name="TotalPages" type="xsd:int" />
-      <xsd:element maxOccurs="unbounded" name="Devices"
-        type="tns:Device" />
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="DeviceFilter">
-    <xsd:sequence>
-      <xsd:element minOccurs="0" name="OrganisationIdentification"
-        type="common:Identification" />
-      <xsd:element minOccurs="0" name="DeviceIdentification"
-        type="xsd:string" />
-      <xsd:element minOccurs="0" name="City" type="xsd:string" />
-      <xsd:element minOccurs="0" name="PostalCode" type="xsd:string" />
-      <xsd:element minOccurs="0" name="Street" type="xsd:string" />
-      <xsd:element minOccurs="0" name="Number" type="xsd:string" />
-      <xsd:element minOccurs="0" name="SortDir" type="xsd:string" />
-      <xsd:element minOccurs="0" name="SortedBy" type="xsd:string" />
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="Organisation">
-    <xsd:sequence>
-      <xsd:element name="OrganisationIdentification" type="common:Identification" />
-      <xsd:element name="Name" type="xsd:string" />
-      <xsd:element name="Prefix" type="xsd:string" />
-      <xsd:element name="FunctionGroup" type="tns:PlatformFunctionGroup" />
-      <xsd:element name="Enabled" type="xsd:boolean" />
-      <xsd:element name="Domains" type="tns:PlatformDomain"
-        maxOccurs="unbounded" />
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="MessageLog">
-    <xsd:sequence>
-      <xsd:element name="Timestamp" type="xsd:dateTime" />
-      <xsd:element name="OrganisationIdentification" type="common:Identification" />
-      <xsd:element name="DeviceUid" type="xsd:string" />
-      <xsd:element name="DeviceIdentification" type="common:Identification" />
-      <xsd:element name="DecodedMessage" type="xsd:string" />
-      <xsd:element name="EncodedMessage" type="xsd:string" />
-      <xsd:element name="Incoming" type="xsd:boolean" />
-      <xsd:element name="Valid" type="xsd:boolean" />
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="MessageLogPage">
-    <xsd:sequence>
-      <xsd:element minOccurs="1" name="NextPageAvailable" type="xsd:boolean" />
-      <xsd:element maxOccurs="unbounded" name="MessageLogs"
-        type="tns:MessageLog" />
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="MessageLogFilter">
-    <xsd:sequence>
-      <xsd:element minOccurs="0" name="DeviceIdentification" type="common:Identification" />
-      <xsd:element minOccurs="0" name="OrganisationIdentification" type="common:Identification" />
-      <xsd:element minOccurs="0" name="StartTime" type="xsd:dateTime" />
-      <xsd:element minOccurs="0" name="EndTime" type="xsd:dateTime" />
-      <xsd:element minOccurs="0" name="SortBy" type="xsd:string" />
-      <xsd:element minOccurs="0" name="SortDirection" type="tns:SortDirectionEnum" />
-      <xsd:element name="Page" type="xsd:int" />
-    </xsd:sequence>
-  </xsd:complexType>
-
   <xsd:simpleType name="PlatformFunctionGroup">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="ADMIN" />
-      <xsd:enumeration value="USER" />
+      <xsd:enumeration value="ADMIN"/>
+      <xsd:enumeration value="USER"/>
     </xsd:restriction>
   </xsd:simpleType>
 
   <xsd:simpleType name="DeviceFunctionGroup">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="OWNER" />
-      <xsd:enumeration value="INSTALLATION" />
-      <xsd:enumeration value="AD_HOC" />
-      <xsd:enumeration value="MANAGEMENT" />
-      <xsd:enumeration value="FIRMWARE" />
-      <xsd:enumeration value="SCHEDULING" />
-      <xsd:enumeration value="TARIFF_SCHEDULING" />
-      <xsd:enumeration value="CONFIGURATION" />
-      <xsd:enumeration value="MONITORING" />
-      <xsd:enumeration value="METADATA_MANAGEMENT" />
+      <xsd:enumeration value="OWNER"/>
+      <xsd:enumeration value="INSTALLATION"/>
+      <xsd:enumeration value="AD_HOC"/>
+      <xsd:enumeration value="MANAGEMENT"/>
+      <xsd:enumeration value="FIRMWARE"/>
+      <xsd:enumeration value="SCHEDULING"/>
+      <xsd:enumeration value="TARIFF_SCHEDULING"/>
+      <xsd:enumeration value="CONFIGURATION"/>
+      <xsd:enumeration value="MONITORING"/>
+      <xsd:enumeration value="METADATA_MANAGEMENT"/>
     </xsd:restriction>
   </xsd:simpleType>
 
   <xsd:simpleType name="PlatformDomain">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="COMMON" />
-      <xsd:enumeration value="PUBLIC_LIGHTING" />
-      <xsd:enumeration value="TARIFF_SWITCHING" />
+      <xsd:enumeration value="COMMON"/>
+      <xsd:enumeration value="PUBLIC_LIGHTING"/>
+      <xsd:enumeration value="TARIFF_SWITCHING"/>
     </xsd:restriction>
   </xsd:simpleType>
 
-  <xsd:complexType name="DeviceAuthorisation">
-    <xsd:sequence>
-      <xsd:element name="deviceIdentification" type="common:Identification" />
-      <xsd:element name="organisationIdentification" type="common:Identification" />
-      <xsd:element name="functionGroup" type="tns:DeviceFunctionGroup" />
-      <xsd:element name="revoked" type="xsd:boolean"
-        minOccurs="0" />
-    </xsd:sequence>
-  </xsd:complexType>
-
   <xsd:simpleType name="SortDirectionEnum">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="ASC" />
-      <xsd:enumeration value="DESC" />
+      <xsd:enumeration value="ASC"/>
+      <xsd:enumeration value="DESC"/>
     </xsd:restriction>
   </xsd:simpleType>
 </xsd:schema>

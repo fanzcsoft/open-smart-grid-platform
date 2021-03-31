@@ -1,29 +1,234 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Platform version: ${display.version} -->
 
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+<wsdl:definitions xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:smman="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10"
-  xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
   xmlns:tns="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-management-v1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
   targetNamespace="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-management-v1.0">
 
-  <wsdl:types>
-    <xsd:schema
-      targetNamespace="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-management/imports"
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:binding name="SmartMeteringManagementPortSoap11"
+    type="tns:SmartMeteringManagementPort">
 
-      <xsd:import
-        namespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10"
-        schemaLocation="schemas/sm-management.xsd" />
-    </xsd:schema>
-  </wsdl:types>
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <wsdl:operation name="FindEvents">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindEventsRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindEventsAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetFindEventsResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindEventsAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindEventsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetDevices">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetDevicesRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDevicesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="EnableDebugging">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="EnableDebuggingRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="EnableDebuggingAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetEnableDebuggingResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="EnableDebuggingAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="EnableDebuggingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="DisableDebugging">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="DisableDebuggingRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="DisableDebuggingAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetDisableDebuggingResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="DisableDebuggingAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="DisableDebuggingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="FindMessageLogs">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindMessageLogsRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindMessageLogsAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetFindMessageLogsResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindMessageLogsAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindMessageLogsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="SetDeviceCommunicationSettings">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceCommunicationSettingsRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceCommunicationSettingsAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetSetDeviceCommunicationSettingsResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceCommunicationSettingsAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceCommunicationSettingsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="SetDeviceLifecycleStatusByChannel">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceLifecycleStatusByChannelRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceLifecycleStatusByChannelAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetSetDeviceLifecycleStatusByChannelResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetDeviceLifecycleStatusByChannelAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:ActionHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetDeviceLifecycleStatusByChannelResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+  </wsdl:binding>
 
   <wsdl:message name="ActionHeader">
     <wsdl:part element="common:OrganisationIdentification"
-      name="OrganisationIdentification" />
-    <wsdl:part element="common:UserName" name="UserName" />
-    <wsdl:part element="common:ApplicationName" name="ApplicationName" />
+      name="OrganisationIdentification"/>
+    <wsdl:part element="common:UserName" name="UserName"/>
+    <wsdl:part element="common:ApplicationName" name="ApplicationName"/>
   </wsdl:message>
 
   <wsdl:message name="FindEventsRequest">
@@ -268,228 +473,23 @@
 
   </wsdl:portType>
 
-  <wsdl:binding name="SmartMeteringManagementPortSoap11"
-    type="tns:SmartMeteringManagementPort">
-
-    <soap:binding style="document"
-      transport="http://schemas.xmlsoap.org/soap/http" />
-
-    <wsdl:operation name="FindEvents">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindEventsRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindEventsAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetFindEventsResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindEventsAsyncRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindEventsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetDevices">
-      <soap:operation soapAction="" />
-      <wsdl:input name="GetDevicesRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="GetDevicesResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="EnableDebugging">
-      <soap:operation soapAction="" />
-      <wsdl:input name="EnableDebuggingRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="EnableDebuggingAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetEnableDebuggingResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="EnableDebuggingAsyncRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="EnableDebuggingResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="DisableDebugging">
-      <soap:operation soapAction="" />
-      <wsdl:input name="DisableDebuggingRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="DisableDebuggingAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetDisableDebuggingResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="DisableDebuggingAsyncRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="DisableDebuggingResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="FindMessageLogs">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindMessageLogsRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindMessageLogsAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetFindMessageLogsResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindMessageLogsAsyncRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindMessageLogsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="SetDeviceCommunicationSettings">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetDeviceCommunicationSettingsRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetDeviceCommunicationSettingsAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetSetDeviceCommunicationSettingsResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetDeviceCommunicationSettingsAsyncRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetDeviceCommunicationSettingsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-      <wsdl:operation name="SetDeviceLifecycleStatusByChannel">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetDeviceLifecycleStatusByChannelRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetDeviceLifecycleStatusByChannelAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetSetDeviceLifecycleStatusByChannelResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetDeviceLifecycleStatusByChannelAsyncRequest">
-        <soap:header message="tns:ActionHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:ActionHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetDeviceLifecycleStatusByChannelResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-  </wsdl:binding>
-
   <wsdl:service name="SmartMeteringManagementPortService">
     <wsdl:port binding="tns:SmartMeteringManagementPortSoap11"
       name="SmartMeteringManagementPortSoap11">
       <soap:address
-        location="http://localhost:8080/osgp-adapter-ws-smartmetering/smartMetering/managementService/" />
+        location="http://localhost:8080/osgp-adapter-ws-smartmetering/smartMetering/managementService/"/>
     </wsdl:port>
   </wsdl:service>
+
+  <wsdl:types>
+    <xsd:schema
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="http://www.opensmartgridplatform.org/definitions/smartmetering/sm-management/imports">
+
+      <xsd:import
+        namespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10"
+        schemaLocation="schemas/sm-management.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
 
 </wsdl:definitions>

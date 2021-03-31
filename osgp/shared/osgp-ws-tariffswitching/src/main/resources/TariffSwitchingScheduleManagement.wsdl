@@ -1,30 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Platform version: ${display.version} -->
 
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+<wsdl:definitions xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:sman="http://www.opensmartgridplatform.org/schemas/tariffswitching/schedulemanagement/2014/10"
-  xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
   xmlns:tns="http://www.opensmartgridplatform.org/definitions/tariffswitching/schedulemanagement-v1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
   targetNamespace="http://www.opensmartgridplatform.org/definitions/tariffswitching/schedulemanagement-v1.0">
 
-  <wsdl:types>
-    <xsd:schema
-      targetNamespace="http://www.opensmartgridplatform.org/definitions/tariffswitching/schedulemanagement/imports"
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <xsd:import
-        namespace="http://www.opensmartgridplatform.org/schemas/tariffswitching/schedulemanagement/2014/10"
-        schemaLocation="schemas/ts-schedulemanagement.xsd" />
-    </xsd:schema>
-  </wsdl:types>
+  <wsdl:binding name="TariffSwitchingScheduleManagementPortSoap11"
+    type="tns:TariffSwitchingScheduleManagementPort">
+
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <wsdl:operation name="SetSchedule">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetScheduleRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SetScheduleHeader" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SetScheduleHeader" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SetScheduleHeader" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetScheduleAsyncResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetSetScheduleResponse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetScheduleAsyncRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SetScheduleAsyncHeader"
+          part="UserName" use="literal"/>
+        <soap:header message="tns:SetScheduleAsyncHeader"
+          part="ApplicationName" use="literal"/>
+        <soap:header message="tns:SetScheduleAsyncHeader"
+          part="OrganisationIdentification" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetScheduleResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+  </wsdl:binding>
 
   <!-- An additional SOAP header 'MessagePriority' can be set. Values between 0 (low) and 9 (high), the default value is 4 (medium). -->
 
   <wsdl:message name="SetScheduleHeader">
     <wsdl:part element="common:OrganisationIdentification"
-      name="OrganisationIdentification" />
-    <wsdl:part element="common:UserName" name="UserName" />
-    <wsdl:part element="common:ApplicationName" name="ApplicationName" />
+      name="OrganisationIdentification"/>
+    <wsdl:part element="common:UserName" name="UserName"/>
+    <wsdl:part element="common:ApplicationName" name="ApplicationName"/>
   </wsdl:message>
   <wsdl:message name="SetScheduleRequest">
     <wsdl:part element="sman:SetScheduleRequest" name="SetScheduleRequest">
@@ -37,9 +67,9 @@
 
   <wsdl:message name="SetScheduleAsyncHeader">
     <wsdl:part element="common:OrganisationIdentification"
-      name="OrganisationIdentification" />
-    <wsdl:part element="common:UserName" name="UserName" />
-    <wsdl:part element="common:ApplicationName" name="ApplicationName" />
+      name="OrganisationIdentification"/>
+    <wsdl:part element="common:UserName" name="UserName"/>
+    <wsdl:part element="common:ApplicationName" name="ApplicationName"/>
   </wsdl:message>
   <wsdl:message name="SetScheduleAsyncRequest">
     <wsdl:part element="sman:SetScheduleAsyncRequest" name="SetScheduleAsyncRequest">
@@ -69,54 +99,24 @@
 
   </wsdl:portType>
 
-  <wsdl:binding name="TariffSwitchingScheduleManagementPortSoap11"
-    type="tns:TariffSwitchingScheduleManagementPort">
-
-    <soap:binding style="document"
-      transport="http://schemas.xmlsoap.org/soap/http" />
-
-    <wsdl:operation name="SetSchedule">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetScheduleRequest">
-        <soap:header message="tns:SetScheduleHeader" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SetScheduleHeader" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SetScheduleHeader" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetScheduleAsyncResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetSetScheduleResponse">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetScheduleAsyncRequest">
-        <soap:header message="tns:SetScheduleAsyncHeader"
-          part="OrganisationIdentification" use="literal" />
-        <soap:header message="tns:SetScheduleAsyncHeader"
-          part="UserName" use="literal" />
-        <soap:header message="tns:SetScheduleAsyncHeader"
-          part="ApplicationName" use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetScheduleResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-  </wsdl:binding>
-
   <wsdl:service name="TariffSwitchingScheduleManagementPortService">
 
     <wsdl:port binding="tns:TariffSwitchingScheduleManagementPortSoap11"
       name="TariffSwitchingScheduleManagementPortSoap11">
       <soap:address
-        location="http://localhost:8080/osgp-adapter-ws-tariffswitching/tariffSwitching/scheduleManagementService/" />
+        location="http://localhost:8080/osgp-adapter-ws-tariffswitching/tariffSwitching/scheduleManagementService/"/>
     </wsdl:port>
 
   </wsdl:service>
+
+  <wsdl:types>
+    <xsd:schema
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="http://www.opensmartgridplatform.org/definitions/tariffswitching/schedulemanagement/imports">
+      <xsd:import
+        namespace="http://www.opensmartgridplatform.org/schemas/tariffswitching/schedulemanagement/2014/10"
+        schemaLocation="schemas/ts-schedulemanagement.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
 
 </wsdl:definitions>

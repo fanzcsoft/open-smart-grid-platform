@@ -1,16 +1,162 @@
 <!-- Copyright 2015 Smart Society Services B.V. Licensed under the Apache 
   License, Version 2.0 (the "License"); you may not use this file except in 
   compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-            xmlns:tns="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10"
-            elementFormDefault="qualified"
-            targetNamespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10">
+<xsd:schema xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+  xmlns:tns="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  targetNamespace="http://www.opensmartgridplatform.org/schemas/smartmetering/sm-management/2014/10">
 
-  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-              schemaLocation="common.xsd"/>
+  <xsd:complexType name="GetOutagesRequestData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Query">
+        <xsd:sequence>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
 
   <!-- Requests and Responses -->
+
+  <xsd:complexType name="Outage">
+    <xsd:sequence>
+      <xsd:element name="endTime" type="xsd:dateTime"/>
+      <xsd:element minOccurs="0" name="duration" type="xsd:unsignedInt"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="GetOutagesResponseData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Response">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0"
+            name="Outages" type="tns:Outage"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="FindEventsResponseData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Response">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0"
+            name="Events" type="tns:Event"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <!-- Outage containing endTime and duration -->
+  <xsd:complexType name="FindEventsRequestData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Query">
+        <xsd:sequence>
+          <xsd:element name="EventLogCategory" type="tns:EventLogCategory"/>
+          <xsd:element name="From" type="xsd:dateTime"/>
+          <xsd:element name="Until" type="xsd:dateTime"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="Event">
+    <xsd:sequence>
+      <xsd:element name="timestamp" type="xsd:dateTime"/>
+      <xsd:element name="eventCode" type="xsd:int"/>
+      <xsd:element name="eventType" type="tns:EventType"/>
+      <xsd:element name="EventLogCategory" type="tns:EventLogCategory"/>
+      <xsd:element minOccurs="0" name="eventCounter" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" minOccurs="0"
+        name="eventDetails" type="tns:EventDetail"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="EventDetail">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string"/>
+      <xsd:element name="value" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Device">
+    <xsd:sequence>
+      <xsd:element name="DeviceUid" type="xsd:string"/>
+      <xsd:element name="DeviceIdentification" type="common:Identification"/>
+      <xsd:element name="DeviceType" type="xsd:string"/>
+      <xsd:element name="Activated" type="xsd:boolean"/>
+      <xsd:element name="HasSchedule" type="xsd:boolean"/>
+      <xsd:element name="PublicKeyPresent" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="DevicePage">
+    <xsd:sequence>
+      <xsd:element name="TotalPages" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" name="Devices"
+        type="tns:Device"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageLog">
+    <xsd:sequence>
+      <xsd:element name="Timestamp" type="xsd:dateTime"/>
+      <xsd:element name="OrganisationIdentification" type="common:Identification"/>
+      <xsd:element name="DeviceIdentification" type="common:Identification"/>
+      <xsd:element name="DecodedMessage" type="xsd:string"/>
+      <xsd:element name="EncodedMessage" type="xsd:string"/>
+      <xsd:element name="Incoming" type="xsd:boolean"/>
+      <xsd:element name="Valid" type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MessageLogPage">
+    <xsd:sequence>
+      <xsd:element name="TotalPages" type="xsd:int"/>
+      <xsd:element maxOccurs="unbounded" name="MessageLogs"
+        type="tns:MessageLog"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetDeviceCommunicationSettingsData">
+    <xsd:sequence>
+      <xsd:element name="ChallengeLength" type="xsd:integer"/>
+      <xsd:element default="false" name="WithListSupported"
+        type="xsd:boolean"/>
+      <xsd:element default="false" name="SelectiveAccessSupported"
+        type="xsd:boolean"/>
+      <xsd:element default="false" name="IpAddressIsStatic"
+        type="xsd:boolean"/>
+      <xsd:element default="false" name="UseSn" type="xsd:boolean"/>
+      <xsd:element default="false" name="UseHdlc"
+        type="xsd:boolean"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetDeviceLifecycleStatusByChannelRequestData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Query">
+        <xsd:sequence>
+          <xsd:element name="DeviceLifecycleStatus" type="common:DeviceLifecycleStatus"/>
+          <xsd:element name="Channel" type="common:Channel"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:complexType name="SetDeviceLifecycleStatusByChannelResponseData">
+    <xsd:complexContent>
+      <xsd:extension base="common:Response">
+        <xsd:sequence>
+          <xsd:element name="GatewayDeviceIdentification"
+            type="common:Identification"/>
+          <xsd:element name="MbusDeviceIdentification" type="common:Identification"/>
+          <xsd:element name="DeviceLifecycleStatus" type="common:DeviceLifecycleStatus"/>
+          <xsd:element name="Channel" type="common:Channel"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
 
   <xsd:element name="GetDevicesRequest">
     <xsd:complexType>
@@ -28,40 +174,12 @@
     </xsd:complexType>
   </xsd:element>
 
-  <xsd:complexType name="GetOutagesRequestData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Query">
-        <xsd:sequence>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
-  <!-- Outage containing endTime and duration -->
-  <xsd:complexType name="Outage">
-    <xsd:sequence>
-      <xsd:element name="endTime" type="xsd:dateTime"/>
-      <xsd:element name="duration" type="xsd:unsignedInt" minOccurs="0"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="GetOutagesResponseData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Response">
-        <xsd:sequence>
-          <xsd:element name="Outages" type="tns:Outage"
-                       maxOccurs="unbounded" minOccurs="0"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
   <xsd:element name="FindEventsRequest">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
-        <xsd:element name="FindEventsRequestData" type="tns:FindEventsRequestData"
-                     maxOccurs="unbounded"/>
+        <xsd:element maxOccurs="unbounded" name="FindEventsRequestData"
+          type="tns:FindEventsRequestData"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -85,22 +203,11 @@
   <xsd:element name="FindEventsResponse">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Events" type="tns:Event"
-                     maxOccurs="unbounded" minOccurs="0"/>
+        <xsd:element maxOccurs="unbounded" minOccurs="0"
+          name="Events" type="tns:Event"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-
-  <xsd:complexType name="FindEventsResponseData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Response">
-        <xsd:sequence>
-          <xsd:element name="Events" type="tns:Event"
-                       maxOccurs="unbounded" minOccurs="0"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
 
   <xsd:element name="EnableDebuggingRequest">
     <xsd:complexType>
@@ -130,7 +237,7 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+        <xsd:element minOccurs="0" name="Description" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -163,11 +270,10 @@
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+        <xsd:element minOccurs="0" name="Description" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-
   <xsd:element name="FindMessageLogsRequest">
     <xsd:complexType>
       <xsd:sequence>
@@ -176,7 +282,6 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-
   <xsd:element name="FindMessageLogsAsyncResponse">
     <xsd:complexType>
       <xsd:complexContent>
@@ -184,7 +289,6 @@
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
-
   <xsd:element name="FindMessageLogsAsyncRequest">
     <xsd:complexType>
       <xsd:complexContent>
@@ -193,6 +297,9 @@
     </xsd:complexType>
   </xsd:element>
 
+  <!-- Data Types -->
+
+  <!-- Query for FindEventsRequest -->
   <xsd:element name="FindMessageLogsResponse">
     <xsd:complexType>
       <xsd:sequence>
@@ -201,16 +308,21 @@
     </xsd:complexType>
   </xsd:element>
 
+  <!-- Event containing Timestamp and EventType -->
   <xsd:element name="SetDeviceCommunicationSettingsRequest">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="DeviceIdentification" type="common:DeviceIdentification"/>
         <xsd:element name="SetDeviceCommunicationSettingsData"
-                     type="tns:SetDeviceCommunicationSettingsData"/>
+          type="tns:SetDeviceCommunicationSettingsData"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
+  <!-- Certain events require or contain more details than just
+   a description and a category. For example, specification of
+   a particular channel number, alarm number, relay number,
+   port number, formula number, version number, etc -->
   <xsd:element name="SetDeviceCommunicationSettingsAsyncResponse">
     <xsd:complexType>
       <xsd:complexContent>
@@ -219,6 +331,7 @@
     </xsd:complexType>
   </xsd:element>
 
+  <!-- Event Log Categories -->
   <xsd:element name="SetDeviceCommunicationSettingsAsyncRequest">
     <xsd:complexType>
       <xsd:complexContent>
@@ -227,25 +340,29 @@
     </xsd:complexType>
   </xsd:element>
 
+  <!-- Standard Event Log Event Types -->
   <xsd:element name="SetDeviceCommunicationSettingsResponse">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
-        <xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+        <xsd:element minOccurs="0" name="Description" type="xsd:string"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
+  <!-- Data Types -->
 
   <xsd:element name="SetDeviceLifecycleStatusByChannelRequest">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="GatewayDeviceIdentification"
-                     type="common:Identification"/>
+          type="common:Identification"/>
         <xsd:element name="SetDeviceLifecycleStatusByChannelRequestData"
-                     type="tns:SetDeviceLifecycleStatusByChannelRequestData"/>
+          type="tns:SetDeviceLifecycleStatusByChannelRequestData"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="SetDeviceLifecycleStatusByChannelAsyncResponse">
     <xsd:complexType>
       <xsd:complexContent>
@@ -253,6 +370,7 @@
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="SetDeviceLifecycleStatusByChannelAsyncRequest">
     <xsd:complexType>
       <xsd:complexContent>
@@ -260,56 +378,20 @@
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
+
   <xsd:element name="SetDeviceLifecycleStatusByChannelResponse">
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="Result" type="common:OsgpResultType"/>
         <xsd:element name="SetDeviceLifecycleStatusByChannelResponseData"
-                     type="tns:SetDeviceLifecycleStatusByChannelResponseData"/>
+          type="tns:SetDeviceLifecycleStatusByChannelResponseData"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
 
-  <!-- Data Types -->
+  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+    schemaLocation="common.xsd"/>
 
-  <!-- Query for FindEventsRequest -->
-  <xsd:complexType name="FindEventsRequestData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Query">
-        <xsd:sequence>
-          <xsd:element name="EventLogCategory" type="tns:EventLogCategory"/>
-          <xsd:element name="From" type="xsd:dateTime"/>
-          <xsd:element name="Until" type="xsd:dateTime"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
-  <!-- Event containing Timestamp and EventType -->
-  <xsd:complexType name="Event">
-    <xsd:sequence>
-      <xsd:element name="timestamp" type="xsd:dateTime"/>
-      <xsd:element name="eventCode" type="xsd:int"/>
-      <xsd:element name="eventType" type="tns:EventType"/>
-      <xsd:element name="EventLogCategory" type="tns:EventLogCategory"/>
-      <xsd:element name="eventCounter" type="xsd:int" minOccurs="0"/>
-      <xsd:element name="eventDetails" type="tns:EventDetail"
-                   maxOccurs="unbounded" minOccurs="0"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <!-- Certain events require or contain more details than just
-   a description and a category. For example, specification of
-   a particular channel number, alarm number, relay number,
-   port number, formula number, version number, etc -->
-  <xsd:complexType name="EventDetail">
-    <xsd:sequence>
-      <xsd:element name="name" type="xsd:string"/>
-      <xsd:element name="value" type="xsd:string"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <!-- Event Log Categories -->
   <xsd:simpleType name="EventLogCategory">
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="STANDARD_EVENT_LOG"/>
@@ -320,7 +402,6 @@
     </xsd:restriction>
   </xsd:simpleType>
 
-  <!-- Standard Event Log Event Types -->
   <xsd:simpleType name="EventType">
     <xsd:restriction base="xsd:string">
       <!-- 255 - event log cleared -  -  -  -->
@@ -573,86 +654,5 @@
 
     </xsd:restriction>
   </xsd:simpleType>
-
-  <!-- Data Types -->
-
-  <xsd:complexType name="Device">
-    <xsd:sequence>
-      <xsd:element name="DeviceUid" type="xsd:string"/>
-      <xsd:element name="DeviceIdentification" type="common:Identification"/>
-      <xsd:element name="DeviceType" type="xsd:string"/>
-      <xsd:element name="Activated" type="xsd:boolean"/>
-      <xsd:element name="HasSchedule" type="xsd:boolean"/>
-      <xsd:element name="PublicKeyPresent" type="xsd:boolean"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="DevicePage">
-    <xsd:sequence>
-      <xsd:element name="TotalPages" type="xsd:int"/>
-      <xsd:element maxOccurs="unbounded" name="Devices"
-                   type="tns:Device"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="MessageLog">
-    <xsd:sequence>
-      <xsd:element name="Timestamp" type="xsd:dateTime"/>
-      <xsd:element name="OrganisationIdentification" type="common:Identification"/>
-      <xsd:element name="DeviceIdentification" type="common:Identification"/>
-      <xsd:element name="DecodedMessage" type="xsd:string"/>
-      <xsd:element name="EncodedMessage" type="xsd:string"/>
-      <xsd:element name="Incoming" type="xsd:boolean"/>
-      <xsd:element name="Valid" type="xsd:boolean"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="MessageLogPage">
-    <xsd:sequence>
-      <xsd:element name="TotalPages" type="xsd:int"/>
-      <xsd:element maxOccurs="unbounded" name="MessageLogs"
-                   type="tns:MessageLog"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="SetDeviceCommunicationSettingsData">
-    <xsd:sequence>
-      <xsd:element type="xsd:integer" name="ChallengeLength"/>
-      <xsd:element type="xsd:boolean" name="WithListSupported"
-                   default="false"/>
-      <xsd:element type="xsd:boolean" name="SelectiveAccessSupported"
-                   default="false"/>
-      <xsd:element type="xsd:boolean" name="IpAddressIsStatic"
-                   default="false"/>
-      <xsd:element type="xsd:boolean" name="UseSn" default="false"/>
-      <xsd:element type="xsd:boolean" name="UseHdlc"
-                   default="false"/>
-    </xsd:sequence>
-  </xsd:complexType>
-
-  <xsd:complexType name="SetDeviceLifecycleStatusByChannelRequestData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Query">
-        <xsd:sequence>
-          <xsd:element name="DeviceLifecycleStatus" type="common:DeviceLifecycleStatus"/>
-          <xsd:element name="Channel" type="common:Channel"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-
-  <xsd:complexType name="SetDeviceLifecycleStatusByChannelResponseData">
-    <xsd:complexContent>
-      <xsd:extension base="common:Response">
-        <xsd:sequence>
-          <xsd:element name="GatewayDeviceIdentification"
-                       type="common:Identification"/>
-          <xsd:element name="MbusDeviceIdentification" type="common:Identification"/>
-          <xsd:element name="DeviceLifecycleStatus" type="common:DeviceLifecycleStatus"/>
-          <xsd:element name="Channel" type="common:Channel"/>
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
 
 </xsd:schema>

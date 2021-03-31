@@ -1,28 +1,243 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Platform version: ${display.version} -->
 
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+<wsdl:definitions xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:dman="http://www.opensmartgridplatform.org/schemas/admin/devicemanagement/2014/10"
-  xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
   xmlns:tns="http://www.opensmartgridplatform.org/definitions/admin/devicemanagement-v1.0"
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
   targetNamespace="http://www.opensmartgridplatform.org/definitions/admin/devicemanagement-v1.0">
 
-  <wsdl:types>
-    <xsd:schema
-      targetNamespace="http://www.opensmartgridplatform.org/definitions/admin/devicemanagement/imports"
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:binding name="DeviceManagementPortSoap11" type="tns:DeviceManagementPort">
+    <soap:binding style="document"
+      transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="FindMessageLogs">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindMessageLogsRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindMessageLogsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindDeviceAuthorisations">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindDeviceAuthorisationsRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindDeviceAuthorisationsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindDevicesWhichHaveNoOwner">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="FindDevicesWhichHaveNoOwnerRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="FindDevicesWhichHaveNoOwnerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
 
-      <xsd:import
-        namespace="http://www.opensmartgridplatform.org/schemas/admin/devicemanagement/2014/10"
-        schemaLocation="schemas/devicemanagement.xsd" />
-    </xsd:schema>
-  </wsdl:types>
+    <wsdl:operation name="CreateOrganisation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="CreateOrganisationRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="CreateOrganisationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="RemoveOrganisation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="RemoveOrganisationRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RemoveOrganisationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="ActivateOrganisation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ActivateOrganisationRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ActivateOrganisationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="ChangeOrganisation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="ChangeOrganisationRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ChangeOrganisationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDeviceAuthorisations">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="UpdateDeviceAuthorisationsRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UpdateDeviceAuthorisationsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="RemoveDevice">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="RemoveDeviceRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RemoveDeviceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="SetOwner">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="SetOwnerRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetOwnerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="UpdateKey">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="UpdateKeyRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UpdateKeyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="RevokeKey">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="RevokeKeyRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RevokeKeyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="GetProtocolInfos">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="GetProtocolInfosRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetProtocolInfosResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+    <wsdl:operation name="UpdateDeviceProtocol">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="UpdateDeviceProtocolRequest">
+        <soap:body use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="UserName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="ApplicationName"
+          use="literal"/>
+        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
+          use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UpdateDeviceProtocolResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+
+  </wsdl:binding>
   <wsdl:message name="SoapHeaders">
     <wsdl:part element="common:OrganisationIdentification"
-      name="OrganisationIdentification" />
-    <wsdl:part element="common:UserName" name="UserName" />
-    <wsdl:part element="common:ApplicationName" name="ApplicationName" />
+      name="OrganisationIdentification"/>
+    <wsdl:part element="common:UserName" name="UserName"/>
+    <wsdl:part element="common:ApplicationName" name="ApplicationName"/>
   </wsdl:message>
   <wsdl:message name="FindMessageLogsResponse">
     <wsdl:part element="dman:FindMessageLogsResponse" name="FindMessageLogsResponse">
@@ -268,235 +483,20 @@
 
   </wsdl:portType>
 
-  <wsdl:binding name="DeviceManagementPortSoap11" type="tns:DeviceManagementPort">
-    <soap:binding style="document"
-      transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="FindMessageLogs">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindMessageLogsRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindMessageLogsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="FindDeviceAuthorisations">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindDeviceAuthorisationsRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindDeviceAuthorisationsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="FindDevicesWhichHaveNoOwner">
-      <soap:operation soapAction="" />
-      <wsdl:input name="FindDevicesWhichHaveNoOwnerRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="FindDevicesWhichHaveNoOwnerResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="CreateOrganisation">
-      <soap:operation soapAction="" />
-      <wsdl:input name="CreateOrganisationRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="CreateOrganisationResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="RemoveOrganisation">
-      <soap:operation soapAction="" />
-      <wsdl:input name="RemoveOrganisationRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="RemoveOrganisationResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="ActivateOrganisation">
-      <soap:operation soapAction="" />
-      <wsdl:input name="ActivateOrganisationRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="ActivateOrganisationResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="ChangeOrganisation">
-      <soap:operation soapAction="" />
-      <wsdl:input name="ChangeOrganisationRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="ChangeOrganisationResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateDeviceAuthorisations">
-      <soap:operation soapAction="" />
-      <wsdl:input name="UpdateDeviceAuthorisationsRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="UpdateDeviceAuthorisationsResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="RemoveDevice">
-      <soap:operation soapAction="" />
-      <wsdl:input name="RemoveDeviceRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="RemoveDeviceResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="SetOwner">
-      <soap:operation soapAction="" />
-      <wsdl:input name="SetOwnerRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="SetOwnerResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="UpdateKey">
-      <soap:operation soapAction="" />
-      <wsdl:input name="UpdateKeyRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="UpdateKeyResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="RevokeKey">
-      <soap:operation soapAction="" />
-      <wsdl:input name="RevokeKeyRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="RevokeKeyResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="GetProtocolInfos">
-      <soap:operation soapAction="" />
-      <wsdl:input name="GetProtocolInfosRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="GetProtocolInfosResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-    <wsdl:operation name="UpdateDeviceProtocol">
-      <soap:operation soapAction="" />
-      <wsdl:input name="UpdateDeviceProtocolRequest">
-        <soap:header message="tns:SoapHeaders" part="OrganisationIdentification"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="UserName"
-          use="literal" />
-        <soap:header message="tns:SoapHeaders" part="ApplicationName"
-          use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="UpdateDeviceProtocolResponse">
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-
-  </wsdl:binding>
   <wsdl:service name="DeviceManagementPortService">
     <wsdl:port binding="tns:DeviceManagementPortSoap11" name="DeviceManagementPortSoap11">
       <soap:address
-        location="http://localhost:8080/osgp-adapter-ws-admin/admin/deviceManagementService/" />
+        location="http://localhost:8080/osgp-adapter-ws-admin/admin/deviceManagementService/"/>
     </wsdl:port>
   </wsdl:service>
+  <wsdl:types>
+    <xsd:schema
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="http://www.opensmartgridplatform.org/definitions/admin/devicemanagement/imports">
+
+      <xsd:import
+        namespace="http://www.opensmartgridplatform.org/schemas/admin/devicemanagement/2014/10"
+        schemaLocation="schemas/devicemanagement.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
 </wsdl:definitions>

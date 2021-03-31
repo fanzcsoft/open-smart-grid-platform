@@ -7,252 +7,121 @@
         http://www.apache.org/licenses/LICENSE-2.0
 
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+<xsd:schema xmlns:common="http://www.opensmartgridplatform.org/schemas/common/2014/10"
   xmlns:tns="http://www.opensmartgridplatform.org/schemas/configurationmanagement/2014/10"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   attributeFormDefault="unqualified" elementFormDefault="qualified"
   targetNamespace="http://www.opensmartgridplatform.org/schemas/configurationmanagement/2014/10">
 
-  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
-    schemaLocation="../schemas/common-ws-core.xsd" />
-
-  <xsd:element name="SetConfigurationRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
-        <xsd:element name="Configuration" type="tns:Configuration"
-          minOccurs="0" maxOccurs="1" />
-        <xsd:element name="scheduled_time" type="xsd:dateTime"
-          minOccurs="0" maxOccurs="1" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SetConfigurationResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"
-          minOccurs="1" />
-        <xsd:element name="Description" type="xsd:string" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetConfigurationAsyncResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncResponse" type="common:AsyncResponse" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SetConfigurationAsyncRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncRequest" type="common:AsyncRequest" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="GetConfigurationRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetConfigurationResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"
-          minOccurs="1" />
-        <xsd:element name="Description" type="xsd:string" />
-        <xsd:element name="Configuration" type="tns:Configuration"
-          minOccurs="0" maxOccurs="1" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetConfigurationAsyncRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncRequest" type="common:AsyncRequest" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="GetConfigurationAsyncResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncResponse" type="common:AsyncResponse" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
-  <xsd:element name="SwitchConfigurationRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="DeviceIdentification" type="common:Identification" />
-        <xsd:element name="ConfigurationBank" type="tns:ConfigurationBank" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SwitchConfigurationResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="Result" type="common:OsgpResultType"
-          minOccurs="1" />
-        <xsd:element name="Description" type="xsd:string" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SwitchConfigurationAsyncRequest">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncRequest" type="common:AsyncRequest" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-  <xsd:element name="SwitchConfigurationAsyncResponse">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="AsyncResponse" type="common:AsyncResponse" />
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-
   <xsd:complexType name="Configuration">
     <xsd:sequence>
-      <xsd:element name="LightType" type="tns:LightType"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="DaliConfiguration" type="tns:DaliConfiguration"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="RelayConfiguration" type="tns:RelayConfiguration"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="PreferredLinkType" type="tns:LinkType"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="TimeSyncFrequency" type="xsd:int"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="DeviceFixedIp" type="tns:DeviceFixedIp"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="DhcpEnabled" type="xsd:boolean"
-        minOccurs="0" maxOccurs="1" />
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="LightType" type="tns:LightType"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="DaliConfiguration" type="tns:DaliConfiguration"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="RelayConfiguration" type="tns:RelayConfiguration"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="PreferredLinkType" type="tns:LinkType"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="TimeSyncFrequency" type="xsd:int"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="DeviceFixedIp" type="tns:DeviceFixedIp"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="DhcpEnabled" type="xsd:boolean"/>
       <!-- <xsd:element name="TlsEnabled" type="xsd:boolean" minOccurs="0"
         maxOccurs="1" /> -->
       <!-- <xsd:element name="TlsPortNumber" type="xsd:int" minOccurs="0"
         maxOccurs="1" /> -->
       <!-- <xsd:element name="CommonNameString" type="tns:CommonName" minOccurs="0"
         maxOccurs="1" /> -->
-      <xsd:element name="CommunicationTimeout" type="xsd:int"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="CommunicationNumberOfRetries" type="xsd:int"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="CommunicationPauseTimeBetweenConnectionTrials"
-        type="xsd:int" minOccurs="0" maxOccurs="1" />
-      <xsd:element name="OsgpIpAddress" type="tns:IPType"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="OsgpPortNumber" minOccurs="0" maxOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="CommunicationTimeout" type="xsd:int"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="CommunicationNumberOfRetries" type="xsd:int"/>
+      <xsd:element maxOccurs="1"
+        minOccurs="0" name="CommunicationPauseTimeBetweenConnectionTrials" type="xsd:int"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="OsgpIpAddress" type="tns:IPType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="OsgpPortNumber">
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
+            <xsd:maxInclusive value="65535"/>
             <xsd:minInclusive value="1"/>
-              <xsd:maxInclusive value="65535"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="NtpHost" type="xsd:string"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="NtpEnabled" type="xsd:boolean"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="NtpSyncInterval" minOccurs="0" maxOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="NtpHost" type="xsd:string"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="NtpEnabled" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="NtpSyncInterval">
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
+            <xsd:maxInclusive value="65535"/>
             <xsd:minInclusive value="1"/>
-              <xsd:maxInclusive value="65535"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="TestButtonEnabled" type="xsd:boolean"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="AutomaticSummerTimingEnabled" type="xsd:boolean"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="AstroGateSunRiseOffset" type="xsd:int"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="AstroGateSunSetOffset" type="xsd:int"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:sequence>
-        <xsd:element name="SwitchingDelays" type="xsd:int"
-          minOccurs="0" maxOccurs="4" />
-      </xsd:sequence>
-      <xsd:sequence>
-        <xsd:element name="RelayLinking" type="tns:RelayMatrix"
-          minOccurs="0" maxOccurs="unbounded" />
-      </xsd:sequence>
-      <xsd:element name="RelayRefreshing" type="xsd:boolean"
-        minOccurs="0" maxOccurs="1" />
-      <xsd:element name="SummerTimeDetails" type="xsd:dateTime"
-        minOccurs="0" maxOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="TestButtonEnabled" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="AutomaticSummerTimingEnabled" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="AstroGateSunRiseOffset" type="xsd:int"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="AstroGateSunSetOffset" type="xsd:int"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="RelayRefreshing" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="SummerTimeDetails" type="xsd:dateTime">
         <xsd:annotation>
           <xsd:documentation>Start of DST / SummerTime. Last Sunday of
             March for Europe.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="WinterTimeDetails" type="xsd:dateTime"
-        minOccurs="0" maxOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0"
+        name="WinterTimeDetails" type="xsd:dateTime">
         <xsd:annotation>
           <xsd:documentation>End of DST / SummerTime. Last Sunday of
             October for Europe.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <xsd:sequence>
+        <xsd:element maxOccurs="4" minOccurs="0"
+          name="SwitchingDelays" type="xsd:int"/>
+      </xsd:sequence>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" minOccurs="0"
+          name="RelayLinking" type="tns:RelayMatrix"/>
+      </xsd:sequence>
     </xsd:sequence>
   </xsd:complexType>
 
-  <xsd:simpleType name="LightType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="RELAY" />
-      <xsd:enumeration value="ONE_TO_TEN_VOLT" />
-      <xsd:enumeration value="ONE_TO_TEN_VOLT_REVERSE" />
-      <xsd:enumeration value="ONE_TO_TWENTY_FOUR_VOLT" />
-      <xsd:enumeration value="DALI" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="RelayType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="LIGHT" />
-      <xsd:enumeration value="TARIFF" />
-      <xsd:enumeration value="TARIFF_REVERSED" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="LinkType">
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="GPRS" />
-      <xsd:enumeration value="CDMA" />
-      <xsd:enumeration value="ETHERNET" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
   <xsd:complexType name="DaliConfiguration">
     <xsd:sequence>
-      <xsd:element name="NumberOfLights" minOccurs="1"
-        maxOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="NumberOfLights">
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
-            <xsd:minInclusive value="1" />
-            <xsd:maxInclusive value="4" />
+            <xsd:maxInclusive value="4"/>
+            <xsd:minInclusive value="1"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="IndexAddressMap" type="tns:IndexAddressMap"
-        minOccurs="0" maxOccurs="4" />
+      <xsd:element maxOccurs="4" minOccurs="0"
+        name="IndexAddressMap" type="tns:IndexAddressMap"/>
     </xsd:sequence>
   </xsd:complexType>
 
   <xsd:complexType name="RelayConfiguration">
     <xsd:sequence>
-      <xsd:element name="RelayMap" type="tns:RelayMap"
-        minOccurs="1" maxOccurs="6" />
+      <xsd:element maxOccurs="6" minOccurs="1"
+        name="RelayMap" type="tns:RelayMap"/>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="IndexAddressMap">
     <xsd:sequence>
       <xsd:element name="Index">
@@ -265,8 +134,8 @@
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
-            <xsd:minInclusive value="1" />
-            <xsd:maxInclusive value="4" />
+            <xsd:maxInclusive value="4"/>
+            <xsd:minInclusive value="1"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
@@ -280,94 +149,225 @@
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
-            <xsd:minInclusive value="1" />
-            <xsd:maxInclusive value="255" />
+            <xsd:maxInclusive value="255"/>
+            <xsd:minInclusive value="1"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
-
   <xsd:complexType name="RelayMap">
     <xsd:sequence>
       <xsd:element name="Index">
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
-            <xsd:minInclusive value="1" />
-            <xsd:maxInclusive value="6" />
+            <xsd:maxInclusive value="6"/>
+            <xsd:minInclusive value="1"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
       <xsd:element name="Address">
         <xsd:simpleType>
           <xsd:restriction base="xsd:int">
-            <xsd:minInclusive value="1" />
-            <xsd:maxInclusive value="255" />
+            <xsd:maxInclusive value="255"/>
+            <xsd:minInclusive value="1"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="RelayType" type="tns:RelayType"
-        minOccurs="1" maxOccurs="1" />
-      <xsd:element name="alias" type="xsd:string" minOccurs="0" />
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="RelayType" type="tns:RelayType"/>
+      <xsd:element minOccurs="0" name="alias" type="xsd:string"/>
     </xsd:sequence>
   </xsd:complexType>
 
   <xsd:complexType name="RelayMatrix">
     <xsd:sequence>
-      <xsd:element name="MasterRelayIndex" type="tns:RelayMatrixIndex"
-        minOccurs="1" maxOccurs="1" />
-      <xsd:element name="MasterRelayOn" type="xsd:boolean"
-        minOccurs="1" maxOccurs="1" />
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="MasterRelayIndex" type="tns:RelayMatrixIndex"/>
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="MasterRelayOn" type="xsd:boolean"/>
       <xsd:sequence>
-        <xsd:element name="IndicesOfControlledRelaysOn"
-          type="tns:RelayMatrixIndex" minOccurs="0" maxOccurs="4" />
+        <xsd:element maxOccurs="4"
+          minOccurs="0" name="IndicesOfControlledRelaysOn" type="tns:RelayMatrixIndex"/>
       </xsd:sequence>
       <xsd:sequence>
-        <xsd:element name="IndicesOfControlledRelaysOff"
-          type="tns:RelayMatrixIndex" minOccurs="0" maxOccurs="4" />
+        <xsd:element maxOccurs="4"
+          minOccurs="0" name="IndicesOfControlledRelaysOff" type="tns:RelayMatrixIndex"/>
       </xsd:sequence>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:complexType name="DeviceFixedIp">
+    <xsd:sequence>
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="IpAddress" type="tns:IPType"/>
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="NetMask" type="tns:IPType"/>
+      <xsd:element maxOccurs="1" minOccurs="1"
+        name="GateWay" type="tns:IPType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SetConfigurationRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+        <xsd:element maxOccurs="1" minOccurs="0"
+          name="Configuration" type="tns:Configuration"/>
+        <xsd:element maxOccurs="1" minOccurs="0"
+          name="scheduled_time" type="xsd:dateTime"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetConfigurationResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="1" name="Result"
+          type="common:OsgpResultType"/>
+        <xsd:element name="Description" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
 
-  <xsd:simpleType name="RelayMatrixIndex">
-    <xsd:restriction base="xsd:int">
-      <xsd:minInclusive value="1" />
-      <xsd:maxInclusive value="4" />
+  <xsd:element name="SetConfigurationAsyncResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncResponse" type="common:AsyncResponse"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="SetConfigurationAsyncRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncRequest" type="common:AsyncRequest"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetConfigurationRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="GetConfigurationResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="1" name="Result"
+          type="common:OsgpResultType"/>
+        <xsd:element name="Description" type="xsd:string"/>
+        <xsd:element maxOccurs="1" minOccurs="0"
+          name="Configuration" type="tns:Configuration"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetConfigurationAsyncRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncRequest" type="common:AsyncRequest"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="GetConfigurationAsyncResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncResponse" type="common:AsyncResponse"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SwitchConfigurationRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="DeviceIdentification" type="common:Identification"/>
+        <xsd:element name="ConfigurationBank" type="tns:ConfigurationBank"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SwitchConfigurationResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="1" name="Result"
+          type="common:OsgpResultType"/>
+        <xsd:element name="Description" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SwitchConfigurationAsyncRequest">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncRequest" type="common:AsyncRequest"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="SwitchConfigurationAsyncResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="AsyncResponse" type="common:AsyncResponse"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:import namespace="http://www.opensmartgridplatform.org/schemas/common/2014/10"
+    schemaLocation="../schemas/common-ws-core.xsd"/>
+
+  <xsd:simpleType name="LightType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="RELAY"/>
+      <xsd:enumeration value="ONE_TO_TEN_VOLT"/>
+      <xsd:enumeration value="ONE_TO_TEN_VOLT_REVERSE"/>
+      <xsd:enumeration value="ONE_TO_TWENTY_FOUR_VOLT"/>
+      <xsd:enumeration value="DALI"/>
     </xsd:restriction>
   </xsd:simpleType>
 
-  <xsd:complexType name="DeviceFixedIp">
-    <xsd:sequence>
-      <xsd:element name="IpAddress" type="tns:IPType"
-        minOccurs="1" maxOccurs="1" />
-      <xsd:element name="NetMask" type="tns:IPType"
-        minOccurs="1" maxOccurs="1" />
-      <xsd:element name="GateWay" type="tns:IPType"
-        minOccurs="1" maxOccurs="1" />
-    </xsd:sequence>
-  </xsd:complexType>
+  <xsd:simpleType name="RelayType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="LIGHT"/>
+      <xsd:enumeration value="TARIFF"/>
+      <xsd:enumeration value="TARIFF_REVERSED"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="LinkType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="GPRS"/>
+      <xsd:enumeration value="CDMA"/>
+      <xsd:enumeration value="ETHERNET"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="RelayMatrixIndex">
+    <xsd:restriction base="xsd:int">
+      <xsd:maxInclusive value="4"/>
+      <xsd:minInclusive value="1"/>
+    </xsd:restriction>
+  </xsd:simpleType>
 
   <xsd:simpleType name="IPType">
     <xsd:restriction base="xsd:string">
       <xsd:pattern
-        value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])" />
+        value="((1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).){3}(1?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])"/>
     </xsd:restriction>
   </xsd:simpleType>
 
   <xsd:simpleType name="ConfigurationBank">
     <xsd:restriction base="xsd:int">
-      <xsd:minInclusive value="0" />
-      <xsd:maxInclusive value="1" />
+      <xsd:maxInclusive value="1"/>
+      <xsd:minInclusive value="0"/>
     </xsd:restriction>
   </xsd:simpleType>
 
   <xsd:simpleType name="CommonName">
     <xsd:restriction base="xsd:normalizedString">
-      <xsd:minLength value="1" />
-      <xsd:maxLength value="25" />
+      <xsd:maxLength value="25"/>
+      <xsd:minLength value="1"/>
       <!-- This regex pattern will match any word or words separated by spaces.
         The total length of the string may be 25. -->
-      <xsd:pattern value="[\w\s]{1,25}" />
+      <xsd:pattern value="[\w\s]{1,25}"/>
     </xsd:restriction>
   </xsd:simpleType>
 </xsd:schema>

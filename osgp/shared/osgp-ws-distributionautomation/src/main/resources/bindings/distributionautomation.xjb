@@ -10,32 +10,33 @@
 
 -->
 <jxb:bindings
-  version="2.0"
   xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  version="2.0">
 
   <jxb:bindings schemaLocation="../schemas/distributionautomation.xsd">
     <jxb:schemaBindings>
-      <jxb:package name="org.opensmartgridplatform.adapter.ws.schema.distributionautomation.generic"></jxb:package>
+      <jxb:package
+        name="org.opensmartgridplatform.adapter.ws.schema.distributionautomation.generic"></jxb:package>
     </jxb:schemaBindings>
   </jxb:bindings>
 
   <jxb:bindings
-    schemaLocation="../schemas/distributionautomation.xsd"
-    node="/xs:schema/xs:complexType[@name='MeasurementGroups']/xs:sequence/xs:element[@name='MeasurementGroup']">
-    <jxb:property name="MeasurementGroupList" />
+    node="/xs:schema/xs:complexType[@name='MeasurementGroups']/xs:sequence/xs:element[@name='MeasurementGroup']"
+    schemaLocation="../schemas/distributionautomation.xsd">
+    <jxb:property name="MeasurementGroupList"/>
   </jxb:bindings>
 
   <jxb:bindings
-    schemaLocation="../schemas/distributionautomation.xsd"
-    node="/xs:schema/xs:complexType[@name='Measurements']/xs:sequence/xs:element[@name='Measurement']">
-    <jxb:property name="MeasurementList" />
+    node="/xs:schema/xs:complexType[@name='Measurements']/xs:sequence/xs:element[@name='Measurement']"
+    schemaLocation="../schemas/distributionautomation.xsd">
+    <jxb:property name="MeasurementList"/>
   </jxb:bindings>
 
   <jxb:bindings
-    schemaLocation="../schemas/distributionautomation.xsd"
-    node="/xs:schema/xs:complexType[@name='MeasurementElements']/xs:sequence/xs:choice">
-    <jxb:property name="MeasurementElementList" />
+    node="/xs:schema/xs:complexType[@name='MeasurementElements']/xs:sequence/xs:choice"
+    schemaLocation="../schemas/distributionautomation.xsd">
+    <jxb:property name="MeasurementElementList"/>
   </jxb:bindings>
 
 </jxb:bindings>

@@ -8,13 +8,14 @@
 
 -->
 <jxb:bindings
-  version="2.0"
   xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  version="2.0"
+>
 
   <jxb:bindings schemaLocation="../schemas/devicemanagement-ws-core.xsd">
     <jxb:schemaBindings>
-      <jxb:package name="org.opensmartgridplatform.adapter.ws.schema.core.devicemanagement"></jxb:package>
+      <jxb:package
+        name="org.opensmartgridplatform.adapter.ws.schema.core.devicemanagement"></jxb:package>
     </jxb:schemaBindings>
   </jxb:bindings>
 
