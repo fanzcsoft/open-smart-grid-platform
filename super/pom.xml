@@ -136,6 +136,7 @@
     <!-- spring-kafka-test needs a 2.12 version of the scala libraries -->
     <scala.lang.version>2.12.11</scala.lang.version>
     <lombok.version>1.18.12</lombok.version>
+    <fmt-maven-plugin.version>2.9.1</fmt-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -1214,6 +1215,20 @@
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>com.coveo</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <version>${fmt-maven-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>format</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
